@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { ToastContainer, toast } from 'react-toastify';
 // components
 import Iconify from '../../../components/iconify';
 
@@ -13,16 +14,67 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    navigate('/dashboard', { replace: true });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    const email = data.get('email');
+    const password = data.get('password');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Lütfen geçerli bir email adresi girin.', {
+        autoClose: 2000,
+      });
+      return;
+    }
+
+    if (email.length > 20) {
+      toast.error('Email adresi maksimum 20 karakter olmalıdır.', {
+        autoClose: 2000,
+      });
+      return;
+    }
+    const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*!])(?=\S+$).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error('Mail adresi ve şifreniz eşleşmemektedir.', { autoClose: 3000 });
+      return;
+    }
+
+    fetch('http://localhost:9090/api/v1/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+      }),
+    })
+      .then((data) => {
+        if (data.ok) {
+          return data.json;
+        }
+        throw new Error('Giriş Başarısız');
+      })
+      .then((data) => {
+        console.log(data);
+        navigate('/dashboard'); // Homepage'a yönlendir
+      })
+      .catch((error) => {
+        toast.error('Giriş işlemi başarısız. Lütfen tekrar deneyiniz..', {
+          autoClose: 3000,
+        });
+      });
   };
 
   return (
-    <>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <ToastContainer />
+        <TextField id="email" name="email" label="Email address" />
 
         <TextField
+          id="password"
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
@@ -45,9 +97,9 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained">
         Login
       </LoadingButton>
-    </>
+    </Box>
   );
 }
