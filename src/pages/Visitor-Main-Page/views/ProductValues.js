@@ -14,6 +14,38 @@ const item = {
 };
 
 function ProductValues() {
+
+  const [companyList, setCompanyList] = React.useState([])
+  const [profile, setProfile] = React.useState({
+    avatar: '',
+  })
+  const token = localStorage.getItem('token');
+
+  React.useEffect(() => {
+    fetch('http://localhost:9070/api/v1/company/find-all-company-preview-information', {
+      method: 'GET',
+    }).then(data => data.json())
+      .then(data => {
+        setCompanyList(data);
+        console.log(data)
+      });
+    if (token != null) {
+      fetch(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setProfile(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [])
+
   return (
     <Box
       component="section"
@@ -27,10 +59,12 @@ function ProductValues() {
           sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
         />
         <Grid container spacing={5}>
-
-          <Grid item xs={12} md={4} >
-            <CompanyCard />
-          </Grid>
+          {
+            companyList.map((company) => (
+              <Grid item key={company.companyId} xs={12} md={4} >
+                <CompanyCard item={company} key={company.companyId} />
+              </Grid>
+            ))}
         </Grid>
       </Container>
     </Box>
