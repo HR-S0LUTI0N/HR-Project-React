@@ -28,7 +28,7 @@ function AppAppBar() {
             {'HR SOLUTIONS'}
           </Link>
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Avatar sx={{ bgcolor: deepOrange[500] }}>H</Avatar>
+            <Avatar sx={{ bgcolor: "#ffa726" }}>H</Avatar>
           </Box>
         </Toolbar>
       </AppBar>
