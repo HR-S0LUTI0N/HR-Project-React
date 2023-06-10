@@ -3,8 +3,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Typography from '../components/Typography';
+import TextField from '@mui/material/TextField';
+
 import CompanyCard from '../components/CompanyCard'
+
 
 const item = {
   display: 'flex',
@@ -16,9 +18,7 @@ const item = {
 function ProductValues() {
 
   const [companyList, setCompanyList] = React.useState([])
-  const [profile, setProfile] = React.useState({
-    avatar: '',
-  })
+
   const token = localStorage.getItem('token');
 
   React.useEffect(() => {
@@ -29,45 +29,34 @@ function ProductValues() {
         setCompanyList(data);
         console.log(data)
       });
-    if (token != null) {
-      fetch(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          setProfile(data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
+
   }, [])
 
   return (
-    <Box
-      component="section"
-      sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}
-    >
-      <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>
-        <Box
-          component="img"
-          src="/static/themes/onepirate/productCurvyLines.png"
-          alt="curvy lines"
-          sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
-        />
-        <Grid container spacing={5}>
-          {
-            companyList.map((company) => (
-              <Grid item key={company.companyId} xs={12} md={4} >
-                <CompanyCard item={company} key={company.companyId} />
-              </Grid>
-            ))}
-        </Grid>
-      </Container>
-    </Box>
+    <>
+      <Box
+        component="section"
+        sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}
+      >
+        <Container sx={{ mt: 10, mb: 30, display: 'flex', position: 'relative' }}>
+          <Box>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <TextField fullWidth label="Search For Company" id="fullWidth" sx={{
+                mb: 10, width: 1 / 2, display: 'block',
+              }} />
+            </div>
+            <Grid container spacing={5}>
+              {
+                companyList.map((company) => (
+                  <Grid item key={company.companyId} xs={12} md={4} >
+                    <CompanyCard item={company} key={company.companyId} />
+                  </Grid>
+                ))}
+            </Grid>
+          </Box>
+        </Container>
+      </Box>
+    </>
   );
 }
 
