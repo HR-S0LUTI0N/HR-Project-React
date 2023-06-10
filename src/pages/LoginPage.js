@@ -63,7 +63,10 @@ export default function LoginPage() {
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
               Hi, Welcome Back
             </Typography>
-            <img src="/assets/illustrations/illustration_login.png" alt="login" />
+            <img
+              src="https://img.freepik.com/free-psd/3d-female-character-working-laptop-while-sitting-chair_23-2148938889.jpg?w=740&t=st=1686328918~exp=1686329518~hmac=71f64deb539d96cf4dc76acf4ea4ffb326fdc954db311619dc03a8fd5a665cb0"
+              alt="login"
+            />
           </StyledSection>
         )}
 
@@ -75,7 +78,7 @@ export default function LoginPage() {
 
             <Typography variant="body2" sx={{ mb: 1 }}>
               Don’t have an account? {''}
-              <Link variant="subtitle2">Get started</Link>
+              <Link href="/registerVisitor">Get started</Link>
             </Typography>
             <LoginForm />
           </StyledContent>
