@@ -12,6 +12,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
 import DashboardAppPageDefault from './pages/DashboardAppPageDefault';
+import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetailPage';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -31,6 +32,10 @@ export default function Router() {
     {
       path: 'visitor',
       element: <VisitorMainPage />,
+    },
+    {
+      path: 'company',
+      element: <CompanyDetailPage />,
     },
     {
       path: 'sign-up',
