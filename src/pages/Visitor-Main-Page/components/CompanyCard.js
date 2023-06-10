@@ -25,7 +25,7 @@ export default function CompanyCard(props) {
         event.preventDefault();
         localStorage.setItem('companyId', props.item.companyId);
         console.log(props.item.companyId)
-        navigate('/company-details')
+        navigate('/company')
     }
 
     return (
