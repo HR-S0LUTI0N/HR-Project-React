@@ -38,7 +38,7 @@ export default function Page404() {
 
           <Box
             component="img"
-            src="/assets/illustrations/illustration_404.svg"
+            src="https://img.freepik.com/free-psd/3d-female-character-with-404-error-message_23-2148938897.jpg?w=740&t=st=1686331228~exp=1686331828~hmac=8f1abaa40a7d25b5d25c3df2ad0b585139625600d60e3f84b28578314076e212"
             sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
           />
 
