@@ -50,15 +50,26 @@ export default function LoginForm() {
         password: data.get('password'),
       }),
     })
-      .then((data) => {
-        if (data.ok) {
-          return data.json;
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
         }
         throw new Error('Giriş Başarısız');
       })
       .then((data) => {
         console.log(data);
-        navigate('/dashboard'); // Homepage'a yönlendir
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('roles', data.roles);
+        if (data.roles.includes('VISITOR')) {
+          navigate('/visitor');
+        } else if (data.roles.includes('MANAGER')) {
+          navigate('/');
+        } else if (data.roles.includes('PERSONEL')) {
+          navigate('/');
+        } else {
+          toast.error('Giriş yapamadın. Şifre ve Mail eşleşmiyor');
+        }
       })
       .catch((error) => {
         toast.error('Giriş işlemi başarısız. Lütfen tekrar deneyiniz..', {
