@@ -12,6 +12,9 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
 import DashboardAppPageDefault from './pages/DashboardAppPageDefault';
+import RegisterVisitor from './pages/registerVisitor';
+import RegisterManager from './pages/registerManager';
+import UserProfile from './pages/userprofile';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -23,9 +26,12 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'default-app', element: <DashboardAppPageDefault /> },
+        { path: 'registerManager', element: <RegisterManager /> },
+        { path: 'registerVisitor', element: <RegisterVisitor /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'userProfile', element: <UserProfile /> },
       ],
     },
     {
@@ -39,6 +45,18 @@ export default function Router() {
     {
       path: 'login',
       element: <LoginPage />,
+    },
+    {
+      path: 'registerVisitor',
+      element: <RegisterVisitor />,
+    },
+    {
+      path: 'registerManager',
+      element: <RegisterManager />,
+    },
+    {
+      path: 'userProfile',
+      element: <UserProfile />,
     },
     {
       element: <SimpleLayout />,
