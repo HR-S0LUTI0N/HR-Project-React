@@ -3,7 +3,7 @@ import Typography from '../components/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
 
 const backgroundImage =
-  'https://img.freepik.com/free-psd/3d-cartoon-men-illustration_1150-66068.jpg?w=1480&t=st=1686344218~exp=1686344818~hmac=19f8de0ebabc0674da9cd809696a79b9381c47918a499cb25f6670636bc7655a';
+  'https://img.freepik.com/free-psd/3d-cartoon-men-illustration_1150-66068.jpg?t=st=1686479725~exp=1686480325~hmac=bf73a1b55cecd939fa54331bb3e30b3e5ce670d04a99da59d92676721d0ef0fd';
 
 export default function ProductHero() {
   return (
