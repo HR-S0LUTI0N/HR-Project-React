@@ -11,6 +11,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import List from '@mui/material/List';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import CompanyComment from './CompanyComment';
 
 
@@ -124,10 +125,6 @@ function CompanyContent() {
                 <Typography style={{ marginBottom: '0.75rem', marginLeft: '0.25rem' }} variant="body5" color="text.secondary">{company.companyApartmentNumber}</Typography>
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Typography style={{ marginBottom: '0.75rem', fontWeight: 'bold' }} variant="body5" color="text.secondary">Postal Code:</Typography>
-                <Typography style={{ marginBottom: '0.75rem', marginLeft: '0.25rem' }} variant="body5" color="text.secondary">{company.companyPostalCode}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Typography style={{ marginBottom: '1rem' }} variant="h7" color="text.secondary" fontWeight="bold">Company Contact Information</Typography>
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
@@ -140,6 +137,11 @@ function CompanyContent() {
                 <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem' }} variant="h7" color="text.secondary" fontWeight="bold">Phone:</Typography>
                 <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem' }} variant="body5" color="text.secondary">{company.companyPhone}</Typography>
               </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <MarkunreadMailboxIcon style={{ marginBottom: '0.9rem' }} />
+                <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem', fontWeight: 'bold' }} variant="body5" color="text.secondary">Postal Code:</Typography>
+                <Typography style={{ marginBottom: '0.75rem', marginLeft: '0.25rem' }} variant="body5" color="text.secondary">{company.companyPostalCode}</Typography>
+              </Box>
             </Box>
           </Grid>
           <Grid container justifyContent="flex-start" sx={{ marginLeft: '1rem', marginTop: '2rem', display: 'flex', flexDirection: 'column' }} xs={12} >
@@ -147,7 +149,7 @@ function CompanyContent() {
               <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem' }} variant="h7" color="text.secondary" fontWeight="bold">Description</Typography>
             </Box>
             <Box >
-              <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem' }} variant="h7" color="text.secondary" fontWeight="bold" >{company.description}</Typography>
+              <Typography style={{ marginBottom: '0.75rem', marginLeft: '1rem' }} variant="h7" color="text.secondary" >{company.description}</Typography>
             </Box>
           </Grid>
           <Grid container justifyContent="flex-start" sx={{ marginLeft: '1.25rem', marginTop: '2rem', display: 'flex', flexDirection: 'column' }}  >
