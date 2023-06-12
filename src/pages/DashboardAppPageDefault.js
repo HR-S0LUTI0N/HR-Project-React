@@ -174,7 +174,7 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Company Name" total={714000} icon={'ant-design:fontisto:tl'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
@@ -186,12 +186,12 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Balance" total={234} color="error" icon={'majesticons:lira-circle'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
           
-          <Card sx={{ width: '760px', height: '500px' }}>
+          <Card sx={{ width: '1500px', height: '500px' }}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
@@ -300,28 +300,12 @@ export default function DashboardAppPage() {
           </Grid>
           
 
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentVisits
-              title="Current Visits"
-              chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ]}
-              chartColors={[
-                theme.palette.primary.main,
-                theme.palette.info.main,
-                theme.palette.warning.main,
-                theme.palette.error.main,
-              ]}
-            />
-          </Grid>
+          
 
           <Grid item xs={12} md={6} lg={8}>
             <AppConversionRates
-              title="Conversion Rates"
-              subheader="(+43%) than last year"
+              title="Employee Create"
+              subheader="Employee Information"
               chartData={[
                 { label: 'Italy', value: 400 },
                 { label: 'Japan', value: 430 },
@@ -365,7 +349,7 @@ export default function DashboardAppPage() {
 
           <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
-              title="Order Timeline"
+              title="Holiday Date"
               list={[...Array(5)].map((_, index) => ({
                 id: faker.datatype.uuid(),
                 title: [
