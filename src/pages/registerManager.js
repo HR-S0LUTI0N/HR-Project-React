@@ -39,7 +39,6 @@ export default function SignInSide() {
     try {
       const response = await axios.get('http://localhost:9070/api/v1/company/find-all');
       setCompanies(response.data);
-      console.log(response);
     } catch (error) {
       console.error('Error fetching companies:', error);
     }
@@ -108,7 +107,6 @@ export default function SignInSide() {
         companyId: company.companyId,
       };
       try {
-        console.log(formData);
         const response = await axios.post('http://localhost:9090/api/v1/auth/register-manager', formData);
         console.log('Success:', response.data);
       } catch (error) {
