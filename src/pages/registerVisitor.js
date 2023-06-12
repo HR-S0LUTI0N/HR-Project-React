@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -24,7 +25,6 @@ export default function SignInSide() {
 
   const handleEmailChange = (event) => {
     const email = event.target.value;
-    // Validate email format using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailValid(emailRegex.test(email));
   };
@@ -53,13 +53,22 @@ export default function SignInSide() {
     event.preventDefault();
     if (emailValid && nameValid && surnameValid && passwordValid && repasswordValid) {
       const data = new FormData(event.currentTarget);
-      console.log({
+      const formData = {
         email: data.get('email'),
         name: data.get('name'),
         surname: data.get('surname'),
         password: data.get('password'),
         repassword: data.get('repassword'),
-      });
+      };
+
+      axios
+        .post('http://localhost:9090/api/v1/auth/register-visitor', formData)
+        .then((response) => {
+          console.log(response.data); // İşlem başarılı olduğunda
+        })
+        .catch((error) => {
+          console.error(error); // İşlem sırasında bir hata oluşursa
+        });
     } else {
       console.log('Form data is invalid');
     }
