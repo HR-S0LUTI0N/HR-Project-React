@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -28,10 +29,24 @@ export default function SignInSide() {
   const [identificationNumberValid, setIdentificationNumberValid] = React.useState(true);
   const [departmentValid, setDepartmentValid] = React.useState(true);
   const [company, setCompany] = React.useState('');
+  const [companies, setCompanies] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchCompanies();
+  }, []);
+
+  const fetchCompanies = async () => {
+    try {
+      const response = await axios.get('http://localhost:9070/api/v1/company/find-all');
+      setCompanies(response.data);
+      console.log(response);
+    } catch (error) {
+      console.error('Error fetching companies:', error);
+    }
+  };
 
   const handleEmailChange = (event) => {
     const email = event.target.value;
-    // Validate email format using a regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailValid(emailRegex.test(email));
   };
@@ -68,9 +83,10 @@ export default function SignInSide() {
 
   const handleCompanyChange = (event) => {
     setCompany(event.target.value);
+    console.log(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (
       emailValid &&
@@ -81,17 +97,23 @@ export default function SignInSide() {
       identificationNumberValid &&
       departmentValid
     ) {
-      const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get('email'),
-        name: data.get('name'),
-        surname: data.get('surname'),
-        password: data.get('password'),
-        repassword: data.get('repassword'),
-        identificationNumber: data.get('identificationNumber'),
-        department: data.get('department'),
-        company,
-      });
+      const formData = {
+        email: event.target.email.value,
+        name: event.target.name.value,
+        surname: event.target.surname.value,
+        password: event.target.password.value,
+        repassword: event.target.repassword.value,
+        identificationNumber: event.target.identificationNumber.value,
+        department: event.target.department.value,
+        companyId: company.companyId,
+      };
+      try {
+        console.log(formData);
+        const response = await axios.post('http://localhost:9090/api/v1/auth/register-manager', formData);
+        console.log('Success:', response.data);
+      } catch (error) {
+        console.error('Error signing up:', error);
+      }
     } else {
       console.log('Form data is invalid');
     }
@@ -240,9 +262,11 @@ export default function SignInSide() {
               <FormControl fullWidth margin="normal">
                 <InputLabel id="company-label">Company</InputLabel>
                 <Select labelId="company-label" id="company" value={company} onChange={handleCompanyChange}>
-                  <MenuItem value="company1">Company 1</MenuItem>
-                  <MenuItem value="company2">Company 2</MenuItem>
-                  <MenuItem value="company3">Company 3</MenuItem>
+                  {companies.map((company) => (
+                    <MenuItem key={company.companyId} value={company}>
+                      {`${company.companyName} ${company.title}`}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
