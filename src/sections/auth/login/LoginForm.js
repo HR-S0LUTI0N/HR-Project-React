@@ -28,12 +28,7 @@ export default function LoginForm() {
       return;
     }
 
-    if (email.length > 10) {
-      toast.error('Email adresi minimum 10 karakter olmalıdır.', {
-        autoClose: 2000,
-      });
-      return;
-    }
+
     const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*!])(?=\S+$).{8,}$/;
     if (!passwordRegex.test(password)) {
       toast.error('Mail adresi ve şifreniz eşleşmemektedir.', { autoClose: 3000 });
