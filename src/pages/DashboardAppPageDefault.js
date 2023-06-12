@@ -191,11 +191,11 @@ export default function DashboardAppPage() {
 
           <Grid item xs={12} md={6} lg={8}>
           
-          <Card sx={{ width: '1500px', height: '500px' }}>
+          <Card sx={{ width: '1500px', height: '590px' }}>
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
-            <TableContainer sx={{ minWidth: '500px', maxHeight: '400px' }}>
+            <TableContainer sx={{ minWidth: '500px', maxHeight: '460px' }}>
               <Table>
                 <UserListHead
                   order={order}
@@ -284,7 +284,7 @@ export default function DashboardAppPage() {
                 )}
               </Table>
             </TableContainer>
-          </Scrollbar>
+          
 
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
@@ -295,6 +295,7 @@ export default function DashboardAppPage() {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
+          </Scrollbar>
        </Card>
        
           </Grid>
