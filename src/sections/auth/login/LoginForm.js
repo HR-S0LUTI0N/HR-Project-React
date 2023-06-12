@@ -28,7 +28,7 @@ export default function LoginForm() {
       return;
     }
 
-    if (email.length < 10) {
+    if (email.length > 10) {
       toast.error('Email adresi minimum 10 karakter olmalıdır.', {
         autoClose: 2000,
       });
