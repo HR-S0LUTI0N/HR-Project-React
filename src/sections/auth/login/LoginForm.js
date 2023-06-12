@@ -67,6 +67,8 @@ export default function LoginForm() {
           navigate('/');
         } else if (data.roles.includes('PERSONEL')) {
           navigate('/');
+        } else if (data.roles.includes('ADMIN')) {
+          navigate('/dashboard/admin');
         } else {
           toast.error('Giriş yapamadın. Şifre ve Mail eşleşmiyor');
         }
