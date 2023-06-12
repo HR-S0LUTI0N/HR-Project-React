@@ -16,6 +16,7 @@ import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetail
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
+import Admin from './pages/Admin/admin';
 
 export default function Router() {
   const routes = useRoutes([
@@ -32,6 +33,7 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'userProfile', element: <UserProfile /> },
+        { path: 'admin', element: <Admin /> },
       ],
     },
     {
@@ -61,6 +63,10 @@ export default function Router() {
     {
       path: 'userProfile',
       element: <UserProfile />,
+    },
+    {
+      path: 'admin',
+      element: <Admin />,
     },
     {
       element: <SimpleLayout />,
