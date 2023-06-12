@@ -44,6 +44,7 @@ export default function StickyHeadTable() {
     try {
       const response = await axios.get(`http://localhost:9080/api/v1/user-profile/find-all-manager-list/${token}`);
       const data = response.data;
+      console.log(data)
       const formattedRows = data.map((item) => {
         const row = createData(
           <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı

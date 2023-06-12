@@ -158,11 +158,7 @@ function CompanyContent() {
             </Box>
             <List sx={{ width: '100%', maxWidth: '95%', color: '#F5F5F5' }}>
               {
-                comments.map((comment) => (
-                  <Grid key={comment.commentId}>
-                    < CompanyComment item={comment} key={comment.commentId} />
-                  </Grid>
-                ))
+                < CompanyComment item={comments} />
               }
             </List>
           </Grid>
