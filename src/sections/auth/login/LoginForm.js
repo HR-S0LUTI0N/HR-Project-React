@@ -28,7 +28,6 @@ export default function LoginForm() {
       return;
     }
 
-
     const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*!])(?=\S+$).{8,}$/;
     if (!passwordRegex.test(password)) {
       toast.error('Mail adresi ve şifreniz eşleşmemektedir.', { autoClose: 3000 });
@@ -59,9 +58,9 @@ export default function LoginForm() {
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
         } else if (data.roles.includes('MANAGER')) {
-          navigate('/');
+          navigate('/dashboard/app');
         } else if (data.roles.includes('PERSONEL')) {
-          navigate('/');
+          navigate('/dashboard/app');
         } else if (data.roles.includes('ADMIN')) {
           navigate('/dashboard/admin');
         } else {
