@@ -50,7 +50,7 @@ export default function StickyHeadTable() {
         const row = createData(
           <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
-          item.companyId,
+          item.companyName,
           item.status,
           ''
         );
@@ -128,7 +128,7 @@ export default function StickyHeadTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 100]}
+        rowsPerPageOptions={[3, 5, 10, 25, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
