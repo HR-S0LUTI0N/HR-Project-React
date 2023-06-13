@@ -45,16 +45,18 @@ export default function StickyHeadTable() {
 
   const fetchManager = async () => {
     try {
-      const response = await axios.get(`http://localhost:9080/api/v1/user-profile/find-all-manager-list/${token}`);
+      const response = await axios.get(
+        `http://localhost:9070/api/v1/company/find-comments-with-company-name-by-status/${token}`
+      );
       const data = response.data;
       console.log(data);
       const formattedRows = data.map((item) => {
         const row = createData(
           <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
-          item.companyId,
-          'Örnek comment',
-          item.status,
+          item.companyName,
+          item.comment,
+          item.ecommentStatus,
           '',
           ''
         );
@@ -144,7 +146,7 @@ export default function StickyHeadTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 100]}
+        rowsPerPageOptions={[3, 5, 10, 25, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
