@@ -8,7 +8,7 @@ import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
-import DashboardAppPage from './pages/DashboardAppPage';
+import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
 import DashboardAppPageDefault from './pages/DashboardAppPageDefault';
