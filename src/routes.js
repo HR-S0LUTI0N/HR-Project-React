@@ -11,7 +11,7 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
-import DashboardAppPageDefault from './pages/DashboardAppPageDefault';
+import DashboardAppPageDefault from './pages/ManagerPage/DashboardAppPageDefault';
 import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetailPage';
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';

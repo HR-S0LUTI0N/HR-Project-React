@@ -1,103 +1,114 @@
 import * as React from 'react';
+import axios from 'axios';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { TableVirtuoso } from 'react-virtuoso';
-
-const sample = [
-    ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-    ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-    ['Eclair', 262, 16.0, 24, 6.0],
-    ['Cupcake', 305, 3.7, 67, 4.3],
-    ['Gingerbread', 356, 16.0, 49, 3.9],
-];
-
-function createData(id, avatar, name, comment) {
-    return { id, avatar, name, comment };
-}
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import Avatar from '@mui/material/Avatar';
+import { Typography } from '@mui/material';
 
 const columns = [
-    {
-        width: 120,
-        label: 'Avatar',
-        dataKey: 'avatar',
-    },
-    {
-        width: 200,
-        label: 'Name',
-        dataKey: 'name',
-    },
-    {
-        width: 1000,
-        label: 'Comment',
-        dataKey: 'comment',
-    },
+    { id: 'avatar', label: 'Avatar', width: 120 },
+    { id: 'name', label: 'Name', width: 400 },
+    { id: 'comment', label: 'Comment', width: 1800 },
 ];
 
-const rows = Array.from({ length: 200 }, (_, index) => {
-    const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-    return createData(index, ...randomSelection);
-});
-
-const VirtuosoTableComponents = {
-    Scroller: React.forwardRef((props, ref) => (
-        <TableContainer component={Paper} {...props} ref={ref} />
-    )),
-    Table: (props) => (
-        <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
-    ),
-    TableHead,
-    TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
-    TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
-};
-
-function fixedHeaderContent() {
-    return (
-        <TableRow>
-            {columns.map((column) => (
-                <TableCell
-                    key={column.dataKey}
-                    variant="head"
-                    align={column.numeric || false ? 'right' : 'left'}
-                    style={{ width: column.width }}
-                    sx={{
-                        backgroundColor: 'background.paper',
-                    }}
-                >
-                    {column.label}
-                </TableCell>
-            ))}
-        </TableRow>
-    );
+function createData(avatar, name, comment, status) {
+    return { avatar, name, comment, status };
 }
 
-function rowContent(_index, row) {
-    return (
-        <>
-            {columns.map((column) => (
-                <TableCell
-                    key={column.dataKey}
-                    align={column.numeric || false ? 'right' : 'left'}
-                >
-                    {row[column.dataKey]}
-                </TableCell>
-            ))}
-        </>
-    );
-}
+export default function StickyHeadTable() {
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rows, setRows] = React.useState([]);
+    const token = localStorage.getItem('token');
 
-export default function PersonnelCommentTable(props) {
+    React.useEffect(() => {
+        fetchManager();
+    }, []);
+
+    const fetchManager = async () => {
+        try {
+            const response = await axios.get(`http://localhost:9080/api/v1/user-profile/find-all-manager-list/${token}`);
+            const data = response.data;
+            console.log(data);
+            const formattedRows = data.map((item) => {
+                const row = createData(
+                    <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
+                    `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
+                    item.companyId,
+                    item.status,
+                    '',
+                    ''
+                );
+                return row;
+            });
+            setRows(formattedRows);
+        } catch (error) {
+            console.error('Error Fetching manager:', error);
+        }
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
     return (
-        <Paper style={{ height: 400, width: '100%' }}>
-            <TableVirtuoso
-                data={rows}
-                components={VirtuosoTableComponents}
-                fixedHeaderContent={fixedHeaderContent}
-                itemContent={rowContent}
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+                <Typography variant="h4" component="h2" mb={2}>
+                    Comments
+                </Typography>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
+                                <TableCell key={column.id} align={column.align} style={{ width: column.width }}>
+                                    {column.label}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                            return (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    {columns.map((column) => {
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell key={column.id} align={column.align}>
+                                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                                            </TableCell>
+                                        );
+                                    })}
+
+
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
     );
