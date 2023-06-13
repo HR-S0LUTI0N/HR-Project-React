@@ -45,7 +45,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi, Welcome Personnel
         </Typography>
 
         <Grid container spacing={3}>
@@ -81,7 +81,6 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={14}>
-            <Typography variant="h4" component="h2" mb={2}>Comments</Typography>
             <PersonnelCommentTable />
           </Grid>
           <Grid item xs={12} md={6} lg={14} mt={3}>

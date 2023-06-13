@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Grid } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const CommentField = () => {
   const [comment, setComment] = useState('');
@@ -26,14 +27,13 @@ const CommentField = () => {
         />{' '}
       </Grid>
       <Grid mt={2} align="right">
-        <Button variant="contained" color="primary" type="submit" sx={{
-          bgcolor: "#ffa726", '&:hover': {
+        <Button variant="contained" endIcon={<SendIcon />} sx={{
+          marginRight: '1rem', bgcolor: "#ffa726", '&:hover': {
             bgcolor: 'grey',
           },
         }}>
-          {' '}
-          Submit{' '}
-        </Button>{' '}
+          Confirm
+        </Button>
       </Grid>
 
     </form>
