@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,26 +9,27 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
-import axios from 'axios';
 import { Typography } from '@mui/material';
 
 const columns = [
-  { id: 'avatar', label: 'Avatar', width: 80 },
-  { id: 'name', label: 'Name', minWidth: 80, align: 'center' },
-  { id: 'company', label: 'Company', minWidth: 700, align: 'center' },
+  { id: 'avatar', label: 'Avatar', minWidth: 80 },
+  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'comment', label: 'Comment', minWidth: 600 },
   {
     id: 'status',
     label: 'Status',
-    minWidth: 50,
+    minWidth: 100,
     align: 'center',
 
     format: (value) => value.toLocaleString('en-US'),
   },
 ];
 
-function createData(avatar, name, company, status) {
-  return { avatar, name, company, status };
+function createData(avatar, name, comment, status) {
+  return { avatar, name, comment, status };
 }
 
 export default function StickyHeadTable() {
@@ -51,6 +53,7 @@ export default function StickyHeadTable() {
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyId,
           item.status,
+          '',
           ''
         );
         return row;
@@ -74,7 +77,7 @@ export default function StickyHeadTable() {
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Typography variant="h4" component="h2" mb={2}>
-          MANAGER PERMISSIONS
+          Comments
         </Typography>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -100,11 +103,11 @@ export default function StickyHeadTable() {
                   })}
 
                   <TableCell align="right">
-                    <Button variant="contained" color="success" sx={{ marginRight: '1rem' }}>
-                      ACTIVE
+                    <Button variant="outlined" startIcon={<DeleteIcon />} sx={{ marginLeft: 0, marginRight: '1rem' }}>
+                      Delete
                     </Button>
-                    <Button variant="outlined" color="error" sx={{ marginRight: '1rem' }}>
-                      BANNED
+                    <Button variant="contained" endIcon={<SendIcon />} sx={{ marginRight: '1rem' }}>
+                      Send
                     </Button>
                   </TableCell>
                 </TableRow>
