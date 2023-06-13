@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
@@ -15,6 +15,7 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+
   const [comments, setComments] = useState(
     [...Array(5)].map((_, index) => ({
       id: faker.datatype.uuid(),
@@ -25,17 +26,12 @@ export default function DashboardAppPage() {
     }))
   );
 
-  const handleAddComment = (comment) => {
-    const newComment = {
-      id: faker.datatype.uuid(),
-      title: comment,
-      description: comment,
-      image: '/assets/images/placeholder.jpg',
-      postedAt: new Date(),
-    };
+  React.useEffect(() => {
 
-    setComments((prevComments) => [...prevComments, newComment]);
-  };
+  }, [])
+
+
+
 
   return (
     <>
@@ -84,12 +80,8 @@ export default function DashboardAppPage() {
             <PersonnelCommentTable />
           </Grid>
           <Grid item xs={12} md={6} lg={14} mt={3}>
-
-
-            <CommentBox onAddComment={handleAddComment} />
+            <CommentBox />
           </Grid>
-
-
         </Grid>
       </Container >
     </>

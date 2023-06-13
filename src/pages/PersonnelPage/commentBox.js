@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import { TextField, Button, Grid } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
 
 const CommentField = () => {
   const [comment, setComment] = useState('');
+  const token = localStorage.getItem('token');
   const handleChange = (event) => {
     setComment(event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(comment);
-
-    setComment('');
+    try {
+      console.log(token)
+      axios.post(`http://localhost:9070/api/v1/comment/personnel-make-comment/${token}`, { comment })
+        .then((response) => {
+          // Handle successful response
+          setComment('')
+          console.log('Response:', response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          setComment('')
+          console.error('Error:', error);
+        });
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -27,13 +43,14 @@ const CommentField = () => {
         />{' '}
       </Grid>
       <Grid mt={2} align="right">
-        <Button variant="contained" endIcon={<SendIcon />} sx={{
-          marginRight: '1rem', bgcolor: "#ffa726", '&:hover': {
+        <Button variant="contained" color="primary" type="submit" sx={{
+          bgcolor: "#ffa726", '&:hover': {
             bgcolor: 'grey',
           },
         }}>
-          Confirm
-        </Button>
+          {' '}
+          Submit{' '}
+        </Button>{' '}
       </Grid>
 
     </form>
