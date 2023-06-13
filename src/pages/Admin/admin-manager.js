@@ -22,7 +22,7 @@ const columns = [
     id: 'status',
     label: 'Status',
     width: 350,
-    align: 'right',
+    align: 'center',
     format: (value) => value.toLocaleString('en-US'),
   },
 ];
@@ -98,7 +98,7 @@ export default function StickyHeadTable() {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.id === 'status' ? 'right' : column.align}>
+                      <TableCell key={column.id} align={column.id === 'status' ? 'center' : column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );

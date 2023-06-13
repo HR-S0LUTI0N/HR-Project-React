@@ -17,20 +17,20 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const columns = [
   { id: 'avatar', label: 'Avatar', width: 80 },
-  { id: 'name', label: 'Name', width: 250, align: 'center' },
-  { id: 'comment', label: 'Comment', width: 500, align: 'center' },
+  { id: 'name', label: 'Name', width: 100, align: 'center' },
+  { id: 'company', label: 'Company', width: 250, align: 'center' },
+  { id: 'comment', label: 'Comment', width: 450, align: 'center' },
   {
     id: 'status',
     label: 'Status',
-    width: 400,
-    align: 'right',
-
+    width: 200,
+    align: 'center',
     format: (value) => value.toLocaleString('en-US'),
   },
 ];
 
-function createData(avatar, name, comment, status) {
-  return { avatar, name, comment, status };
+function createData(avatar, name, company, comment, status) {
+  return { avatar, name, company, comment, status };
 }
 
 export default function StickyHeadTable() {
@@ -53,6 +53,7 @@ export default function StickyHeadTable() {
           <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyId,
+          'Örnek comment',
           item.status,
           '',
           ''
@@ -101,8 +102,10 @@ export default function StickyHeadTable() {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.id === 'status' ? 'right' : column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                      <TableCell key={column.id} align={column.id === 'status' ? 'center' : column.align}>
+                        <div style={{ width: column.width, wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+                          {column.format && typeof value === 'number' ? column.format(value) : value}
+                        </div>
                       </TableCell>
                     );
                   })}
@@ -118,7 +121,7 @@ export default function StickyHeadTable() {
                         color: 'white',
                       }}
                     >
-                      Confirm
+                      <Typography sx={{ fontSize: '13px' }}>CONFIRM</Typography>
                     </Button>
                     <Button
                       variant="outlined"
@@ -131,7 +134,7 @@ export default function StickyHeadTable() {
                         width: 100,
                       }}
                     >
-                      Delete
+                      DELETE
                     </Button>
                   </TableCell>
                 </TableRow>
