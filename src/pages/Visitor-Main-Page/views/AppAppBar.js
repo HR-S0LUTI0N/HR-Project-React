@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -7,30 +8,53 @@ import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
 
 
+
 function AppAppBar() {
 
   const [profile, setProfile] = React.useState({
     avatar: '',
   })
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
 
   React.useEffect(() => {
-    if (token != null) {
-      axios.get(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
+    // Fetch roles from token
+    if (token == null) {
+      navigate('/404')
+    }
+    axios
+      .get(`http://localhost:9090/api/v1/get-roles-from-token/${token}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-        .then(response => {
-          const data = response.data;
-          setProfile(data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
-  }, [])
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        if (!data.roles.includes('VISITOR')) {
+          navigate('/404');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    // Fetch profile avatar
+    axios
+      .get(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        const data = response.data;
+        setProfile(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
 
   return (
