@@ -31,7 +31,6 @@ export default function StickyHeadTable() {
     const token = localStorage.getItem('token');
 
     React.useEffect(() => {
-        fetchManager();
     }, []);
 
     const fetchManager = async () => {

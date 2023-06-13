@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,6 +31,7 @@ export default function SignInSide() {
   const [departmentValid, setDepartmentValid] = React.useState(true);
   const [company, setCompany] = React.useState('');
   const [companies, setCompanies] = React.useState([]);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     fetchCompanies();
@@ -109,6 +111,7 @@ export default function SignInSide() {
       try {
         const response = await axios.post('http://localhost:9090/api/v1/auth/register-manager', formData);
         console.log('Success:', response.data);
+        navigate('/login')
       } catch (error) {
         console.error('Error signing up:', error);
       }

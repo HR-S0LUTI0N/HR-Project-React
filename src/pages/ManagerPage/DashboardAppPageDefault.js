@@ -104,43 +104,7 @@ export default function DashboardAppPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
 
-  const handleCloseMenu = () => {
-    setOpen(null);
-  };
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -221,7 +185,7 @@ export default function DashboardAppPage() {
                     >
                       <TableRow>
                         {columns.map((column) => (
-                          <TableCell key={column.id} align={column.align} style={{ width: column.width }}>
+                          <TableCell key={column.id} align='center' style={{ width: column.width, backgroundColor: 'white', fontWeight: 'bold', color: 'black' }}>
                             {column.label}
                           </TableCell>
                         ))}
@@ -234,8 +198,8 @@ export default function DashboardAppPage() {
 
                         return (
                           <TableRow >
-                            <TableCell component="th" scope="row" padding="2rem">
-                              <Stack direction="row" spacing={2}>
+                            <TableCell component="th" scope="row" align='center'>
+                              <Stack direction="row" spacing={4}>
                                 <Avatar alt={name} src={avatarUrl} />
                                 <Typography variant="subtitle2" noWrap>
                                   {name}
@@ -243,21 +207,21 @@ export default function DashboardAppPage() {
                               </Stack>
                             </TableCell>
 
-                            <TableCell align="left">{company}</TableCell>
+                            <TableCell align="center">{company}</TableCell>
 
-                            <TableCell align="left">{role}</TableCell>
+                            <TableCell align="center">{role}</TableCell>
 
-                            <TableCell align="left">{salary}</TableCell>
+                            <TableCell align="center">{salary}</TableCell>
 
-                            <TableCell align="left" sx={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <TableCell align="center" sx={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               {salaryDate.toLocaleDateString()}
                             </TableCell>
 
-                            <TableCell align="left">{remainingDayOff}</TableCell>
+                            <TableCell align="center">{remainingDayOff}</TableCell>
 
-                            <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                            <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
-                            <TableCell align="left">
+                            <TableCell align="center">
                               <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
                             </TableCell>
 
@@ -320,18 +284,6 @@ export default function DashboardAppPage() {
             <AppConversionRates
               title="Employee Create"
               subheader="Employee Information"
-              chartData={[
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
-              ]}
             />
           </Grid>
 
