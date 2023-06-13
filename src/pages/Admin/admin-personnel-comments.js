@@ -13,16 +13,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const columns = [
-  { id: 'avatar', label: 'Avatar', minWidth: 80 },
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'comment', label: 'Comment', minWidth: 600 },
+  { id: 'avatar', label: 'Avatar', width: 80 },
+  { id: 'name', label: 'Name', width: 250, align: 'center' },
+  { id: 'comment', label: 'Comment', width: 500, align: 'center' },
   {
     id: 'status',
     label: 'Status',
-    minWidth: 100,
-    align: 'center',
+    width: 400,
+    align: 'right',
 
     format: (value) => value.toLocaleString('en-US'),
   },
@@ -77,13 +78,17 @@ export default function StickyHeadTable() {
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Typography variant="h4" component="h2" mb={2}>
-          Comments
+          PERSONEL COMMENTS
         </Typography>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ width: column.width, fontWeight: 'bold', color: 'black', backgroundColor: 'white' }}
+                >
                   {column.label}
                 </TableCell>
               ))}
@@ -96,18 +101,37 @@ export default function StickyHeadTable() {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={column.id} align={column.id === 'status' ? 'right' : column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
                   })}
 
                   <TableCell align="right">
-                    <Button variant="outlined" startIcon={<DeleteIcon />} sx={{ marginLeft: 0, marginRight: '1rem' }}>
-                      Delete
+                    <Button
+                      variant="contained"
+                      color="success"
+                      startIcon={<ThumbUpAltIcon />}
+                      sx={{
+                        marginRight: '1rem',
+                        width: 100,
+                        color: 'white',
+                      }}
+                    >
+                      Confirm
                     </Button>
-                    <Button variant="contained" endIcon={<SendIcon />} sx={{ marginRight: '1rem' }}>
-                      Send
+                    <Button
+                      variant="outlined"
+                      startIcon={<DeleteIcon />}
+                      sx={{
+                        marginLeft: 0,
+                        marginRight: '1rem',
+                        color: 'red',
+                        border: '1px solid red',
+                        width: 100,
+                      }}
+                    >
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>
