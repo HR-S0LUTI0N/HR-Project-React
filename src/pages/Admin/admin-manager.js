@@ -11,17 +11,18 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 import { Typography } from '@mui/material';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import CheckIcon from '@mui/icons-material/Check';
 
 const columns = [
   { id: 'avatar', label: 'Avatar', width: 80 },
-  { id: 'name', label: 'Name', minWidth: 80, align: 'center' },
-  { id: 'company', label: 'Company', minWidth: 700, align: 'center' },
+  { id: 'name', label: 'Name', width: 250, align: 'center' },
+  { id: 'company', label: 'Company', width: 550, align: 'center' },
   {
     id: 'status',
     label: 'Status',
-    minWidth: 50,
-    align: 'center',
-
+    width: 350,
+    align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
 ];
@@ -80,7 +81,11 @@ export default function StickyHeadTable() {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ width: column.width, fontWeight: 'bold', color: 'black', backgroundColor: 'white' }}
+                >
                   {column.label}
                 </TableCell>
               ))}
@@ -93,17 +98,26 @@ export default function StickyHeadTable() {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={column.id} align={column.id === 'status' ? 'right' : column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
                   })}
 
                   <TableCell align="right">
-                    <Button variant="contained" color="success" sx={{ marginRight: '1rem' }}>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      startIcon={<CheckIcon />}
+                      sx={{ marginRight: '1rem', width: 100, color: 'white' }}
+                    >
                       ACTIVE
                     </Button>
-                    <Button variant="outlined" color="error" sx={{ marginRight: '1rem' }}>
+                    <Button
+                      variant="outlined"
+                      startIcon={<NotInterestedIcon />}
+                      sx={{ marginRight: '1rem', width: 100, color: 'red', border: '1px solid red' }}
+                    >
                       BANNED
                     </Button>
                   </TableCell>
