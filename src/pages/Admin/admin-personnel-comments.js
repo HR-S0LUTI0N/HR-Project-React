@@ -84,16 +84,41 @@ export default function StickyHeadTable() {
       console.error('Error Fetching manager:', error);
     }
   };
-
-  const handleButtonConfirmClick = (commentId) => {
-    setNewCommentId(commentId);
-    console.log(commentId);
-    setNewActionC(true);
+  const updateRows = (newData) => {
+    const updatedRows = rows.filter((row) => row.commentId !== newData.commentId);
+    setRows(updatedRows);
   };
-  const handleButtonDeleteClick = (commentId) => {
-    setNewCommentId(commentId);
-    console.log(commentId);
-    setNewActionC(false);
+  React.useEffect(() => {
+    fetchManager();
+  }, [newActionC]);
+
+  const handleButtonConfirmClick = async (commentId) => {
+    try {
+      setNewCommentId(commentId);
+      console.log(commentId);
+      setNewActionC(true);
+      await axios.put(`http://localhost:9070/api/v1/comment/change-comment-status/${token}`, {
+        commentId,
+        action: true,
+      });
+      updateRows({ commentId });
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
+  };
+  const handleButtonDeleteClick = async (commentId) => {
+    try {
+      setNewCommentId(commentId);
+      console.log(commentId);
+      setNewActionC(false);
+      await axios.put(`http://localhost:9070/api/v1/comment/change-comment-status/${token}`, {
+        commentId,
+        action: false,
+      });
+      updateRows({ commentId });
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
   };
 
   const handleChangePage = (event, newPage) => {
