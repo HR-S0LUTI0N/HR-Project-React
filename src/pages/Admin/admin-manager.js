@@ -27,8 +27,8 @@ const columns = [
   },
 ];
 
-function createData(avatar, name, company, status) {
-  return { avatar, name, company, status };
+function createData(avatar, name, company, status, userId) {
+  return { avatar, name, company, status, userId };
 }
 
 export default function StickyHeadTable() {
@@ -36,10 +36,20 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [rows, setRows] = React.useState([]);
   const token = localStorage.getItem('token');
+  const [newAction, setNewAction] = React.useState();
+  const [newUserId, setNewUserId] = React.useState('');
 
   React.useEffect(() => {
     fetchManager();
   }, []);
+  React.useEffect(() => {
+    axios
+      .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+        userId: newUserId,
+        action: newAction,
+      })
+      .then((response) => response.data);
+  }, [newAction]);
 
   const fetchManager = async () => {
     try {
@@ -52,14 +62,26 @@ export default function StickyHeadTable() {
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyName,
           item.status,
-          ''
+          item.userId
         );
+        console.log(row);
         return row;
       });
       setRows(formattedRows);
     } catch (error) {
       console.error('Error Fetching manager:', error);
     }
+  };
+
+  const handleButtonActiveClick = (userId) => {
+    setNewUserId(userId);
+    console.log(userId);
+    setNewAction(true);
+  };
+  const handleButtonBannedClick = (userId) => {
+    setNewUserId(userId);
+    console.log(userId);
+    setNewAction(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -110,6 +132,7 @@ export default function StickyHeadTable() {
                       color="success"
                       startIcon={<CheckIcon />}
                       sx={{ marginRight: '1rem', width: 100, color: 'white' }}
+                      onClick={() => handleButtonActiveClick(row.userId)}
                     >
                       ACTIVE
                     </Button>
@@ -117,6 +140,7 @@ export default function StickyHeadTable() {
                       variant="outlined"
                       startIcon={<NotInterestedIcon />}
                       sx={{ marginRight: '1rem', width: 100, color: 'red', border: '1px solid red' }}
+                      onClick={() => handleButtonBannedClick(row.userId)}
                     >
                       BANNED
                     </Button>
