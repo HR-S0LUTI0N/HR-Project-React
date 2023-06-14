@@ -29,8 +29,8 @@ const columns = [
   },
 ];
 
-function createData(avatar, name, company, comment, status) {
-  return { avatar, name, company, comment, status };
+function createData(avatar, name, company, comment, status, commentId) {
+  return { avatar, name, company, comment, status, commentId };
 }
 
 export default function StickyHeadTable() {
@@ -38,10 +38,27 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [rows, setRows] = React.useState([]);
   const token = localStorage.getItem('token');
+  const [newActionC, setNewActionC] = React.useState();
+  const [newCommentId, setNewCommentId] = React.useState('');
 
   React.useEffect(() => {
     fetchManager();
   }, []);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.put(`http://localhost:9070/api/v1/comment/change-comment-status/${token}`, {
+          commentId: newCommentId,
+          action: newActionC,
+        });
+        const data = response.data;
+        // İstek sonucunu kullanmak için burada işlemler yapabilirsiniz
+      } catch (error) {
+        console.error('Error Fetching manager:', error);
+      }
+    };
+    fetchData();
+  }, [newActionC]);
 
   const fetchManager = async () => {
     try {
@@ -52,20 +69,31 @@ export default function StickyHeadTable() {
       console.log(data);
       const formattedRows = data.map((item) => {
         const row = createData(
-          <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
+          <Avatar alt="Avatar" src={item.avatar} />,
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyName,
           item.comment,
           item.ecommentStatus,
-          '',
-          ''
+          item.commentId
         );
+        console.log(row);
         return row;
       });
       setRows(formattedRows);
     } catch (error) {
       console.error('Error Fetching manager:', error);
     }
+  };
+
+  const handleButtonConfirmClick = (commentId) => {
+    setNewCommentId(commentId);
+    console.log(commentId);
+    setNewActionC(true);
+  };
+  const handleButtonDeleteClick = (commentId) => {
+    setNewCommentId(commentId);
+    console.log(commentId);
+    setNewActionC(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -122,6 +150,7 @@ export default function StickyHeadTable() {
                         width: 100,
                         color: 'white',
                       }}
+                      onClick={() => handleButtonConfirmClick(row.commentId)}
                     >
                       <Typography sx={{ fontSize: '13px' }}>CONFIRM</Typography>
                     </Button>
@@ -135,6 +164,7 @@ export default function StickyHeadTable() {
                         border: '1px solid red',
                         width: 100,
                       }}
+                      onClick={() => handleButtonDeleteClick(row.commentId)}
                     >
                       DELETE
                     </Button>

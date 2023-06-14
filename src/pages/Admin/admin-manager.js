@@ -43,12 +43,16 @@ export default function StickyHeadTable() {
     fetchManager();
   }, []);
   React.useEffect(() => {
-    axios
-      .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
-        userId: newUserId,
-        action: newAction,
-      })
-      .then((response) => response.data);
+    try {
+      axios
+        .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+          userId: newUserId,
+          action: newAction,
+        })
+        .then((response) => response.data);
+    } catch (error) {
+      console.error('Error Fetching manager:', error);
+    }
   }, [newAction]);
 
   const fetchManager = async () => {
@@ -58,7 +62,7 @@ export default function StickyHeadTable() {
       console.log(data);
       const formattedRows = data.map((item) => {
         const row = createData(
-          <Avatar alt="Avatar" src={item.avatar} />, // Örnek olarak Avatar bileşeni kullanıldı
+          <Avatar alt="Avatar" src={item.avatar} />,
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyName,
           item.status,
