@@ -101,7 +101,7 @@ export default function StickyHeadTable() {
         commentId,
         action: true,
       });
-      updateRows({ commentId });
+      fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -115,7 +115,7 @@ export default function StickyHeadTable() {
         commentId,
         action: false,
       });
-      updateRows({ commentId });
+      fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
     }

@@ -94,7 +94,7 @@ export default function StickyHeadTable() {
         userId,
         action: true,
       });
-      updateRows({ userId }); // Silinen satırı kaldır
+      fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -109,7 +109,7 @@ export default function StickyHeadTable() {
         userId,
         action: false,
       });
-      updateRows({ userId }); // Silinen satırı kaldır
+      fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
     }
