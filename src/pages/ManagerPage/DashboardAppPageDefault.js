@@ -100,7 +100,7 @@ export default function DashboardAppPage() {
   const [managerData, setManagerData] = useState('');
   const [personnelDatas, setPersonnelDatas] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   React.useEffect(() => {
     const fetchData = async () => {

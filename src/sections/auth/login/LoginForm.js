@@ -53,8 +53,8 @@ export default function LoginForm() {
       })
       .then((data) => {
         console.log(data);
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('roles', data.roles);
+        sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('roles', data.roles);
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
         } else if (data.roles.includes('MANAGER')) {

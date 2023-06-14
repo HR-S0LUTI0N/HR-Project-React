@@ -24,42 +24,32 @@ function AppAppBar() {
   const [profile, setProfile] = React.useState({
     avatar: '',
   })
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
+  const roles = sessionStorage.getItem('roles');
 
 
   React.useEffect(() => {
     if (token == null) {
       navigate('/404')
+    } else if (!roles.includes('VISITOR')) {
+      navigate('/404');
     }
-    axios
-      .get(`http://localhost:9090/api/v1/get-roles-from-token/${token}`, {
+    try {
+      axios.get(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .then(response => {
-        const data = response.data;
-        console.log(data);
-        if (!data.roles.includes('VISITOR')) {
-          navigate('/404');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-
-    axios.get(`http://localhost:9080/api/v1/user-profile/get-profile-avatar/${token}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        const data = response.data;
-        setProfile(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        .then(response => {
+          const data = response.data;
+          setProfile(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    } catch (error) {
+      console.log(error.message)
+    }
 
   }, [])
 

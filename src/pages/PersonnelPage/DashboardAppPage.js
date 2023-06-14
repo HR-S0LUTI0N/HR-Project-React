@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
@@ -17,8 +18,10 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const [personnelData, setPersonnelData] = useState();
+  const roles = sessionStorage.getItem('roles');
+  const navigate = useNavigate();
 
   const [comments, setComments] = useState(
     [...Array(5)].map((_, index) => ({
@@ -31,6 +34,11 @@ export default function DashboardAppPage() {
   );
 
   React.useEffect(() => {
+    if (token == null) {
+      navigate('/404')
+    } else if (!roles.includes('PERSONEL')) {
+      navigate('/404');
+    }
     try {
       axios.get(`http://localhost:9070/api/v1/company/get-personnel-dashboard-information/${token}`)
         .then((response) => {
