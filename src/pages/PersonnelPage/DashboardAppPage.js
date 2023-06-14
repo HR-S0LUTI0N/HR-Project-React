@@ -61,22 +61,22 @@ export default function DashboardAppPage() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Company Name"
               total={personnelData === undefined || personnelData.companyName === null ?
-                "Company Name" : `${personnelData.companyName} ${personnelData.title}`} icon={'mdi:company'} />
+                "" : `${personnelData.companyName} ${personnelData.title}`} icon={'mdi:company'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Wage Day" total={personnelData === undefined || personnelData.wageDate === null ?
-              "Not Defined" : `${personnelData.wageDate}`} color="info" icon={'clarity:date-solid'} />
+              "" : `${personnelData.wageDate}`} color="info" icon={'clarity:date-solid'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Department" total={personnelData === undefined || personnelData.department === null ?
-              "Not Defined" : `${personnelData.department}`} color="warning" icon={'mingcute:department-fill'} />
+              "" : `${personnelData.department}`} color="warning" icon={'mingcute:department-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Wage" total={personnelData === undefined || personnelData.wage === null ?
-              "Not Defined" : `${personnelData.wage}`} color="error" icon={'majesticons:lira-circle'} />
+              "" : `${personnelData.wage}`} color="error" icon={'majesticons:lira-circle'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={14}>

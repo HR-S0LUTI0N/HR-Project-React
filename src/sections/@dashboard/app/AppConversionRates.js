@@ -92,6 +92,7 @@ export default function AppConversionRates({ title, subheader, chartData, ...oth
         <TextField id="name" name="name" label="Name" variant="filled" />
         <TextField id="middleName" name="middleName" label="Middle Name" variant="filled" />
         <TextField id="surname" name="surname" label="Surname" variant="filled" />
+        <TextField id="email" name="email" label="Email" variant="filled" />
         <TextField id="password" name="password" label="Password" variant="filled" />
         <TextField id="birthPlace" name="birthPlace" label="Birth Place" variant="filled" />
         <TextField id="identificationNumber" name="identificationNumber" label="Identification Number" variant="filled" />

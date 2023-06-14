@@ -82,7 +82,7 @@ export default function StickyHeadTable() {
                                             <Avatar alt={comment.name.toUpperCase()} src={comment.avatar} sx={{ bgcolor: '#ffa726' }} />
                                         </TableCell>
                                         <TableCell key={comment.index} align="center" sx={{ width: 400 }}>
-                                            {comment.name}
+                                            {comment.name} {comment.middleName ? comment.middleName : ''} {comment.surname}
                                         </TableCell>
                                         <TableCell key={comment.index} align="center" sx={{ width: 1800 }}>
                                             {comment.comment}
