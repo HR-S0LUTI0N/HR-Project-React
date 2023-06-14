@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
@@ -15,6 +17,8 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const token = localStorage.getItem('token');
+  const [personnelData, setPersonnelData] = useState();
 
   const [comments, setComments] = useState(
     [...Array(5)].map((_, index) => ({
@@ -27,7 +31,16 @@ export default function DashboardAppPage() {
   );
 
   React.useEffect(() => {
-
+    try {
+      axios.get(`http://localhost:9070/api/v1/company/get-personnel-dashboard-information/${token}`)
+        .then((response) => {
+          const data = response.data;
+          setPersonnelData(data);
+          console.log(data)
+        })
+    } catch (error) {
+      console.log('Error', error)
+    }
   }, [])
 
 
@@ -46,30 +59,34 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Company Info" total={714000} icon={'mdi:company'} />
+            <AppWidgetSummary title="Company Name"
+              total={personnelData === undefined || personnelData.companyName === null ?
+                "Company Name" : `${personnelData.companyName} ${personnelData.title}`} icon={'mdi:company'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Wage Day" total={1352831} color="info" icon={'clarity:date-solid'} />
+            <AppWidgetSummary title="Wage Day" total={personnelData === undefined || personnelData.wageDate === null ?
+              "Not Defined" : `${personnelData.wageDate}`} color="info" icon={'clarity:date-solid'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Department" total={1723315} color="warning" icon={'mingcute:department-fill'} />
+            <AppWidgetSummary title="Department" total={personnelData === undefined || personnelData.department === null ?
+              "Not Defined" : `${personnelData.department}`} color="warning" icon={'mingcute:department-fill'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Wage" total={234} color="error" icon={'majesticons:lira-circle'} />
+            <AppWidgetSummary title="Wage" total={personnelData === undefined || personnelData.wage === null ?
+              "Not Defined" : `${personnelData.wage}`} color="error" icon={'majesticons:lira-circle'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={14}>
             <AppOrderTimeline
               title="Shift, Break, Public Holiday"
               list={[...Array(3)].map((_, index) => ({
-                id: faker.datatype.uuid(),
                 title: [
-                  'Shifts: ',
-                  'Break: ',
-                  'Public Holiday: ',
+                  `Shifts: ${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
+                  `Break: ${personnelData === undefined || personnelData.jobBreak === null ? "" : personnelData.jobBreak}`,
+                  `Public Holiday: ${personnelData === undefined || personnelData.holidayDates === null ? "" : personnelData.holidayDates}`,
                 ][index],
                 type: `order${index + 1}`,
               }))}
