@@ -76,16 +76,43 @@ export default function StickyHeadTable() {
       console.error('Error Fetching manager:', error);
     }
   };
-
-  const handleButtonActiveClick = (userId) => {
-    setNewUserId(userId);
-    console.log(userId);
-    setNewAction(true);
+  const updateRows = (newData) => {
+    const updatedRows = rows.filter((row) => row.userId !== newData.userId);
+    setRows(updatedRows);
   };
-  const handleButtonBannedClick = (userId) => {
-    setNewUserId(userId);
-    console.log(userId);
-    setNewAction(false);
+
+  React.useEffect(() => {
+    fetchManager();
+  }, [newAction]);
+
+  const handleButtonActiveClick = async (userId) => {
+    try {
+      setNewUserId(userId);
+      console.log(userId);
+      setNewAction(true);
+      await axios.put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+        userId,
+        action: true,
+      });
+      updateRows({ userId }); // Silinen satırı kaldır
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
+  };
+
+  const handleButtonBannedClick = async (userId) => {
+    try {
+      setNewUserId(userId);
+      console.log(userId);
+      setNewAction(false);
+      await axios.put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+        userId,
+        action: false,
+      });
+      updateRows({ userId }); // Silinen satırı kaldır
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
   };
 
   const handleChangePage = (event, newPage) => {
