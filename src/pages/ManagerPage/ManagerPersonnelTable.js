@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
     { id: 'avatar', label: 'Avatar', },
@@ -33,9 +34,16 @@ export default function StickyHeadTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]);
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
+    const roles = sessionStorage.getItem('roles');
+    const navigate = useNavigate();
 
     React.useEffect(() => {
+        if (token == null) {
+            navigate('/404')
+        } else if (!roles.includes('MANAGER')) {
+            navigate('/404');
+        }
         const fetchData = async () => {
             try {
                 const response2 = await axios.get(`http://localhost:9080/api/v1/user-profile/get-personnel-profiles-for-manager-dashboard/${token}`);

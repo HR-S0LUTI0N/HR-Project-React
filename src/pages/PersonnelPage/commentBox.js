@@ -5,28 +5,30 @@ import { TextField, Button, Grid } from '@mui/material';
 
 const CommentField = () => {
   const [comment, setComment] = useState('');
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const handleChange = (event) => {
     setComment(event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(comment);
-    try {
-      console.log(token)
-      axios.post(`http://localhost:9070/api/v1/comment/personnel-make-comment/${token}`, { comment })
-        .then((response) => {
-          // Handle successful response
-          setComment('')
-          console.log('Response:', response.data);
-        })
-        .catch((error) => {
-          // Handle error
-          setComment('')
-          console.error('Error:', error);
-        });
-    } catch (error) {
-      console.log('Error:', error);
+    if (!comment === "") {
+      try {
+        console.log(token)
+        axios.post(`http://localhost:9070/api/v1/comment/personnel-make-comment/${token}`, { comment })
+          .then((response) => {
+            // Handle successful response
+            setComment('')
+            console.log('Response:', response.data);
+          })
+          .catch((error) => {
+            // Handle error
+            setComment('')
+            console.error('Error:', error);
+          });
+      } catch (error) {
+        console.log('Error:', error);
+      }
     }
   };
   return (

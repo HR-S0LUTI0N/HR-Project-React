@@ -5,6 +5,8 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
+import { useNavigate } from 'react-router-dom';
+
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -13,6 +15,8 @@ function Overview() {
   const [surname, setSurname] = useState('Thompson');
   const [telephone, setTelephone] = useState('(44) 123 1234 123');
   const [email, setEmail] = useState('alecthompson@mail.com');
+  const navigate = useNavigate();
+
 
   const handleEditClick = () => {
     setIsEditMode(!isEditMode);
@@ -37,6 +41,18 @@ function Overview() {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  const token = sessionStorage.getItem('token');
+  const roles = sessionStorage.getItem('roles');
+
+
+  React.useEffect(() => {
+    if (token == null) {
+      navigate('/404')
+    } else if (!roles.includes('PERSONEL')) {
+      navigate('/404');
+    }
+  }, [])
+
 
   return (
     <section style={{ padding: '30px', marginLeft: 0, marginRight: 0 }}>
