@@ -31,7 +31,7 @@ export default function StickyHeadTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]);
     const token = localStorage.getItem('token');
-    const [comments, setCommentsData] = React.useState();
+    const [comments, setCommentsData] = React.useState([]);
 
     React.useEffect(() => {
         try {
