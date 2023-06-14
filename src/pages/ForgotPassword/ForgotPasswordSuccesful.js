@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
-import axios from 'axios';
-// hooks
 
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+// hooks
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Typography, IconButton, Stack, TextField, Box } from '@mui/material';
+import { Grid, Link, Typography, IconButton, Stack,  Box } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import { LoadingButton } from '@mui/lab';
-import { ToastContainer, toast } from 'react-toastify';
-import useResponsive from '../hooks/useResponsive';
+import SvgContainer from './SvgContainer';
+import useResponsive from '../../hooks/useResponsive';
 // components
-import Logo from '../components/logo';
+import Logo from '../../components/logo';
 
 // sections
 
@@ -46,41 +46,28 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-export default function ForgotPassword() {
-  
+export default function ForgotPasswordSuccesful() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigate('/login'); 
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout); 
+    };
+  }, [navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+   
 
-    const email = data.get('email');
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error('Lütfen geçerli bir email adresi girin.', {
-        autoClose: 2000,
-      });
-      return;
-    }
     
-    axios
-      .get(`http://localhost:9090/api/v1/auth/forgot-password-request/${email}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) { 
-            toast.success('Mail gönderimi başarılı...', {
-              autoClose: 3000,
-            });
-            
-            
-        }
-       
-      })
-      
+
+    
+
+    
   };
 
   const mdUp = useResponsive('up', 'md');
@@ -102,44 +89,39 @@ export default function ForgotPassword() {
 
         {mdUp && (
           <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+            <Typography variant="h3" sx={{ px: 5, mt: 11, mb: 5 }}>
               Welcome Back
             </Typography>
             <img
-              src="https://img.freepik.com/free-psd/3d-female-character-working-laptop-while-sitting-chair_23-2148938889.jpg?w=740&t=st=1686328918~exp=1686329518~hmac=71f64deb539d96cf4dc76acf4ea4ffb326fdc954db311619dc03a8fd5a665cb0"
+              src="https://img.freepik.com/free-psd/3d-female-character-celebrating-with-party-hat-confetti_23-2148938904.jpg?w=826&t=st=1686740682~exp=1686741282~hmac=d007c31775e7f61bb6e88f720db5b90586e238ab8d763a39b6a1c76dc49a3ac8"
               alt="login"
             />
           </StyledSection>
         )}
 
         <StyledContent>
-          <Typography variant="h4" gutterBottom style={{ marginLeft: '110px' }}>
-            Forgot Password !
+          <Grid style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '40px' }}>
+            <SvgContainer />
+          </Grid>
+
+          <Typography variant="h4" gutterBottom style={{ marginLeft: '80px' }}>
+               Your Mail Sent Successfully!
           </Typography>
 
-          <Typography variant="body2" sx={{ mb: 1 }}>
-            Enter your email and we'll send you a link to reset your password. {''}
+          <Typography variant="body2" gutterBottom style={{ marginLeft: '80px' }}>
+           An email for password reset has been sent. Please check your email. 
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <Stack spacing={1}>
-              <ToastContainer />
-              <TextField id="email" name="email" label="Email address" />
-            </Stack>
-
-            <Grid sx={{ my: 4 }}>
-              <LoadingButton fullWidth size="large" type="submit" variant="contained">
-                Submit
-              </LoadingButton>
-
+            
+            <Grid sx={{ my: 3 }}>
               <Stack direction="row" alignItems="center" justifyContent="center" sx={{ my: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton href="/login">
+                  <IconButton href="/login">
                     <NavigateBeforeIcon />
                   </IconButton>
                   <Link href="/login" variant="subtitle2" underline="hover">
                     Back to Login
                   </Link>
-                  
                 </Box>
               </Stack>
             </Grid>

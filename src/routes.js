@@ -6,7 +6,8 @@ import SimpleLayout from './layouts/simple';
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
-import ForgotPassword from './pages/ForgotPassword';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful'
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
@@ -56,6 +57,10 @@ export default function Router() {
     {
       path: 'forgotpassword',
       element: <ForgotPassword />,
+    },
+    {
+      path: 'forgotpasswordsuccesful',
+      element: <ForgotPasswordSuccesful />,
     },
     {
       path: 'registerVisitor',
