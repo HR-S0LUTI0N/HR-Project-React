@@ -50,8 +50,9 @@ export default function StickyHeadTable() {
       navigate('/404')
     } else if (!roles.includes('ADMIN')) {
       navigate('/404');
+    } else {
+      fetchManager();
     }
-    fetchManager();
   }, []);
   React.useEffect(() => {
     const fetchData = async () => {
