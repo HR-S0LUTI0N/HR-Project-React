@@ -64,7 +64,7 @@ export default function ForgotPassword() {
       });
       return;
     }
-    
+
     axios
       .get(`http://localhost:9090/api/v1/auth/forgot-password-request/${email}`, {
         headers: {
@@ -73,24 +73,25 @@ export default function ForgotPassword() {
       })
       .then((response) => {
         console.log(response);
-        if (response.status === 200) { 
-            toast.success('Mail gönderimi başarılı...', {
-              autoClose: 3000,
-            });
-            
-            
+        if (response.status === 200) {
+          toast.success('Mail gönderimi başarılı...', {
+            autoClose: 3000,
+          });
         }
-       
+      })
+      .catch((error) => {
+        console.log(error);
       })
 
-      setSubmitted(true);
+
+    setSubmitted(true);
   };
 
   if (submitted) {
     return <Navigate to="/forgotpasswordsuccesful" replace />;
   }
 
-  
+
 
   return (
     <>
@@ -140,13 +141,13 @@ export default function ForgotPassword() {
 
               <Stack direction="row" alignItems="center" justifyContent="center" sx={{ my: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton href="/login">
+                  <IconButton href="/login">
                     <NavigateBeforeIcon />
                   </IconButton>
                   <Link href="/login" variant="subtitle2" underline="hover">
                     Back to Login
                   </Link>
-                  
+
                 </Box>
               </Stack>
             </Grid>
