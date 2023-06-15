@@ -38,16 +38,17 @@ export default function DashboardAppPage() {
       navigate('/404')
     } else if (!roles.includes('PERSONEL')) {
       navigate('/404');
-    }
-    try {
-      axios.get(`http://localhost:9070/api/v1/company/get-personnel-dashboard-information/${token}`)
-        .then((response) => {
-          const data = response.data;
-          setPersonnelData(data);
-          console.log(data)
-        })
-    } catch (error) {
-      console.log('Error', error)
+    } else {
+      try {
+        axios.get(`http://localhost:9070/api/v1/company/get-personnel-dashboard-information/${token}`)
+          .then((response) => {
+            const data = response.data;
+            setPersonnelData(data);
+            console.log(data)
+          })
+      } catch (error) {
+        console.log('Error', error)
+      }
     }
   }, [])
 

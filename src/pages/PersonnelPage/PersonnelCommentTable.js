@@ -13,6 +13,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 const columns = [
     { id: 'avatar', label: 'Avatar', width: 120 },
@@ -31,18 +33,26 @@ export default function StickyHeadTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]);
     const token = sessionStorage.getItem('token');
+    const roles = sessionStorage.getItem('roles')
     const [comments, setCommentsData] = React.useState([]);
+    const navigate = useNavigate();
 
     React.useEffect(() => {
-        try {
-            axios.get(`http://localhost:9070/api/v1/comment/find-all-active-company-comments/${token}`)
-                .then((response) => {
-                    const data = response.data;
-                    setCommentsData(data);
-                    console.log(data)
-                })
-        } catch (error) {
-            console.log('Error', error)
+        if (token == null) {
+            navigate('/404')
+        } else if (!roles.includes('PERSONEL')) {
+            navigate('/404');
+        } else {
+            try {
+                axios.get(`http://localhost:9070/api/v1/comment/find-all-active-company-comments/${token}`)
+                    .then((response) => {
+                        const data = response.data;
+                        setCommentsData(data);
+                        console.log(data)
+                    })
+            } catch (error) {
+                console.log('Error', error)
+            }
         }
     }, [])
 

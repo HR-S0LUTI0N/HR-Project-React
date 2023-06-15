@@ -13,6 +13,8 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import CheckIcon from '@mui/icons-material/Check';
+import { useNavigate } from 'react-router-dom';
+
 
 const columns = [
   { id: 'avatar', label: 'Avatar', width: 80 },
@@ -38,20 +40,34 @@ export default function StickyHeadTable() {
   const token = sessionStorage.getItem('token');
   const [newAction, setNewAction] = React.useState();
   const [newUserId, setNewUserId] = React.useState('');
+  const navigate = useNavigate();
+  const roles = sessionStorage.getItem('roles');
 
   React.useEffect(() => {
-    fetchManager();
+    if (token == null) {
+      navigate('/404')
+    } else if (!roles.includes('ADMIN')) {
+      navigate('/404');
+    } else {
+      fetchManager();
+    }
   }, []);
   React.useEffect(() => {
-    try {
-      axios
-        .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
-          userId: newUserId,
-          action: newAction,
-        })
-        .then((response) => response.data);
-    } catch (error) {
-      console.error('Error Fetching manager:', error);
+    if (token == null) {
+      navigate('/404')
+    } else if (!roles.includes('ADMIN')) {
+      navigate('/404');
+    } else {
+      try {
+        axios
+          .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+            userId: newUserId,
+            action: newAction,
+          })
+          .then((response) => response.data);
+      } catch (error) {
+        console.error('Error Fetching manager:', error);
+      }
     }
   }, [newAction]);
 
