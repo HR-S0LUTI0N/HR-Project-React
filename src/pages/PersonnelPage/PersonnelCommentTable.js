@@ -43,16 +43,18 @@ export default function StickyHeadTable() {
         } else if (!roles.includes('PERSONEL')) {
             navigate('/404');
         } else {
-            try {
-                axios.get(`http://localhost:9070/api/v1/comment/find-all-active-company-comments/${token}`)
-                    .then((response) => {
-                        const data = response.data;
-                        setCommentsData(data);
-                        console.log(data)
-                    })
-            } catch (error) {
-                console.log('Error', error)
-            }
+
+            axios.get(`http://localhost:9070/api/v1/comment/find-all-active-company-comments/${token}`)
+                .then((response) => {
+                    const data = response.data;
+                    setCommentsData(data);
+                    console.log(data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
+
         }
     }, [])
 
