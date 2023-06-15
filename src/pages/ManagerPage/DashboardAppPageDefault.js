@@ -195,7 +195,7 @@ export default function DashboardAppPage() {
           <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
               title="Holiday Dates"
-              list={[...Array(`${managerData ? managerData.holidayDates.length : 0}`)].map((_, index) => ({
+              list={[...Array(`${managerData === undefined || managerData.holidayDates === null ? "" : managerData.holidayDates}`)].map((_, index) => ({
                 id: faker.datatype.uuid(),
                 title: [
 
