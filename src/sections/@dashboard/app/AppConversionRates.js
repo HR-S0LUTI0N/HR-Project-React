@@ -31,7 +31,7 @@ export default function AppConversionRates({ title, subheader, chartData, ...oth
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     const payload = {
       password: data.get('password'),

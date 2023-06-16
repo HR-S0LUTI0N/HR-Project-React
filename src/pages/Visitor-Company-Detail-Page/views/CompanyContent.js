@@ -19,7 +19,7 @@ function CompanyContent() {
 
   const [company, setCompany] = React.useState([])
   const [comments, setComments] = React.useState([])
-  const companyId = localStorage.getItem('companyId');
+  const companyId = sessionStorage.getItem('companyId');
 
   React.useEffect(() => {
     axios.get(`http://localhost:9070/api/v1/company/find-all-detailed-company-information/${companyId}`)

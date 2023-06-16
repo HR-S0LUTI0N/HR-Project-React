@@ -20,7 +20,7 @@ function ProductValues() {
   const [companyList, setCompanyList] = React.useState([])
   const [search, setSeach] = useState("")
   const [searchedCompanyList, setSearchedCompanyList] = React.useState([])
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
 
   React.useEffect(() => {
