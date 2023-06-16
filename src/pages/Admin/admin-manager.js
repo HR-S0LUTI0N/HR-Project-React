@@ -58,16 +58,17 @@ export default function StickyHeadTable() {
     } else if (!roles.includes('ADMIN')) {
       navigate('/404');
     } else {
-      try {
-        axios
-          .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
-            userId: newUserId,
-            action: newAction,
-          })
-          .then((response) => response.data);
-      } catch (error) {
-        console.error('Error Fetching manager:', error);
-      }
+
+      axios
+        .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
+          userId: newUserId,
+          action: newAction,
+        })
+        .then((response) => response.data)
+        .catch(error => {
+          console.log(error)
+        })
+
     }
   }, [newAction]);
 
