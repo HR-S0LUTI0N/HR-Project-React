@@ -111,6 +111,7 @@ export default function SignInSide() {
       try {
         const response = await axios.post('http://localhost:9090/api/v1/auth/register-manager', formData);
         console.log('Success:', response.data);
+        console.log(response.status);
         navigate('/login')
       } catch (error) {
         console.error('Error signing up:', error);
