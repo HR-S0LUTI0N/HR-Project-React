@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import { Grid, Link, Typography, IconButton, Stack,  Box } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import SvgContainer from './SvgContainer';
+import MailSendingAnimation from './mailsender';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Logo from '../../components/logo';
@@ -101,7 +102,7 @@ export default function ForgotPasswordSuccesful() {
 
         <StyledContent>
           <Grid style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '40px' }}>
-            <SvgContainer />
+            <MailSendingAnimation />
           </Grid>
 
           <Typography variant="h4" gutterBottom style={{ marginLeft: '80px' }}>
