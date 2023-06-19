@@ -8,6 +8,7 @@ import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful'
+import RegisterSuccesful from './pages/RegisterSuccesful';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
@@ -61,6 +62,10 @@ export default function Router() {
     {
       path: 'forgotpasswordsuccesful',
       element: <ForgotPasswordSuccesful />,
+    },
+    {
+      path: 'register-succesful',
+      element: <RegisterSuccesful />,
     },
     {
       path: 'registerVisitor',

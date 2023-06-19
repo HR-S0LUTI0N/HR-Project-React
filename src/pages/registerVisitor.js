@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -22,7 +23,7 @@ export default function SignInSide() {
   const [surnameValid, setSurnameValid] = React.useState(true);
   const [passwordValid, setPasswordValid] = React.useState(true);
   const [repasswordValid, setRepasswordValid] = React.useState(true);
-
+  const navigate = useNavigate();
   const handleEmailChange = (event) => {
     const email = event.target.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,11 +61,17 @@ export default function SignInSide() {
         password: data.get('password'),
         repassword: data.get('repassword'),
       };
-
+      
       axios
         .post('http://localhost:9090/api/v1/auth/register-visitor', formData)
         .then((response) => {
           console.log(response.data); // İşlem başarılı olduğunda
+
+          if (response.data === true) {
+            navigate('/register-succesful'); 
+          } else {
+            console.log('İşlem başarısız');
+          }
         })
         .catch((error) => {
           console.error(error); // İşlem sırasında bir hata oluşursa
