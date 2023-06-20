@@ -168,7 +168,7 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Wage Day" total={managerData === undefined || managerData.companyPersonnelCount === null ?
+            <AppWidgetSummary title="Personnel Count" total={managerData === undefined || managerData.companyPersonnelCount === null ?
               "" : `${managerData.companyPersonnelCount}`} color="info" icon={'clarity:employee-group-solid'} />
           </Grid>
 
@@ -178,21 +178,16 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Sector" total={managerData === undefined || managerData.companyBalanceStatus === null ?
+            <AppWidgetSummary title="Balance" total={managerData === undefined || managerData.companyBalanceStatus === null ?
               "" : `${managerData.companyBalanceStatus}`} color="error" icon={'majesticons:lira-circle'} />
           </Grid>
 
           <Grid sx={{ mt: 5, mb: 5 }}>
             <ManagerPersonnelTable />
           </Grid>
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates
-              title="Employee Create"
-              subheader="Employee Information"
-            />
-          </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+
+          <Grid item sx={{ width: '100%', overflow: 'hidden' }}>
             <AppOrderTimeline
               title="Holiday Dates"
               list={[...Array(`${managerData === undefined || managerData.holidayDates === null ? "" : managerData.holidayDates}`)].map((_, index) => ({

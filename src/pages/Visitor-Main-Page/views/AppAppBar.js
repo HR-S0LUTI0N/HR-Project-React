@@ -14,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import Logo from '../../../images/Logo_HR.png';
 
 const settings = ['Profile', 'Logout'];
 
@@ -68,32 +68,15 @@ function ResponsiveAppBar() {
   return (
     <AppBar position="static">
       <Container maxWidth sx={{
-        mt: 2,
-        height: 80
+        height: 90
       }}>
         <Toolbar disableGutters>
 
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
             <Button href="/visitor">
-              <AccessibilityNewIcon sx={{ display: { xs: 'none', md: 'flex', width: 56, height: 56, color: '#ffa726' }, mr: 1 }} />
+              <img src={Logo} alt="Logo HR" height={80} />
             </Button>
-            <Typography
-              variant="h4"
-              noWrap
-              component="a"
-              href="/visitor"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              HR SOLUTIONS
-            </Typography>
+
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'flex-end' } }}>
@@ -109,26 +92,7 @@ function ResponsiveAppBar() {
             </IconButton>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'flex-start' } }}>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-          </Box>
+
 
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Tooltip title="Open settings">
@@ -137,7 +101,6 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

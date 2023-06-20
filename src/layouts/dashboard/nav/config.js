@@ -16,12 +16,17 @@ const navConfig = [
     path: '/dashboard/default-app',
     icon: icon('ic_analytics'),
   },
-
+  {
+    title: 'Add Personnel',
+    path: '/dashboard/add-personnel',
+    icon: icon('ic_user'),
+  },
   {
     title: 'userProfile',
     path: '/dashboard/userProfile',
     icon: icon('ic_user'),
   },
+
   {
     title: 'admin',
     path: '/dashboard/admin',

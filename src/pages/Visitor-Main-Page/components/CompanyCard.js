@@ -40,7 +40,7 @@ export default function CompanyCard(props) {
                 title="company logo"
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" sx={{ color: "#545B77", fontWeight: "bold", bgcolor: "white" }}>
                     {props.item.companyName === undefined
                         ? 'In Maintenance'
                         : `${props.item.companyName} ${props.item.title}`}
@@ -48,7 +48,7 @@ export default function CompanyCard(props) {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item xs={6}>
                         <CardActions onClick={handleClick}>
-                            <Button size="small" variant="contained" type="onClick"
+                            <Button size="small" variant="contained" type="onClick" sx={{ color: "#545B77", fontWeight: "bold", bgcolor: "white" }}
                             >Learn More</Button>
                         </CardActions>
                     </Grid>

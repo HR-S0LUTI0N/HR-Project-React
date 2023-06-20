@@ -69,10 +69,10 @@ export default function StickyHeadTable() {
     };
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '100%', overflow: 'hidden', maxWidth: 1490, ml: 2.8 }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Typography variant="h4" component="h2" mb={2}>
-                    Comments
+                    Personnel List
                 </Typography>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
