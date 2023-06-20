@@ -9,9 +9,9 @@ function Copyright() {
   return (
     <>
       {'© '}
-      <Link color="inherit" href="/visitor" align="center">
+      <Link color="inherit" href="/visitor" align="center" >
         HR Management
-      </Link>{' '}
+      </Link > {' '}
       {new Date().getFullYear()}
     </>
   );
@@ -46,9 +46,9 @@ export default function AppFooter() {
     <>
       <Typography
         component="footer"
-        sx={{ display: 'flex', bgcolor: 'secondary.light', }}
+        sx={{ display: 'flex' }}
       >
-        <Container sx={{ my: 8, display: 'flex', }} >
+        <Container sx={{ my: 8, display: 'flex' }} >
           <Grid container spacing={5} justifyContent="center"
             alignItems="center">
             <Grid item xs={6} sm={4} md={3}>

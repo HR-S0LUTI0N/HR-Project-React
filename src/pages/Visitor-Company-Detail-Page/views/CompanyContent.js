@@ -42,7 +42,9 @@ function CompanyContent() {
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
+
       }}
+      mb={3}
     >
       <Container sx={{ mt: 10, mb: 5 }}>
 
