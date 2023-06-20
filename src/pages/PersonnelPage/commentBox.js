@@ -12,23 +12,20 @@ const CommentField = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(comment);
-    if (!comment === "") {
-      try {
-        console.log(token)
-        axios.post(`http://localhost:9070/api/v1/comment/personnel-make-comment/${token}`, { comment })
-          .then((response) => {
-            // Handle successful response
-            setComment('')
-            console.log('Response:', response.data);
-          })
-          .catch((error) => {
-            // Handle error
-            setComment('')
-            console.error('Error:', error);
-          });
-      } catch (error) {
-        console.log('Error:', error);
-      }
+    if (comment !== "") {
+      console.log(token)
+      axios.post(`http://localhost:9070/api/v1/comment/personnel-make-comment/${token}`, { comment })
+        .then((response) => {
+          // Handle successful response
+          setComment('')
+          console.log('Response:', response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          setComment('')
+          console.error('Error:', error);
+        });
+
     }
   };
   return (

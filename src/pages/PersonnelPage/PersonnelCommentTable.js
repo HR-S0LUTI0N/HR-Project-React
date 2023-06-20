@@ -53,8 +53,6 @@ export default function StickyHeadTable() {
                 .catch((error) => {
                     console.log(error);
                 })
-
-
         }
     }, [])
 
