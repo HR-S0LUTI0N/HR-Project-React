@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
@@ -12,21 +12,24 @@ const MENU_OPTIONS = [
     label: 'Home',
     icon: 'eva:home-fill',
   },
-  {
-    label: 'Profile',
-    icon: 'eva:person-fill',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-  },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-
+  const token = sessionStorage.getItem('token');
+  const [userData, setUserData] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name-and-surname/${token}`, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setUserData(data);
+      });
+  }, []);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -54,7 +57,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={userData.avatar} alt="photoURL" />
       </IconButton>
 
       <Popover
@@ -78,10 +81,12 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {`${userData.name} ${userData.middleName === null ? '' : userData.middleName} ${
+              userData.surname === null ? '' : userData.surname
+            }`}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {userData.email}
           </Typography>
         </Box>
 
