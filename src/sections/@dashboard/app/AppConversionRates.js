@@ -1,52 +1,68 @@
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import 'dayjs/locale/en-gb';
+import Stack from '@mui/material/Stack';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import React, { useState } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import TextField from '@mui/material/TextField';
 import { Box, Card, CardHeader, Paper } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Add from '@mui/icons-material/Add';
+import Avatar from '@mui/material/Avatar';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 
-AppConversionRates.propTypes = {
-  title: PropTypes.string,
-  subheader: PropTypes.string,
-  chartData: PropTypes.array.isRequired,
-};
 
-export default function AppConversionRates({ title, subheader, chartData, ...other }) {
-  const comboOptions = ['MALE', 'FEMALE', 'OTHER'];
 
-  const [iseInformationBoxShown, setIsInformationBoxShown] = useState(true);
-  const buttonHandler = () => {
-    setIsInformationBoxShown(!iseInformationBoxShown);
-  };
+
+const comboOptions = ['MALE', 'FEMALE', 'OTHER'];
+
+
+export default function AppConversionRates({ title }) {
+  const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
+  const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
+  const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
+  const [gender, setGender] = useState(comboOptions[0]);
+  const locale = 'en-gb';
+  const [inputValue, setInputValue] = React.useState('');
+  const [imgs, setImgs] = useState()
+
+  function handleChange(e) {
+    console.log(e.target.files)
+    const data = new FileReader()
+    data.addEventListener('load', () => {
+      setImgs(data.result)
+    })
+    data.readAsDataURL(e.target.files[0])
+  }
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
-
     const payload = {
-      password: data.get('password'),
       email: data.get('email'),
       birthPlace: data.get('birthPlace'),
       name: data.get('name'),
       middleName: data.get('middleName'),
       surname: data.get('surname'),
-      dateOfBirth: data.get('dateOfBirth'),
+      dateOfBirth: selectedDateOfBirthChange.format('DD-MM-YYYY'),
       identificationNumber: data.get('identificationNumber'),
-      gender: data.get('gender'),
+      gender: gender.toUpperCase(),
       phone: data.get('phone'),
       wage: data.get('wage'),
-      wageDate: data.get('wageDate'),
-      avatar: data.get('avatar'),
+      wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
+      avatar: imgs,
       neighbourhood: data.get('neighbourhood'),
       district: data.get('district'),
       province: data.get('province'),
@@ -55,7 +71,11 @@ export default function AppConversionRates({ title, subheader, chartData, ...oth
       apartmentNumber: data.get('apartmentNumber'),
       postalCode: data.get('postalCode'),
       department: data.get('department'),
-      jobStartingDate: data.get('jobStartingDate'),
+      jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
+      jobShift: data.get('jobShift'),
+      jobBreak: data.get('jobBreak'),
+      employeeLeaves: data.get('employeeLeaves'),
+
     };
     console.log('Form Data:', payload);
 
@@ -67,77 +87,188 @@ export default function AppConversionRates({ title, subheader, chartData, ...oth
     }
   };
 
+  const handleOnClick = async () => {
+
+
+  }
+
   return (
-    <Paper>
-      <CardHeader title={title} subheader={subheader} />
+    <>
+      <Grid sx={{ display: 'flex', ml: "10rem" }}>
+        <Paper sx={{ maxWidth: 1800 }}>
+          <CardHeader title={title} />
+          <Card sx={{ mt: 5 }}>
+            <CardHeader subheader="Employee Address" sx={{ marginLeft: '5rem' }} />
+            <Grid container justifyContent="center" alignItems="center" flexDirection="column" sx={{ mx: 'auto' }}>
+              <Avatar sx={{ minWidth: 220, minHeight: 220, mb: 3 }} src={imgs} />
+              <Button
+                type="submit"
+                variant="contained"
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  maxWidth: 140,
+                  minWidth: 140,
+                }}
+                sx={{
+                  borderRadius: 2,
+                  padding: 1,
+                  mt: 1,
+                  bgcolor: "#ffa726",
+                  '&:hover': {
+                    bgcolor: 'grey',
+                  },
+                }}
+              >
+                <Add /> Save Avatar
+                <input
+                  type="file"
+                  onChange={handleChange}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0,
+                    cursor: 'pointer',
+                  }}
+                />
+              </Button>
 
 
-      <Card>
-        <Box
-          component="form"
-          sx={{
-            '& > :not(style)': { m: 1, width: '30ch' },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField id="name" name="name" label="Name" variant="filled" />
-          <TextField id="middleName" name="middleName" label="Middle Name" variant="filled" />
-          <TextField id="surname" name="surname" label="Surname" variant="filled" />
-          <TextField id="email" name="email" label="Email" variant="filled" />
-          <TextField id="password" name="password" label="Password" variant="filled" />
-          <TextField id="birthPlace" name="birthPlace" label="Birth Place" variant="filled" />
-          <TextField id="identificationNumber" name="identificationNumber" label="Identification Number" variant="filled" />
-          <TextField id="phone" name="phone" label="Phone" variant="filled" />
-          <TextField id="wage" name="wage" label="Wage" variant="filled" />
-          <TextField id="wageDate" name="wageDate" label="Wage Date" variant="filled" />
-          <TextField id="department" name="department" label="Department" variant="filled" />
-          <TextField id="jobStartingDate" name="jobStartingDate" label="Job Starting Date" variant="filled" />
 
-          <div style={{ display: 'flex' }}>
-            <div style={{ marginRight: '1rem' }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DemoContainer components={['DatePicker', 'DatePicker']}>
-                  <DatePicker
-                    label="Date Of Birth"
-                    name="dateOfBirth"
-                    value={dayjs('2022-04-17')}
-                    onChange={() => { }} // Add your logic here
-                    sx={{ width: 294 }}
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
-            <div>
-              <Autocomplete
-                sx={{ width: 294, mt: 1 }}
-                name="gender"
-                options={comboOptions}
-                defaultValue={comboOptions[0]}
-                renderInput={(params) => <TextField {...params} label="Gender" />}
-              />
-            </div>
-          </div>
 
-          <CardHeader subheader="Employee Address" />
+            </Grid>
+            <Box
+              component="form"
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+              sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', p: '2rem' }}
+            >
 
-          <TextField id="neighbourhood" name="neighbourhood" label="Neighbourhood" variant="filled" />
-          <TextField id="district" name="district" label="District" variant="filled" />
-          <TextField id="province" name="province" label="Province" variant="filled" />
-          <TextField id="country" name="country" label="Country" variant="filled" />
-          <TextField id="buildingNumber" name="buildingNumber" label="Building Number" variant="filled" />
-          <TextField id="apartmentNumber" name="apartmentNumber" label="Apartment Number" variant="filled" />
-          <TextField id="postalCode" name="postalCode" label="Postal Code" variant="filled" />
+              <CardHeader subheader="Employee Information" sx={{ marginLeft: '3rem' }} />
+              <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+                <TextField id="name" name="name" label="Name" variant="filled" sx={{ width: 280 }} />
+                <TextField id="middleName" name="middleName" label="Middle Name" variant="filled" sx={{ width: 280 }} />
+                <TextField id="surname" name="surname" label="Surname" variant="filled" sx={{ width: 280 }} />
+                <TextField id="email" name="email" label="Email" variant="filled" sx={{ width: 280 }} />
+                <TextField id="birthPlace" name="birthPlace" label="Birth Place" variant="filled" sx={{ width: 280 }} />
+                <TextField
+                  id="identificationNumber"
+                  name="identificationNumber"
+                  label="Identification Number"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField id="phone" name="phone" label="Phone" variant="filled" sx={{ width: 280 }} />
+                <TextField id="department" name="department" label="Department" variant="filled" sx={{ width: 280 }} />
+                <TextField id="jobShift" name="shift" label="Shift" variant="filled" sx={{ width: 280 }} />
+                <TextField id="jobBreak" name="break" label="Break" variant="filled" sx={{ width: 280 }} />
+                <TextField
+                  id="employeeLeaves"
+                  name="employeeLeaves"
+                  label="Number Of Day Off"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="wage"
+                  name="wage"
+                  label="Wage"
+                  variant="filled"
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">₺</InputAdornment>,
+                  }}
+                  sx={{ width: 280 }}
+                />
+                <Autocomplete
+                  sx={{ width: 280 }}
+                  name="Gender"
+                  value={gender}
+                  options={comboOptions}
+                  onChange={(event, newInputValue) => {
+                    console.log(newInputValue)
+                    setGender(newInputValue);
+                  }}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                  }}
+                  inputValue={inputValue}
+                  renderInput={(params) => <TextField {...params} label="Gender" />}
+                />
 
-          <Grid container sx={{ mx: 'auto', width: 100 }}>
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 3 }}>
-              Create
-            </Button>
-          </Grid>
-        </Box>
-      </Card>
 
-    </Paper>
+              </Grid>
+              <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      id="dateOfBirth"
+                      label="Date Of Birth"
+                      name="dateOfBirth"
+                      value={selectedDateOfBirthChange}
+                      onChange={(e) => { setSelectedDateOfBirthChange(e) }}
+                      sx={{ width: 280 }}
+                    />
+                  </DemoContainer>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      id="jobStartingDate"
+                      label="Job Starting Date"
+                      name="jobStartingDate"
+                      value={selectedJobStartingDateChange}
+                      onChange={(e) => { setSelectedJobStartingDateChange(e) }}
+                      sx={{ width: 280 }}
+                    />
+                  </DemoContainer>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      id="payDay"
+                      label="Payday"
+                      name="payDay"
+                      value={selectedPaydayChange}
+                      onChange={(e) => { setSelectedPaydayChange(e) }}
+                      sx={{ width: 280 }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </Grid>
+              <CardHeader subheader="Employee Address" sx={{ marginLeft: '3rem' }} />
+              <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+                <TextField id="neighbourhood" name="neighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} />
+                <TextField id="district" name="district" label="District" variant="filled" sx={{ width: 280 }} />
+                <TextField id="province" name="province" label="Province" variant="filled" sx={{ width: 280 }} />
+                <TextField id="country" name="country" label="Country" variant="filled" sx={{ width: 280 }} />
+                <TextField id="buildingNumber" name="buildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} />
+                <TextField id="apartmentNumber" name="apartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} />
+                <TextField id="postalCode" name="postalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} />
+                <Grid container justifyContent="center" sx={{ mt: '2rem' }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    style={{ maxWidth: 140, minWidth: 140 }}
+                    sx={{
+                      borderRadius: 2,
+                      padding: 1,
+                      bgcolor: "#ffa726", '&:hover': {
+                        bgcolor: 'grey',
+                      },
+                    }}
+                  >
+                    Create
+                  </Button>
+                </Grid>
+              </Grid>
+
+            </Box>
+
+          </Card>
+
+        </Paper >
+
+      </Grid >
+    </>
   );
 }
