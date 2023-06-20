@@ -19,7 +19,7 @@ function CompanyContent() {
 
   const [company, setCompany] = React.useState([])
   const [comments, setComments] = React.useState([])
-  const companyId = sessionStorage.getItem('companyId');
+  const companyId = localStorage.getItem('companyId');
 
   React.useEffect(() => {
     axios.get(`http://localhost:9070/api/v1/company/find-all-detailed-company-information/${companyId}`)
@@ -59,7 +59,7 @@ function CompanyContent() {
             <Box>
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '1rem' }}>
                 <Avatar
-                  alt="Remy Sharp"
+                  alt="Company"
                   src={
                     company.logo === null
                       ? 'https://images.unsplash.com/photo-1512403754473-27835f7b9984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=715&q=80'
