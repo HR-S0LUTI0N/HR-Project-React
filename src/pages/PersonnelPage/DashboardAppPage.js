@@ -9,7 +9,6 @@ import { Grid, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Iconify from '../../components/iconify';
 import CommentBox from './commentBox';
-import PersonnelCommentTable from './PersonnelCommentTable';
 import {
   AppNewsUpdate,
   AppOrderTimeline,
@@ -74,7 +73,7 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Wage Day" total={personnelData === undefined || personnelData.wageDate === null ?
+            <AppWidgetSummary title="Payday" total={personnelData === undefined || personnelData.wageDate === null ?
               "" : `${personnelData.wageDate}`} color="info" icon={'clarity:date-solid'} />
           </Grid>
 
@@ -102,10 +101,9 @@ export default function DashboardAppPage() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={14}>
-            <PersonnelCommentTable />
-          </Grid>
-          <Grid item xs={12} md={6} lg={14} mt={3}>
+
+          <Grid item xs={12} md={6} lg={14} mt={2} >
+            <Typography variant="h4" mb={2}>Comment on Your Company</Typography>
             <CommentBox />
           </Grid>
         </Grid>
