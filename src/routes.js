@@ -19,6 +19,7 @@ import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetail
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
+import AddPersonePage from './pages/AddPersonel/AddPersonePage'
 import Admin from './pages/Admin/admin';
 
 export default function Router() {
@@ -36,6 +37,7 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'userProfile', element: <UserProfile /> },
+        { path: 'add-personnel', element: <AddPersonePage /> },
         { path: 'admin', element: <Admin /> },
       ],
     },

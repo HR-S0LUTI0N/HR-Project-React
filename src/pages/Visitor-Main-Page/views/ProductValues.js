@@ -59,10 +59,13 @@ function ProductValues() {
                 mb: 10, width: 1 / 2, display: 'block'
               }} onChange={handleInput} />
             </div>
-            <Grid container spacing={5}>
+            <Grid container spacing={5} sx={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
               {
                 searchedCompanyList.map((company) => (
-                  <Grid item key={company.companyId} xs={12} md={4} >
+                  <Grid item key={company.companyId} xs={12} md={4} sx={{}} >
                     <CompanyCard item={company} key={company.companyId} />
                   </Grid>
                 ))}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button, Grid, Paper } from '@mui/material';
 
 const CommentField = () => {
   const [comment, setComment] = useState('');
@@ -29,8 +29,9 @@ const CommentField = () => {
     }
   };
   return (
+
     <form onSubmit={handleSubmit}>
-      <Grid>
+      <Paper>
         <TextField
           label="Comment"
           variant="outlined"
@@ -40,7 +41,7 @@ const CommentField = () => {
           onChange={handleChange}
           fullWidth
         />{' '}
-      </Grid>
+      </Paper>
       <Grid mt={2} align="right">
         <Button variant="contained" color="primary" type="submit" sx={{
           bgcolor: "#ffa726", '&:hover': {
