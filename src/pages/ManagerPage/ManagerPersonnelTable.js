@@ -45,14 +45,17 @@ export default function StickyHeadTable() {
             navigate('/404');
         }
         const fetchData = async () => {
-            try {
-                const response2 = await axios.get(`http://localhost:9080/api/v1/user-profile/get-personnel-profiles-for-manager-dashboard/${token}`);
-                const data2 = response2.data;
-                setRows(data2);
-                console.log(data2);
-            } catch (error) {
-                console.log('Error', error);
-            }
+
+            const response2 = await axios.get(`http://localhost:9080/api/v1/user-profile/get-personnel-profiles-for-manager-dashboard/${token}`)
+                .then(response => {
+
+                    const data2 = response2.data;
+                    setRows(data2);
+                    console.log(data2);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
         };
         fetchData();
     }, []);
@@ -70,7 +73,7 @@ export default function StickyHeadTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden', maxWidth: 1490, ml: 2.8 }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+            <TableContainer sx={{ maxHeight: 440, width: 1490 }}>
                 <Typography variant="h4" component="h2" mb={2}>
                     Personnel List
                 </Typography>
@@ -85,7 +88,7 @@ export default function StickyHeadTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows === undefined ? "" : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                        {rows === undefined || rows.length === 0 || rows === null ? "" : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                             return (
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.index}>
                                     <>

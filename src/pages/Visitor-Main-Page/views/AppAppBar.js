@@ -16,7 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from '../../../images/Logo_HR.png';
 
-const settings = ['Profile', 'Logout'];
+const settings = ['Profile'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -44,18 +44,18 @@ function ResponsiveAppBar() {
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/");
+  };
 
   React.useEffect(() => {
-    if (token == null) {
+    if (token === null) {
       navigate('/404')
     } else if (!roles.includes('VISITOR')) {
       navigate('/404');
     }
-    axios.get(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name/${token}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    axios.get(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name/${token}`)
       .then(response => {
         const data = response.data;
         setProfile(data);
@@ -120,6 +120,9 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

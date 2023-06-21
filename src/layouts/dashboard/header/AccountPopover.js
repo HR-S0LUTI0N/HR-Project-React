@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 // mocks_
-import account from '../../../_mock/account';
 
 // ----------------------------------------------------------------------
 
@@ -17,6 +18,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(null);
   const token = sessionStorage.getItem('token');
   const [userData, setUserData] = useState([]);
@@ -35,6 +37,13 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
+
+    setOpen(null);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/");
     setOpen(null);
   };
 
@@ -81,9 +90,8 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {`${userData.name} ${userData.middleName === null ? '' : userData.middleName} ${
-              userData.surname === null ? '' : userData.surname
-            }`}
+            {`${userData.name} ${userData.middleName === null ? '' : userData.middleName} ${userData.surname === null ? '' : userData.surname
+              }`}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {userData.email}
@@ -102,7 +110,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

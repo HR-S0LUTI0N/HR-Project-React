@@ -30,6 +30,9 @@ function ProductValues() {
       .then(data => {
         setCompanyList(data);
         setSearchedCompanyList(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
       });
   }, [])
 
