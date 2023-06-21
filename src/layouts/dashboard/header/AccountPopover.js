@@ -23,14 +23,20 @@ export default function AccountPopover() {
   const token = sessionStorage.getItem('token');
   const [userData, setUserData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name-and-surname/${token}`, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name-and-surname/${token}`, {
+          method: 'GET',
+        });
+        const data = await response.json();
         console.log(data);
         setUserData(data);
-      });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
   }, []);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
