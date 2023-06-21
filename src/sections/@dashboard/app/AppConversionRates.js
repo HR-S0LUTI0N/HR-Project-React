@@ -71,7 +71,7 @@ export default function AppConversionRates({ title }) {
       phone: data.get('phone'),
       wage: data.get('wage'),
       wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
-      avatar: imgs,
+      base64Avatar: imgs,
       neighbourhood: data.get('neighbourhood'),
       district: data.get('district'),
       province: data.get('province'),
@@ -88,15 +88,17 @@ export default function AppConversionRates({ title }) {
     };
     console.log('Form Data:', payload);
 
-    try {
-      if (shiftEnd.isBefore(shiftStart)) {
-        throw new Error('Giriş Başarısız');
-      }
-      const response = await axios.post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload);
-      console.log('Success:', response.data);
-    } catch (error) {
-      console.error('Error:', error);
+
+    if (shiftEnd.isBefore(shiftStart)) {
+      throw new Error('Giriş Başarısız');
     }
+    await axios.post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
+      .then(response => {
+        console.log('Success:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
 
   };
 
