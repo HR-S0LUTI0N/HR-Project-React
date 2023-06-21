@@ -23,14 +23,33 @@ const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const [emailValid, setEmailValid] = React.useState(true);
+  const [emailError, setEmailError] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [nameValid, setNameValid] = React.useState(true);
+  const [name, setName] = React.useState('');
+  const [nameError, setNameError] = React.useState('');
+  const [middleName, setMiddlename] = React.useState('');
+  const [middleNameValid, setMiddlenameValid] = React.useState(true);
+  const [middleNameError, setMiddlenameError] = React.useState('');
   const [surnameValid, setSurnameValid] = React.useState(true);
+  const [surnameError, setSurnameError] = React.useState('');
+  const [surname, setSurname] = React.useState('');
   const [passwordValid, setPasswordValid] = React.useState(true);
+  const [passwordError, setPasswordError] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [repasswordError, setRepasswordError] = React.useState('');
+  const [repassword, setRepassword] = React.useState('');
   const [repasswordValid, setRepasswordValid] = React.useState(true);
   const [identificationNumberValid, setIdentificationNumberValid] = React.useState(true);
+  const [identificationNumberError, setIdentificationNumberError] = React.useState('');
+  const [identificationNumber, setIdentificationNumber] = React.useState('');
   const [departmentValid, setDepartmentValid] = React.useState(true);
+  const [department, setDepartment] = React.useState('');
+  const [departmentError, setDepartmentError] = React.useState('');
   const [company, setCompany] = React.useState('');
   const [companies, setCompanies] = React.useState([]);
+  const [companySelected, setCompanySelected] = React.useState(false);
+  const [companyError, setCompanyError] = React.useState("");
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -45,46 +64,205 @@ export default function SignInSide() {
       console.error('Error fetching companies:', error);
     }
   };
-
-  const handleEmailChange = (event) => {
-    const email = event.target.value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailValid(emailRegex.test(email));
+  const handleNameChange = (event) => {
+    const name = event.target.value.toLowerCase().trim()
+    setName(name);
+   
+  const validateName = () => {
+    
+    if (name.trim().length === 0) {
+      
+      return 'Name can not be empty';
+      
+    }
+    const re = /^[A-Za-z]+$/;
+    if (!re.test(name)) {
+      return 'Name should only contain letters';
+    }
+    if (name.length > 12) {
+      return 'Name should not exceed 12 characters';
+    }
+    return '';
   };
 
-  const handleNameChange = (event) => {
-    const name = event.target.value;
-    setNameValid(name.length > 2);
+  const errorMessage = validateName();
+  setNameError(errorMessage);
+  setNameValid(errorMessage === '');
+  };
+
+  const handleMiddleChange = (event) => {
+    
+    const middleName = event.target.value.toLowerCase().trim()
+    setMiddlename(middleName);
+   
+  const validateMiddleName = () => {
+    
+   
+    const re = /^[A-Za-z]+$/;
+    if (!re.test(middleName) && !(middleName.trim().length === 0)) {
+      return 'Middle name should only contain letters';
+    }
+    if (middleName.length > 12) {
+      return 'Middle name should not exceed 12 characters';
+    }
+    return '';
+  };
+
+  const errorMessage = validateMiddleName();
+  setMiddlenameError(errorMessage);
+  setMiddlenameValid(errorMessage === '');
   };
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value;
-    setSurnameValid(surname.length > 2);
+    const surname = event.target.value.toLowerCase().trim();
+    setSurname(surname)
+    const validateSurname = () => {
+      if (surname.trim().length === 0) {
+        return 'Surname can not be empty';
+      }
+      const re = /^[A-Za-z]+$/;
+      if (!re.test(surname)) {
+        return 'Surname should only contain letters';
+      }
+      if (surname.length > 15) {
+        return 'Surname should not exceed 15 characters';
+      }
+      return '';
+    };
+  
+    const errorMessage = validateSurname();
+    setSurnameError(errorMessage);
+    setSurnameValid(errorMessage === '');
   };
 
-  const handlePasswordChange = (event) => {
-    const password = event.target.value;
-    setPasswordValid(password.length >= 8);
+
+  const handleEmailChange = (event) => {
+
+    const email = event.target.value;
+
+    setEmail(email)
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+   setEmailValid(emailRegex.test(email));
+
+   const validateEmail = () => {
+     
+     if (email.trim().length === 0) {
+       return 'Email can not be empty';
+
+     }
+
+     if (!emailRegex.test(email)) {
+       return 'Please enter a valid email address';
+     }
+     
+     if (email.length > 60) {
+       return 'Email should not exceed 60 characters';
+     }
+     return '';
+   };
+ 
+   const errorMessage = validateEmail();
+   setEmailError(errorMessage);
+   setEmailValid(errorMessage === '');
+ };
+
+ const handlePasswordChange = (event) => {
+  const password = event.target.value;
+  
+  setPassword(password)
+  const validateSurname = () => {
+    
+    if (password.length <= 8) {
+      return `Password must be at least 8 characters long. Your password characters ${password.length}` ;
+    }
+    if (password.length > 45) {
+      return 'Password should not exceed 45 characters';
+    }
+    return '';
   };
 
-  const handleRepasswordChange = (event) => {
-    const repassword = event.target.value;
-    setRepasswordValid(repassword === document.getElementById('password').value);
+  const errorMessage = validateSurname();
+  setPasswordError(errorMessage);
+  setPasswordValid(errorMessage === '');
+};
+
+const handleRepasswordChange = (event) => {
+  const repassword = event.target.value;
+  setRepassword(repassword)
+  const validateRepassword = () => {
+    
+    if (!(repassword === document.getElementById('password').value)) {
+      return 'Passwords do not match';
+    }
+    if (password.length > 45) {
+      return 'Password should not exceed 45 characters';
+    }
+    return '';
   };
 
-  const handleIdentificationNumberChange = (event) => {
-    const identificationNumber = event.target.value;
-    setIdentificationNumberValid(identificationNumber.length === 11);
-  };
+  const errorMessage = validateRepassword();
+  setRepasswordError(errorMessage);
+  setRepasswordValid(errorMessage === '');
+};
+
+const handleIdentificationNumberChange = (event) => {
+  const identificationNumber = event.target.value;
+  
+  setIdentificationNumber(identificationNumber);
+ 
+const validateID = () => {
+  
+  const re = /^[0-9]+$/;
+  if (!re.test(identificationNumber)) {
+    return 'ID number should only contain numbers';
+  }
+  if (!(identificationNumber.length === 11)) {
+    return `ID number must be 11 characters. Your ID characters: ${identificationNumber.length}`;
+  }
+  
+  return '';
+};
+
+const errorMessage = validateID();
+setIdentificationNumberError(errorMessage);
+setIdentificationNumberValid(errorMessage === '');
+};
+
 
   const handleDepartmentChange = (event) => {
-    const department = event.target.value;
-    setDepartmentValid(department.length >= 2);
+  
+    const department = event.target.value.toLowerCase().trim()
+    setDepartment(department);
+   
+  const validateDepartment = () => {
+    
+    if (department.trim().length === 0) {
+      
+      return 'Department can not be empty';
+      
+    }
+    const re = /^[A-Za-z]+$/;
+    if (!re.test(department)) {
+      return 'Department should only contain letters';
+    }
+    if (department.length > 25) {
+      return 'Department should not exceed 25 characters';
+    }
+    return '';
+  };
+
+  const errorMessage = validateDepartment();
+  setDepartmentError(errorMessage);
+  setDepartmentValid(errorMessage === '');
   };
 
   const handleCompanyChange = (event) => {
     setCompany(event.target.value);
     console.log(event.target.value);
+    setCompanySelected(true);
+    setCompanyError("");
+    
   };
 
   const handleSubmit = async (event) => {
@@ -96,7 +274,15 @@ export default function SignInSide() {
       passwordValid &&
       repasswordValid &&
       identificationNumberValid &&
-      departmentValid
+      departmentValid && name.length>0 &&
+      middleNameValid &&
+      surname.length>0 &&
+      email.length>0 &&
+      password.length>0 &&
+      repassword.length>0 &&
+      identificationNumber.length>0 &&
+      department.length>0 &&
+      companySelected === true
     ) {
       const formData = {
         email: event.target.email.value,
@@ -122,6 +308,104 @@ export default function SignInSide() {
       }
     } else {
       console.log('Form data is invalid');
+      
+        const validateName = () => {
+          if (name.trim().length === 0) {
+            
+            return 'Name can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessageName = validateName();
+        setNameError(errorMessageName);
+        setNameValid(errorMessageName === '');
+      
+        const validateSurname = () => {
+          if (surname.trim().length === 0) {
+            return 'Surname can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessageSurname = validateSurname();
+        setSurnameError(errorMessageSurname);
+        setSurnameValid(errorMessageSurname === '');
+      
+      
+        const validateEmail = () => {
+          if (email.trim().length === 0) {
+            return 'Email can not be empty';
+          }
+
+          return '';
+        };
+      
+        const errorMessageEmail = validateEmail();
+        setEmailError(errorMessageEmail);
+        setEmailValid(errorMessageEmail === '');
+      
+      
+        const validatePassword = () => {
+          if (password.trim().length === 0) {
+            return 'Password can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessagePassword = validatePassword();
+        setPasswordError(errorMessagePassword);
+        setPasswordValid(errorMessagePassword === '');
+      
+        const validateRepassword = () => {
+          if (repassword.trim().length === 0) {
+            return 'Repassword can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessageRepassword = validateRepassword();
+        setRepasswordError(errorMessageRepassword);
+        setRepasswordValid(errorMessageRepassword === '');
+      
+      
+        const validateID = () => {
+          if (identificationNumber.trim().length === 0) {
+            return 'ID number can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessageID = validateID();
+        setIdentificationNumberError(errorMessageID);
+        setIdentificationNumberValid(errorMessageID === '');
+      
+      
+        
+        const validateDepartment = () => {
+          if (department.trim().length === 0) {
+            
+            return 'Department can not be empty';
+          }
+          
+          return '';
+        };
+      
+        const errorMessageDepartment = validateDepartment();
+        setDepartmentError(errorMessageDepartment);
+        setDepartmentValid(errorMessageDepartment === '');
+      
+
+      if (!companySelected) {
+        console.log('Please select a company');
+        setCompanyError("Please select a company"); 
+      
+      }
     }
   };
 
@@ -171,7 +455,7 @@ export default function SignInSide() {
                     autoComplete="name"
                     autoFocus
                     error={!nameValid}
-                    helperText={!nameValid ? 'Please enter your name' : ''}
+                    helperText={!nameValid ? nameError : ''}
                     onChange={handleNameChange}
                   />
                 </Grid>
@@ -183,6 +467,10 @@ export default function SignInSide() {
                     label="Middle Name"
                     name="middleName"
                     autoComplete="middleName"
+                    autoFocus
+                    error={!middleNameValid}
+                    helperText={!middleNameValid ? middleNameError : ''}
+                    onChange={handleMiddleChange}
                   />
                 </Grid>
               </Grid>
@@ -196,7 +484,7 @@ export default function SignInSide() {
                 autoComplete="surname"
                 autoFocus
                 error={!surnameValid}
-                helperText={!surnameValid ? 'Please enter your surname' : ''}
+                helperText={!surnameValid ? surnameError : ''}
                 onChange={handleSurnameChange}
               />
               <TextField
@@ -210,7 +498,7 @@ export default function SignInSide() {
                 autoFocus
                 type="email"
                 error={!emailValid}
-                helperText={!emailValid ? 'Please enter a valid email address' : ''}
+                helperText={!emailValid ? emailError : ''}
                 onChange={handleEmailChange}
               />
               <TextField
@@ -223,7 +511,7 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="new-password"
                 error={!passwordValid}
-                helperText={!passwordValid ? 'Password must be at least 8 characters long' : ''}
+                helperText={!passwordValid ? passwordError : ''}
                 onChange={handlePasswordChange}
               />
               <TextField
@@ -236,7 +524,7 @@ export default function SignInSide() {
                 id="repassword"
                 autoComplete="new-password"
                 error={!repasswordValid}
-                helperText={!repasswordValid ? 'Passwords do not match' : ''}
+                helperText={!repasswordValid ? repasswordError : ''}
                 onChange={handleRepasswordChange}
               />
               <TextField
@@ -249,7 +537,7 @@ export default function SignInSide() {
                 autoComplete="identificationNumber"
                 autoFocus
                 error={!identificationNumberValid}
-                helperText={!identificationNumberValid ? 'Please enter a valid identification number' : ''}
+                helperText={!identificationNumberValid ? identificationNumberError : ''}
                 onChange={handleIdentificationNumberChange}
               />
               <TextField
@@ -262,11 +550,11 @@ export default function SignInSide() {
                 autoComplete="department"
                 autoFocus
                 error={!departmentValid}
-                helperText={!departmentValid ? 'Department must be at least 2 characters long' : ''}
+                helperText={!departmentValid ? departmentError : ''}
                 onChange={handleDepartmentChange}
               />
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="company-label">Company</InputLabel>
+              <FormControl fullWidth margin="normal" error={Boolean(companyError)}>
+                <InputLabel id="company-label" error={Boolean(companyError)}>Company</InputLabel>
                 <Select labelId="company-label" id="company" value={company} onChange={handleCompanyChange}>
                   {companies.map((company) => (
                     <MenuItem key={company.companyId} value={company}>
@@ -274,6 +562,10 @@ export default function SignInSide() {
                     </MenuItem>
                   ))}
                 </Select>
+                {companyError && (
+                 <Typography variant="caption" color="error">
+                  {companyError}
+                 </Typography>)}
               </FormControl>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign Up
