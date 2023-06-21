@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isAddressEditMode, setIsAddressEditMode] = useState(false);
+
   const [name, setName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [surname, setSurname] = useState('');
@@ -57,7 +59,37 @@ function Overview() {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  const handleAddressEditClick = () => {
+    setIsAddressEditMode(!isAddressEditMode);
+  };
 
+  const handleNeighbourhoodChange = (e) => {
+    setNeighbourhood(e.target.value);
+  };
+
+  const handleDistrictChange = (e) => {
+    setDistrict(e.target.value);
+  };
+
+  const handleProvinceChange = (e) => {
+    setProvince(e.target.value);
+  };
+
+  const handleCountryChange = (e) => {
+    setCountry(e.target.value);
+  };
+
+  const handleBuildingNumberChange = (e) => {
+    setBuildingNumber(e.target.value);
+  };
+
+  const handleApartmentNumberChange = (e) => {
+    setApartmentNumber(e.target.value);
+  };
+
+  const handlePostalCodeChange = (e) => {
+    setPostalCode(e.target.value);
+  };
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
@@ -120,6 +152,34 @@ function Overview() {
         setSurname(updatedData.surname);
         setPhone(updatedData.phone);
         setEmail(updatedData.email);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleUpdateAddress = () => {
+    const updatedAddressData = {
+      neighbourhood,
+      district,
+      province,
+      country,
+      buildingNumber,
+      apartmentNumber,
+      postalCode,
+      token,
+    };
+
+    axios
+      .put('http://localhost:9080/api/v1/user-profile/update-personel-address', updatedAddressData)
+      .then((response) => {
+        const data = response.data;
+        setNeighbourhood(updatedAddressData.neighbourhood);
+        setDistrict(updatedAddressData.district);
+        setProvince(updatedAddressData.province);
+        setCountry(updatedAddressData.country);
+        setBuildingNumber(updatedAddressData.buildingNumber);
+        setApartmentNumber(updatedAddressData.apartmentNumber);
+        setPostalCode(updatedAddressData.postalCode);
       })
       .catch((error) => {
         console.error(error);
@@ -229,16 +289,97 @@ function Overview() {
           </Grid>
           <Grid item xs={12} md={6}>
             <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+              <EditIcon
+                style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
+                onClick={() => {
+                  handleAddressEditClick();
+                }}
+              />
               <h3>Address Information</h3>
-              <div>
-                <p>Neighbourhood: {neighbourhood}</p>
-                <p>District: {district}</p>
-                <p>Province: {province}</p>
-                <p>Country: {country}</p>
-                <p>Building Number: {buildingNumber}</p>
-                <p>Apartment Number: {apartmentNumber}</p>
-                <p>Postal Code: {postalCode}</p>
-              </div>
+              {isAddressEditMode ? (
+                <>
+                  <div>
+                    <TextField
+                      id="standard-textarea"
+                      label="Neighbourhood"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={neighbourhood}
+                      onChange={handleNeighbourhoodChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="District"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={district}
+                      onChange={handleDistrictChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="Province"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={province}
+                      onChange={handleProvinceChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="Country"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={country}
+                      onChange={handleCountryChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="Building Number"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={buildingNumber}
+                      onChange={handleBuildingNumberChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="Apartment Number"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={apartmentNumber}
+                      onChange={handleApartmentNumberChange}
+                    />
+                    <TextField
+                      id="standard-textarea"
+                      label="Postal Code"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={postalCode}
+                      onChange={handlePostalCodeChange}
+                    />
+                  </div>
+                  <Button variant="contained" onClick={handleUpdateAddress} style={{ marginTop: '10px' }}>
+                    Save Changes
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <p>Neighbourhood: {neighbourhood}</p>
+                    <p>District: {district}</p>
+                    <p>Province: {province}</p>
+                    <p>Country: {country}</p>
+                    <p>Building Number: {buildingNumber}</p>
+                    <p>Apartment Number: {apartmentNumber}</p>
+                    <p>Postal Code: {postalCode}</p>
+                  </div>
+                </>
+              )}
             </div>
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
