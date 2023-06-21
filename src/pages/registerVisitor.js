@@ -39,8 +39,8 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const handleEmailChange = (event) => {
 
-     const email = event.target.value;
-
+     const email = event.target.value.trim();
+      
      setEmail(email)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -48,7 +48,7 @@ export default function SignInSide() {
 
     const validateEmail = () => {
       
-      if (email.trim().length === 0) {
+      if (email.length === 0) {
         return 'Email can not be empty';
 
       }
@@ -57,8 +57,8 @@ export default function SignInSide() {
         return 'Please enter a valid email address';
       }
       
-      if (email.length > 30) {
-        return 'Email should not exceed 30 characters';
+      if (email.length > 60) {
+        return 'Email should not exceed 60 characters';
       }
       return '';
     };
@@ -70,12 +70,13 @@ export default function SignInSide() {
 
   const handleNameChange = (event) => {
     
-    const name = event.target.value
+    const name = event.target.value.toLowerCase().trim()
+    console.log(name)
     setName(name);
    
   const validateName = () => {
     
-    if (name.trim().length === 0) {
+    if (name.length === 0) {
       
       return 'Name can not be empty';
       
@@ -97,7 +98,7 @@ export default function SignInSide() {
 
   const handleMiddleChange = (event) => {
     
-    const middleName = event.target.value
+    const middleName = event.target.value.toLowerCase().trim()
     setMiddlename(middleName);
    
   const validateMiddleName = () => {
@@ -120,10 +121,10 @@ export default function SignInSide() {
 
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value;
+    const surname = event.target.value.toLowerCase().trim();
     setSurname(surname)
     const validateSurname = () => {
-      if (surname.trim().length === 0) {
+      if (surname.length === 0) {
         return 'Surname can not be empty';
       }
       const re = /^[A-Za-z]+$/;
@@ -148,7 +149,7 @@ export default function SignInSide() {
     const validateSurname = () => {
       
       if (password.length <= 8) {
-        return 'Password must be at least 8 characters long';
+        return `Password must be at least 8 characters long. Your password characters ${password.length}` ;
       }
       if (password.length > 45) {
         return 'Password should not exceed 45 characters';
