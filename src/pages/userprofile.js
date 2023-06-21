@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -6,17 +6,33 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [name, setName] = useState('Alec');
-  const [middleName, setMiddleName] = useState('Micheal');
-  const [surname, setSurname] = useState('Thompson');
-  const [telephone, setTelephone] = useState('(44) 123 1234 123');
-  const [email, setEmail] = useState('alecthompson@mail.com');
+  const [name, setName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [neighbourhood, setNeighbourhood] = useState('');
+  const [district, setDistrict] = useState('');
+  const [province, setProvince] = useState('');
+  const [country, setCountry] = useState('');
+  const [buildingNumber, setBuildingNumber] = useState('');
+  const [apartmentNumber, setApartmentNumber] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyNeighbourhood, setCompanyNeighbourhood] = useState('');
+  const [companyDistrict, setCompanyDistrict] = useState('');
+  const [companyProvince, setCompanyProvince] = useState('');
+  const [companyCountry, setCompanyCountry] = useState('');
+  const [companyBuildingNumber, setCompanyBuildingNumber] = useState('');
+  const [companyApartmentNumber, setCompanyApartmentNumber] = useState('');
+  const [companyPostalCode, setCompanyPostalCode] = useState('');
   const navigate = useNavigate();
-
 
   const handleEditClick = () => {
     setIsEditMode(!isEditMode);
@@ -34,25 +50,81 @@ function Overview() {
     setSurname(e.target.value);
   };
 
-  const handleTelephoneChange = (e) => {
-    setTelephone(e.target.value);
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (token == null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('PERSONEL')) {
       navigate('/404');
+    } else {
+      handlePersonel();
     }
-  }, [])
+  }, []);
 
+  const handlePersonel = () => {
+    axios
+      .get(`http://localhost:9080/api/v1/user-profile/get-personel-profile-for-user-profile-dashboard/${token}`)
+      .then((response) => {
+        const data = response.data;
+        setName(data.name);
+        setMiddleName(data.middleName);
+        setSurname(data.surname);
+        setPhone(data.phone);
+        setEmail(data.email);
+        setNeighbourhood(data.neighbourhood);
+        setDistrict(data.district);
+        setProvince(data.province);
+        setCountry(data.country);
+        setBuildingNumber(data.buildingNumber);
+        setApartmentNumber(data.apartmentNumber);
+        setPostalCode(data.postalCode);
+        setCompanyNeighbourhood(data.companyNeighbourhood);
+        setCompanyDistrict(data.companyDistrict);
+        setCompanyProvince(data.companyProvince);
+        setCompanyCountry(data.companyCountry);
+        setCompanyBuildingNumber(data.companyBuildingNumber);
+        setCompanyApartmentNumber(data.companyApartmentNumber);
+        setCompanyPostalCode(data.companyPostalCode);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleUpdatePersonel = () => {
+    const updatedData = {
+      name,
+      middleName,
+      surname,
+      phone,
+      email,
+      token,
+    };
+
+    axios
+      .put('http://localhost:9080/api/v1/user-profile/updatePersonel', updatedData)
+      .then((response) => {
+        const data = response.data;
+        setName(updatedData.name);
+        setMiddleName(updatedData.middleName);
+        setSurname(updatedData.surname);
+        setPhone(updatedData.phone);
+        setEmail(updatedData.email);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <section style={{ padding: '30px', marginLeft: 0, marginRight: 0 }}>
@@ -68,26 +140,71 @@ function Overview() {
             <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <EditIcon
                 style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
-                onClick={handleEditClick}
+                onClick={() => {
+                  handleEditClick();
+                }}
               />
               <h3>Profile Information</h3>
               {isEditMode ? (
                 <>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <input type="text" value={name} onChange={handleNameChange} />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <TextField
+                      id="standard-textarea"
+                      label="Name"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={name}
+                      onChange={handleNameChange}
+                    />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <input type="text" value={middleName} onChange={handleMiddleNameChange} />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <TextField
+                      id="standard-textarea"
+                      label="Middle Name"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={middleName}
+                      onChange={handleMiddleNameChange}
+                    />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <input type="text" value={surname} onChange={handleSurnameChange} />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <TextField
+                      id="standard-textarea"
+                      label="Surname"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={surname}
+                      onChange={handleSurnameChange}
+                    />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <input type="text" value={telephone} onChange={handleTelephoneChange} />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <TextField
+                      id="standard-textarea"
+                      label="Phone"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={phone}
+                      onChange={handlePhoneChange}
+                    />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                    <input type="text" value={email} onChange={handleEmailChange} />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <TextField
+                      id="standard-textarea"
+                      label="Email"
+                      placeholder="Placeholder"
+                      multiline
+                      variant="standard"
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
                   </div>
+                  <Button variant="contained" onClick={handleUpdatePersonel} style={{ marginTop: '10px' }}>
+                    Save Changes
+                  </Button>
                 </>
               ) : (
                 <>
@@ -101,49 +218,26 @@ function Overview() {
                     <p>Surname: {surname}</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p style={{ marginRight: '10px' }}>Mobile: {telephone}</p>
+                    <p style={{ marginRight: '10px' }}>Mobile: {phone}</p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <p style={{ marginRight: '10px' }}>Email: {email}</p>
-                    <p>Location: USA</p>
                   </div>
                 </>
               )}
-              <div>
-                <a href="https://www.facebook.com/CreativeTim/" style={{ marginRight: '10px' }}>
-                  <FacebookIcon /> Facebook
-                </a>
-                <a href="https://twitter.com/creativetim" style={{ marginRight: '10px' }}>
-                  <TwitterIcon /> Twitter
-                </a>
-                <a href="https://www.instagram.com/creativetimofficial/">
-                  <InstagramIcon /> Instagram
-                </a>
-              </div>
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
             <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <h3>Address Information</h3>
               <div>
-                <p>Neighbourhood: Alec M. Thompson</p>
-                <p>District: (44) 123 1234 123</p>
-                <p>Province: alecthompson@mail.com</p>
-                <p>Country: USA</p>
-                <p>Building Number: USA</p>
-                <p>Apartment Number: USA</p>
-                <p>Postal Code: USA</p>
-              </div>
-              <div>
-                <a href="https://www.facebook.com/CreativeTim/" style={{ marginRight: '10px' }}>
-                  <FacebookIcon /> Facebook
-                </a>
-                <a href="https://twitter.com/creativetim" style={{ marginRight: '10px' }}>
-                  <TwitterIcon /> Twitter
-                </a>
-                <a href="https://www.instagram.com/creativetimofficial/">
-                  <InstagramIcon /> Instagram
-                </a>
+                <p>Neighbourhood: {neighbourhood}</p>
+                <p>District: {district}</p>
+                <p>Province: {province}</p>
+                <p>Country: {country}</p>
+                <p>Building Number: {buildingNumber}</p>
+                <p>Apartment Number: {apartmentNumber}</p>
+                <p>Postal Code: {postalCode}</p>
               </div>
             </div>
           </Grid>
@@ -151,24 +245,13 @@ function Overview() {
             <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <h3>Company Information</h3>
               <div>
-                <p>Neighbourhood: Alec M. Thompson</p>
-                <p>District: (44) 123 1234 123</p>
-                <p>Province: alecthompson@mail.com</p>
-                <p>Country: USA</p>
-                <p>Building Number: USA</p>
-                <p>Apartment Number: USA</p>
-                <p>Postal Code: USA</p>
-              </div>
-              <div>
-                <a href="https://www.facebook.com/CreativeTim/" style={{ marginRight: '10px' }}>
-                  <FacebookIcon /> Facebook
-                </a>
-                <a href="https://twitter.com/creativetim" style={{ marginRight: '10px' }}>
-                  <TwitterIcon /> Twitter
-                </a>
-                <a href="https://www.instagram.com/creativetimofficial/">
-                  <InstagramIcon /> Instagram
-                </a>
+                <p>Neighbourhood: {companyNeighbourhood}</p>
+                <p>District: {companyDistrict}</p>
+                <p>Province: {companyProvince}</p>
+                <p>Country: {companyCountry}</p>
+                <p>Building Number: {companyBuildingNumber}</p>
+                <p>Apartment Number: {companyApartmentNumber}</p>
+                <p>Postal Code: {companyPostalCode}</p>
               </div>
             </div>
           </Grid>
