@@ -19,6 +19,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 
 
 
@@ -33,7 +35,11 @@ export default function AppConversionRates({ title }) {
   const [gender, setGender] = useState(comboOptions[0]);
   const locale = 'en-gb';
   const [inputValue, setInputValue] = React.useState('');
-  const [imgs, setImgs] = useState()
+  const [imgs, setImgs] = useState('');
+  const [shiftStart, setShiftStart] = useState(dayjs());
+  const [shiftEnd, setShiftEnd] = useState(dayjs());
+
+
 
   function handleChange(e) {
     console.log(e.target.files)
@@ -50,6 +56,9 @@ export default function AppConversionRates({ title }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
+    console.log(shiftStart.format('LTS'))
+    console.log(shiftEnd.format('LTS'))
+
     const payload = {
       email: data.get('email'),
       birthPlace: data.get('birthPlace'),
@@ -72,7 +81,7 @@ export default function AppConversionRates({ title }) {
       postalCode: data.get('postalCode'),
       department: data.get('department'),
       jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
-      jobShift: data.get('jobShift'),
+      jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
       jobBreak: data.get('jobBreak'),
       employeeLeaves: data.get('employeeLeaves'),
 
@@ -80,11 +89,15 @@ export default function AppConversionRates({ title }) {
     console.log('Form Data:', payload);
 
     try {
+      if (shiftEnd.isBefore(shiftStart)) {
+        throw new Error('Giriş Başarısız');
+      }
       const response = await axios.post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload);
       console.log('Success:', response.data);
     } catch (error) {
       console.error('Error:', error);
     }
+
   };
 
   const handleOnClick = async () => {
@@ -164,8 +177,7 @@ export default function AppConversionRates({ title }) {
                 />
                 <TextField id="phone" name="phone" label="Phone" variant="filled" sx={{ width: 280 }} />
                 <TextField id="department" name="department" label="Department" variant="filled" sx={{ width: 280 }} />
-                <TextField id="jobShift" name="shift" label="Shift" variant="filled" sx={{ width: 280 }} />
-                <TextField id="jobBreak" name="break" label="Break" variant="filled" sx={{ width: 280 }} />
+                <TextField id="jobBreak" name="jobBreak" label="Break" variant="filled" sx={{ width: 280 }} />
                 <TextField
                   id="employeeLeaves"
                   name="employeeLeaves"
@@ -183,6 +195,32 @@ export default function AppConversionRates({ title }) {
                   }}
                   sx={{ width: 280 }}
                 />
+                <Grid container justifyContent="center" sx={{ mx: 'auto' }}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['TimePicker', 'TimePicker']}>
+                      <Box sx={{ mr: 2 }}>
+                        <TimePicker
+                          sx={{ width: 280 }}
+                          label="Shift Start"
+                          defaultValue={shiftStart}
+                          onChange={(e) => {
+                            setShiftStart(e)
+                            console.log(e)
+                          }}
+                        />
+                      </Box>
+                      <TimePicker
+                        sx={{ width: 280 }}
+                        label="Shift End"
+                        value={shiftEnd}
+                        onChange={(e) => {
+                          setShiftEnd(e)
+                          console.log(e)
+                        }}
+                      />
+                    </DemoContainer>
+                  </LocalizationProvider>
+                </Grid>
                 <Autocomplete
                   sx={{ width: 280 }}
                   name="Gender"
