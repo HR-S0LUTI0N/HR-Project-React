@@ -21,11 +21,12 @@ const columns = [
     { id: 'salary', label: 'Salary', },
     { id: 'salaryDate', label: 'Salary Date', },
     { id: 'dateOfBirth', label: 'Date Of Birth', },
+    { id: 'jobStartingDate', label: 'Job Starting Date', },
     { id: 'status', label: 'Status', },
 ];
 
-function createData(avatar, name, department, role, remainingDaysOff, salary, salaryDate, dateOfBirth, status) {
-    return { avatar, name, department, role, remainingDaysOff, salary, salaryDate, dateOfBirth, status };
+function createData(avatar, name, department, role, remainingDaysOff, salary, salaryDate, dateOfBirth, jobStartingDate, status) {
+    return { avatar, name, department, role, remainingDaysOff, salary, salaryDate, dateOfBirth, jobStartingDate, status };
 }
 
 
@@ -40,25 +41,33 @@ export default function StickyHeadTable() {
 
     React.useEffect(() => {
         if (token == null) {
-            navigate('/404')
+            navigate('/404');
         } else if (!roles.includes('MANAGER')) {
             navigate('/404');
         }
+
         const fetchData = async () => {
-
-            const response2 = await axios.get(`http://localhost:9080/api/v1/user-profile/get-personnel-profiles-for-manager-dashboard/${token}`)
-                .then(response => {
-
-                    const data2 = response2.data;
-                    setRows(data2);
-                    console.log(data2);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                })
+            try {
+                const response = await axios.get(
+                    `http://localhost:9080/api/v1/user-profile/get-personnel-profiles-for-manager-dashboard/${token}`
+                );
+                const data = response.data;
+                console.log(response)
+                console.log(data)
+                if (Array.isArray(data)) {
+                    setRows(data);
+                } else {
+                    console.error('Invalid data format:', data);
+                    setRows([]);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         };
+
         fetchData();
     }, []);
+
 
 
 
@@ -73,7 +82,7 @@ export default function StickyHeadTable() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden', maxWidth: 1490, ml: 2.8 }}>
-            <TableContainer sx={{ maxHeight: 440, width: 1490 }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
                 <Typography variant="h4" component="h2" mb={2}>
                     Personnel List
                 </Typography>
@@ -88,12 +97,12 @@ export default function StickyHeadTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows === undefined || rows.length === 0 || rows === null ? "" : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                        {rows === undefined ? "" : rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                             return (
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.index}>
                                     <>
                                         <TableCell key={row.index} align="center" sx={{ width: 120 }}>
-                                            <Avatar alt={row.name.toUpperCase()} src={row.avatar} sx={{ bgcolor: '#ffa726' }} />
+                                            <Avatar alt={row.name.toUpperCase()} src={row.avatar ? row.avatar : ''} sx={{ bgcolor: '#ffa726' }} />
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 400 }}>
                                             {row.name} {row.middleName ? row.middleName : ''} {row.surname}
@@ -105,16 +114,19 @@ export default function StickyHeadTable() {
                                             {row.roleString}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
-                                            {row.remainingDayOffs}
+                                            {row.employeeLeaves}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
-                                            {row.salary == null ? 0 : row.salary}
+                                            {row.wage == null ? 0 : row.wage}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
-                                            {row.salaryDate == null ? 0 : row.salaryDate}
+                                            {row.wageDate == null ? 0 : row.wageDate}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
                                             {row.dateOfBirth == null ? 0 : row.dateOfBirth}
+                                        </TableCell>
+                                        <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
+                                            {row.jobStartingDate == null ? 0 : row.jobStartingDate}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
                                             {row.estatus}
