@@ -55,11 +55,11 @@ export default function AddCompany({ title }) {
       return '';
     };
 
+
     const errorMessage = validateCompanyName();
     setCompanyNameError(errorMessage);
     setCompanyNameValid(errorMessage === '');
   };
-
 
   function handleChange(e) {
     console.log(e.target.files);
@@ -73,10 +73,15 @@ export default function AddCompany({ title }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
+
+    console.log(shiftStart.format('LTS'));
+    console.log(shiftEnd.format('LTS'));
+
     if(companyNameValid &&
        companyName.length >0 
       ){
       const data = new FormData(event.currentTarget);
+
     const payload = {
       companyName: data.get('companyName'),
       sector: data.get('sector'),
@@ -92,6 +97,16 @@ export default function AddCompany({ title }) {
       companyBuildingNumber: data.get('companyBuildingNumber'),
       companyApartmentNumber: data.get('companyApartmentNumber'),
       companyPostalCode: data.get('companyPostalCode'),
+
+    };
+    console.log('Form Data:', payload);
+
+    if (shiftEnd.isBefore(shiftStart)) {
+      throw new Error('Giriş Başarısız');
+    }
+    await axios
+      .post(`http://localhost:9070/api/v1/company/2312321/${token}`, payload)
+
       holidayDates: markedDates,
       base64Logo: imgs
     };
@@ -101,12 +116,21 @@ export default function AddCompany({ title }) {
 
     await axios
       .post(`http://localhost:9070/api/v1/company/save/${token}`, payload)
+
       .then((response) => {
         console.log('Success:', response.data);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
+
+  };
+
+  function handleDates(e) {
+    console.log(e.target.value);
+    console.log('Burdayız');
+  }
+
     } else {
       console.log('Form data is invalid');
 
@@ -123,6 +147,7 @@ export default function AddCompany({ title }) {
       setCompanyNameValid(errorMessageCompanyName === '');
     }
   };
+
 
   return (
     <>
@@ -177,7 +202,17 @@ export default function AddCompany({ title }) {
             >
               <CardHeader subheader="Company Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+
+                <TextField
+                  id="companyName"
+                  name="companyName"
+                  label="Company Name"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+
                 <TextField id="companyName" name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} error={!companyNameValid} helperText={!companyNameValid ? companyNameError : ''} onChange={handleCompanyNameChange} />
+
                 <TextField id="sector" name="sector" label="Sector" variant="filled" sx={{ width: 280 }} />
                 <TextField id="taxNumber" name="taxNumber" label="TaxNumber" variant="filled" sx={{ width: 280 }} />
                 <TextField
@@ -205,6 +240,59 @@ export default function AddCompany({ title }) {
 
               <CardHeader subheader="Company Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+
+                <TextField
+                  id="companyNeighbourhood"
+                  name="companyNeighbourhood"
+                  label="Neighbourhood"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyDistrict"
+                  name="companyDistrict"
+                  label="District"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyProvince"
+                  name="companyProvince"
+                  label="Province"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyCountry"
+                  name="companyCountry"
+                  label="Country"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyBuildingNumber"
+                  name="companyBuildingNumber"
+                  label="BuildingNumber"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyApartmentNumber"
+                  name="companyApartmentNumber"
+                  label="ApartmentNumber"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+                <TextField
+                  id="companyPostalCode"
+                  name="companyPostalCode"
+                  label="PostalCode"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                />
+              </Grid>
+              <Grid sx={{ mt: '2rem' }}>
+
                 <TextField id="companyNeighbourhood" name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} />
                 <TextField id="companyDistrict" name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} />
                 <TextField id="companyProvince" name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} />
@@ -215,6 +303,7 @@ export default function AddCompany({ title }) {
               </Grid>
               <CardHeader subheader="Company Holidays" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+
                 <DateCalendarServerRequest />
               </Grid>
               <Grid container justifyContent="center" >
@@ -224,7 +313,8 @@ export default function AddCompany({ title }) {
                   sx={{
                     borderRadius: 2,
                     padding: 1,
-                    bgcolor: "#ffa726", '&:hover': {
+                    bgcolor: '#ffa726',
+                    '&:hover': {
                       bgcolor: 'grey',
                     },
                   }}>
