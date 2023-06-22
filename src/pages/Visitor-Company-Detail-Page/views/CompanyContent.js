@@ -73,7 +73,7 @@ function CompanyContent() {
                   {
                     company.companyName === undefined
                       ? "Default Company"
-                      : `${company.companyName} ${company.title}`
+                      : `${company.companyName}`
                   }
                 </Typography>
               </Box>
