@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAddressEditMode, setIsAddressEditMode] = useState(false);
+  const [isPasswordChangeMode, setPasswordChangeMode] = useState(false);
 
   const [name, setName] = useState('');
   const [middleName, setMiddleName] = useState('');
@@ -34,6 +33,10 @@ function Overview() {
   const [companyBuildingNumber, setCompanyBuildingNumber] = useState('');
   const [companyApartmentNumber, setCompanyApartmentNumber] = useState('');
   const [companyPostalCode, setCompanyPostalCode] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const navigate = useNavigate();
 
   const handleEditClick = () => {
@@ -89,6 +92,23 @@ function Overview() {
 
   const handlePostalCodeChange = (e) => {
     setPostalCode(e.target.value);
+  };
+  const handlePasswordChangeClick = () => {
+    setPasswordChangeMode(!isPasswordChangeMode);
+  };
+
+  const handleOldPasswordChange = (event) => {
+    setOldPassword(event.target.value);
+  };
+
+  const handleNewPasswordChange = (event) => {
+    setNewPassword(event.target.value);
+    setPasswordsMatch(confirmPassword === event.target.value);
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+    setPasswordsMatch(newPassword === event.target.value);
   };
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
@@ -185,7 +205,31 @@ function Overview() {
         console.error(error);
       });
   };
+  const handlePasswordUpdate = () => {
+    if (newPassword === confirmPassword) {
+      const changePassword = {
+        oldPassword,
+        newPassword,
+        token,
+      };
 
+      axios
+        .put('http://localhost:9080/api/v1/user-profile/password-change', changePassword)
+        .then((response) => {
+          const data = response.data;
+          setOldPassword(changePassword.oldPassword);
+          setNewPassword(changePassword.newPassword);
+          setConfirmPassword(changePassword.confirmPassword);
+          setPasswordsMatch(true);
+          setPasswordChangeMode(false);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setPasswordsMatch(false);
+    }
+  };
   return (
     <section style={{ padding: '30px', marginLeft: 0, marginRight: 0 }}>
       <Avatar
@@ -197,7 +241,7 @@ function Overview() {
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <EditIcon
                 style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
                 onClick={() => {
@@ -288,7 +332,7 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <EditIcon
                 style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
                 onClick={() => {
@@ -383,7 +427,7 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
-            <div style={{ background: '#f7f7f7', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
               <h3>Company Information</h3>
               <div>
                 <p>Neighbourhood: {companyNeighbourhood}</p>
@@ -393,6 +437,81 @@ function Overview() {
                 <p>Building Number: {companyBuildingNumber}</p>
                 <p>Apartment Number: {companyApartmentNumber}</p>
                 <p>Postal Code: {companyPostalCode}</p>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={12} md={6} sx={{ margin: 0 }}>
+            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+              <h3>Change Password</h3>
+              <div>
+                <Button
+                  variant="contained"
+                  onClick={handlePasswordChangeClick}
+                  style={{ minWidth: 140 }}
+                  sx={{
+                    borderRadius: 2,
+                    padding: 1,
+                    bgcolor: '#ffa726',
+                    '&:hover': {
+                      bgcolor: 'grey',
+                    },
+                  }}
+                  endIcon={<KeyboardArrowDownIcon />}
+                >
+                  {isPasswordChangeMode ? 'Close' : 'Change Password'}
+                </Button>
+                {isPasswordChangeMode && (
+                  <div style={{ marginTop: '20px' }}>
+                    <TextField
+                      id="old-password"
+                      label="Old Password"
+                      type="password"
+                      variant="outlined"
+                      value={oldPassword}
+                      onChange={handleOldPasswordChange}
+                      style={{ marginBottom: '10px' }}
+                    />
+                    <br />
+                    <TextField
+                      id="new-password"
+                      label="New Password"
+                      type="password"
+                      variant="outlined"
+                      value={newPassword}
+                      onChange={handleNewPasswordChange}
+                      style={{ marginBottom: '10px' }}
+                      error={!passwordsMatch}
+                      helperText={!passwordsMatch && "Passwords don't match"}
+                    />
+                    <br />
+                    <TextField
+                      id="confirm-password"
+                      label="Confirm Password"
+                      type="password"
+                      variant="outlined"
+                      value={confirmPassword}
+                      onChange={handleConfirmPasswordChange}
+                      style={{ marginBottom: '10px' }}
+                      error={!passwordsMatch}
+                    />
+                    <br />
+                    <Button
+                      variant="contained"
+                      onClick={handlePasswordUpdate}
+                      style={{ maxWidth: 140, minWidth: 140 }}
+                      sx={{
+                        borderRadius: 2,
+                        padding: 1,
+                        bgcolor: '#ffa726',
+                        '&:hover': {
+                          bgcolor: 'grey',
+                        },
+                      }}
+                    >
+                      Update Password
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </Grid>
