@@ -8,6 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box, Card, CardHeader, Paper } from '@mui/material';
@@ -73,6 +74,18 @@ export default function AppConversionRates({ title }) {
   const [phoneError, setPhoneError] = useState('');
   const [wage, setWage] = useState('');
   const [wageError, setWageError] = useState('');
+  const token = sessionStorage.getItem('token');
+  const roles = sessionStorage.getItem('roles');
+  const navigate = useNavigate();
+
+
+  React.useEffect(() => {
+    if (token === null) {
+      navigate('/404')
+    } else if (!roles.includes('PERSONEL')) {
+      navigate('/404');
+    }
+  }, [])
 
   const successRegistrationToastMessage = () => {
     toast.success('Personnel Registration successfull !!', {
