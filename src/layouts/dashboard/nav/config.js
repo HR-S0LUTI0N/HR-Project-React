@@ -22,6 +22,11 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+    title: 'Add Company',
+    path: '/dashboard/add-company',
+    icon: icon('ic_user'),
+  },
+  {
     title: 'userProfile',
     path: '/dashboard/userProfile',
     icon: icon('ic_user'),

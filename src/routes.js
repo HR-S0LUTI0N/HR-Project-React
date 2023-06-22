@@ -19,8 +19,9 @@ import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetail
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
-import AddPersonePage from './pages/AddPersonel/AddPersonePage'
+import AddPersonelPage from './pages/AddPersonel/AddPersonePage'
 import Admin from './pages/Admin/admin';
+import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
 
 export default function Router() {
   const routes = useRoutes([
@@ -37,7 +38,8 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'userProfile', element: <UserProfile /> },
-        { path: 'add-personnel', element: <AddPersonePage /> },
+        { path: 'add-personnel', element: <AddPersonelPage /> },
+        { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
       ],
     },
