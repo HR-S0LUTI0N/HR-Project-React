@@ -22,6 +22,7 @@ import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage'
 import Admin from './pages/Admin/admin';
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
+import ForgotPasswordChange from './pages/ForgotPasswordChange'
 
 export default function Router() {
   const routes = useRoutes([
@@ -86,6 +87,10 @@ export default function Router() {
     {
       path: 'admin',
       element: <Admin />,
+    },
+    {
+      path: 'forgotpassword-notification',
+      element: <ForgotPasswordChange />
     },
     {
       element: <SimpleLayout />,
