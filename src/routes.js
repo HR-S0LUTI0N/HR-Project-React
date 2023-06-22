@@ -23,6 +23,7 @@ import AddPersonelPage from './pages/AddPersonel/AddPersonePage'
 import Admin from './pages/Admin/admin';
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
 import ForgotPasswordChange from './pages/ForgotPasswordChange'
+import ConfirmManager from './pages/ConfirmManager'
 
 export default function Router() {
   const routes = useRoutes([
@@ -91,6 +92,10 @@ export default function Router() {
     {
       path: 'forgotpassword-notification',
       element: <ForgotPasswordChange />
+    },
+    {
+      path: 'confirm-manager',
+      element: <ConfirmManager />
     },
     {
       element: <SimpleLayout />,
