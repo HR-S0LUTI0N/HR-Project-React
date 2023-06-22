@@ -99,7 +99,7 @@ export default function RegisterSuccesful() {
                     </Grid>
 
                     <Typography variant="h4" gutterBottom style={{ marginLeft: '100px', textAlign: 'center' }}>
-                        YOUR PASSWORD SUCCESFULLY CHANGED!
+                        YOUR PASSWORD SUCCESFULL CHANGED!
                     </Typography>
 
                     <Typography variant="body2" gutterBottom style={{ marginLeft: '100px', textAlign: 'center' }}>

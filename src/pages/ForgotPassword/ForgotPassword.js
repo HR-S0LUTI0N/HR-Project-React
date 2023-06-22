@@ -111,10 +111,10 @@ export default function ForgotPassword() {
         {mdUp && (
           <StyledSection>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Welcome Back
+              Did You Forgot Something
             </Typography>
             <img
-              src="https://img.freepik.com/free-psd/3d-female-character-working-laptop-while-sitting-chair_23-2148938889.jpg?w=740&t=st=1686328918~exp=1686329518~hmac=71f64deb539d96cf4dc76acf4ea4ffb326fdc954db311619dc03a8fd5a665cb0"
+              src="https://img.freepik.com/free-psd/3d-female-character-thinking-about-something_23-2148938891.jpg?w=826&t=st=1687465719~exp=1687466319~hmac=92d77616a2334719488ee7e479ac59c7458ca4f93912984f97e46773c4a773a2"
               alt="login"
             />
           </StyledSection>
