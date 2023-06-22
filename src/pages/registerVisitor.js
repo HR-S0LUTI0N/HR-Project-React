@@ -66,7 +66,7 @@ export default function SignInSide() {
   };
 
   const handleNameChange = (event) => {
-    const name = event.target.value.toLowerCase().trim();
+    const name = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     console.log(name);
     setName(name);
 
@@ -90,7 +90,7 @@ export default function SignInSide() {
   };
 
   const handleMiddleChange = (event) => {
-    const middleName = event.target.value.toLowerCase().trim();
+    const middleName = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
@@ -110,7 +110,7 @@ export default function SignInSide() {
   };
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value.toLowerCase().trim();
+    const surname = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setSurname(surname);
     const validateSurname = () => {
       if (surname.length === 0) {
