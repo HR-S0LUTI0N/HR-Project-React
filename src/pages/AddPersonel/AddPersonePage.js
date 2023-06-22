@@ -27,10 +27,10 @@ import {
     AppTrafficBySite,
     AppWidgetSummary,
     AppCurrentSubject,
-    AppConversionRates,
 
 } from '../../sections/@dashboard/app';
 import AddError from './AddError'
+import AppConversionRates from './AppConversionRates';
 
 
 
