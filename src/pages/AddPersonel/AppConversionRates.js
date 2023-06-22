@@ -28,11 +28,11 @@ import { ToastContainer, toast } from 'react-toastify';
 const comboOptions = ['MALE', 'FEMALE', 'OTHER'];
 
 export default function AppConversionRates({ title }) {
+  const locale = 'en-gb';
   const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
   const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
   const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
   const [gender, setGender] = useState(comboOptions[0]);
-  const locale = 'en-gb';
   const [inputValue, setInputValue] = React.useState('');
   const [imgs, setImgs] = useState('');
   const [shiftStart, setShiftStart] = useState(dayjs());
@@ -69,6 +69,10 @@ export default function AppConversionRates({ title }) {
   const [apartmentNumberError, setApartmentNumberError] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [postalCodeError, setPostalCodeError] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [wage, setWage] = useState('');
+  const [wageError, setWageError] = useState('');
 
   const successRegistrationToastMessage = () => {
     toast.success('Personnel Registration successfull !!', {
@@ -93,6 +97,7 @@ export default function AppConversionRates({ title }) {
     } else {
       setEmailError('');
     }
+
     setEmail(value);
   };
   const handleNameChange = (event) => {
@@ -110,7 +115,7 @@ export default function AppConversionRates({ title }) {
   const handleMiddleNameChange = (event) => {
     const value = event.target.value;
     if (value.length > 10) {
-      setMiddleNameError('Name must not exceed 10 characters');
+      setMiddleNameError('Middlename must not exceed 10 characters');
     } else {
       setMiddleNameError('');
       setMiddleName(value);
@@ -211,7 +216,7 @@ export default function AppConversionRates({ title }) {
   const handleProvinceChange = (event) => {
     const value = event.target.value;
     if (value.length > 40) {
-      setProvinceError('District must not exceed 40 characters');
+      setProvinceError('Province must not exceed 40 characters');
     } else {
       setProvinceError('');
       setProvince(value);
@@ -220,7 +225,7 @@ export default function AppConversionRates({ title }) {
   const handleCountryChange = (event) => {
     const value = event.target.value;
     if (value.length > 25) {
-      setCountryError('District must not exceed 40 characters');
+      setCountryError('Country must not exceed 40 characters');
     } else {
       setCountryError('');
       setCountry(value);
@@ -231,7 +236,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setBuildingNumberError('Number of Day Off must not exceed 7 characters');
+      setBuildingNumberError('Number of Building Number must not exceed 7 characters');
     } else {
       setBuildingNumberError('');
       setBuildingNumber(value);
@@ -242,7 +247,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setApartmentNumberError('Number of Day Off must not exceed 7 characters');
+      setApartmentNumberError('Number of Appartment Number must not exceed 7 characters');
     } else {
       setApartmentNumberError('');
       setApartmentNumber(value);
@@ -253,10 +258,36 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setPostalCodeError('Number of Day Off must not exceed 7 characters');
+      setPostalCodeError('Number of Postal Code must not exceed 7 characters');
     } else {
       setPostalCodeError('');
       setPostalCode(value);
+    }
+  };
+
+  const handlePhoneChange = (event) => {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    if (value.length > 12) {
+      value = value.slice(0, 12);
+      setPhoneError('Number of Phone Number must not exceed 12 characters');
+    } else {
+      setPhoneError('');
+      setPhone(value);
+    }
+  };
+
+  const handleWageChange = (event) => {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    if (value.length > 12) {
+      value = value.slice(0, 12);
+      setWageError('Number of Phone Number must not exceed 12 characters');
+    } else if (value < 0) {
+      setWageError('Wage can not be less than 0');
+    } else {
+      setWageError('');
+      setWage(value);
     }
   };
 
@@ -273,15 +304,23 @@ export default function AppConversionRates({ title }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
-    console.log(shiftStart.format('LTS'));
-    console.log(shiftEnd.format('LTS'));
+    const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const formattedBirthPlace = birthPlace.charAt(0).toUpperCase() + birthPlace.slice(1).toLowerCase();
+    const formattedMiddleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
+    const formattedSurname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
+    const formattedNeighbourhood = neighbourhood.charAt(0).toUpperCase() + neighbourhood.slice(1).toLowerCase();
+    const formattedDistrict = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
+    const formattedProvince = province.charAt(0).toUpperCase() + province.slice(1).toLowerCase();
+    const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+    const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
+
 
     const payload = {
       email: data.get('email'),
-      birthPlace: data.get('birthPlace'),
-      name: data.get('name'),
-      middleName: data.get('middleName'),
-      surname: data.get('surname'),
+      birthPlace: formattedBirthPlace,
+      name: formattedName,
+      middleName: formattedMiddleName,
+      surname: formattedSurname,
       dateOfBirth: selectedDateOfBirthChange.format('DD-MM-YYYY'),
       identificationNumber: data.get('identificationNumber'),
       gender: gender.toUpperCase(),
@@ -289,14 +328,14 @@ export default function AppConversionRates({ title }) {
       wage: data.get('wage'),
       wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
       base64Avatar: imgs,
-      neighbourhood: data.get('neighbourhood'),
-      district: data.get('district'),
-      province: data.get('province'),
-      country: data.get('country'),
+      neighbourhood: formattedNeighbourhood,
+      district: formattedDistrict,
+      province: formattedProvince,
+      formattedCountry,
       buildingNumber: data.get('buildingNumber'),
       apartmentNumber: data.get('apartmentNumber'),
       postalCode: data.get('postalCode'),
-      department: data.get('department'),
+      department: formattedDepartment,
       jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
       jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
       jobBreak: data.get('jobBreak'),
@@ -304,9 +343,7 @@ export default function AppConversionRates({ title }) {
     };
     console.log('Form Data:', payload);
 
-    if (shiftEnd.isBefore(shiftStart)) {
-      throw new Error('Giriş Başarısız');
-    }
+
     await axios
       .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
       .then((response) => {
@@ -317,9 +354,36 @@ export default function AppConversionRates({ title }) {
         errorRegistrationToastMessage();
         console.error('Error:', error);
       });
+    setEmail('')
+    setSelectedDateOfBirthChange(dayjs())
+    setSelectedJobStartingDateChange(dayjs())
+    setSelectedPaydayChange(dayjs())
+    setGender(comboOptions[0])
+    setInputValue('')
+    setImgs('')
+    setShiftStart(dayjs())
+    setShiftEnd(dayjs())
+    setName('')
+    setMiddleName('')
+    setSurname('')
+    setBirthPlace('')
+    setIdentificationNumber('')
+    setDepartment('')
+    setBreakk('')
+    setNumberOfDayOff('')
+    setNeighbourhood('')
+    setDistrict('')
+    setProvince('')
+    setCountry('')
+    setBuildingNumber('')
+    setApartmentNumber('')
+    setPostalCode('')
+    setPhone('')
+    setWage('')
+
   };
 
-  const handleOnClick = async () => {};
+  const handleOnClick = async () => { };
 
   return (
     <>
@@ -440,7 +504,11 @@ export default function AppConversionRates({ title }) {
                   error={Boolean(identificationNumberError)}
                   helperText={identificationNumberError}
                 />
-                <TextField id="phone" name="phone" label="Phone" variant="filled" sx={{ width: 280 }} />
+                <TextField id="phone" name="phone" label="Phone" variant="filled" value={phone}
+                  onChange={handlePhoneChange}
+                  error={Boolean(phoneError)}
+                  helperText={phoneError}
+                  sx={{ width: 280 }} />
                 <TextField
                   id="department"
                   name="department"
@@ -479,6 +547,10 @@ export default function AppConversionRates({ title }) {
                   name="wage"
                   label="Wage"
                   variant="filled"
+                  value={wage}
+                  onChange={handleWageChange}
+                  error={Boolean(wageError)}
+                  helperText={wageError}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">₺</InputAdornment>,
                   }}
