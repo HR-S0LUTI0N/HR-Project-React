@@ -49,7 +49,7 @@ export default function SignInSide() {
   const [company, setCompany] = React.useState('');
   const [companies, setCompanies] = React.useState([]);
   const [companySelected, setCompanySelected] = React.useState(false);
-  const [companyError, setCompanyError] = React.useState("");
+  const [companyError, setCompanyError] = React.useState('');
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -65,62 +65,56 @@ export default function SignInSide() {
     }
   };
   const handleNameChange = (event) => {
-    const name = event.target.value.toLowerCase().trim()
+    const name = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setName(name);
-   
-  const validateName = () => {
-    
-    if (name.trim().length === 0) {
-      
-      return 'Name can not be empty';
-      
-    }
-    const re = /^[A-Za-z]+$/;
-    if (!re.test(name)) {
-      return 'Name should only contain letters';
-    }
-    if (name.length > 12) {
-      return 'Name should not exceed 12 characters';
-    }
-    return '';
-  };
 
-  const errorMessage = validateName();
-  setNameError(errorMessage);
-  setNameValid(errorMessage === '');
+    const validateName = () => {
+      if (name.trim().length === 0) {
+        return 'Name can not be empty';
+      }
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(name)) {
+        return 'Name should only contain letters';
+      }
+      if (name.length > 12) {
+        return 'Name should not exceed 12 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateName();
+    setNameError(errorMessage);
+    setNameValid(errorMessage === '');
   };
 
   const handleMiddleChange = (event) => {
-    
-    const middleName = event.target.value.toLowerCase().trim()
+    const middleName = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setMiddlename(middleName);
-   
-  const validateMiddleName = () => {
-    
-   
-    const re = /^[A-Za-z]+$/;
-    if (!re.test(middleName) && !(middleName.trim().length === 0)) {
-      return 'Middle name should only contain letters';
-    }
-    if (middleName.length > 12) {
-      return 'Middle name should not exceed 12 characters';
-    }
-    return '';
-  };
 
-  const errorMessage = validateMiddleName();
-  setMiddlenameError(errorMessage);
-  setMiddlenameValid(errorMessage === '');
+    const validateMiddleName = () => {
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(middleName) && !(middleName.trim().length === 0)) {
+        return 'Middle name should only contain letters';
+      }
+      if (middleName.length > 12) {
+        return 'Middle name should not exceed 12 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateMiddleName();
+    setMiddlenameError(errorMessage);
+    setMiddlenameValid(errorMessage === '');
   };
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value.toLowerCase().trim();
-    setSurname(surname)
+    const surname = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
+    setSurname(surname);
     const validateSurname = () => {
       if (surname.trim().length === 0) {
         return 'Surname can not be empty';
       }
-      const re = /^[A-Za-z]+$/;
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(surname)) {
         return 'Surname should only contain letters';
       }
@@ -129,140 +123,127 @@ export default function SignInSide() {
       }
       return '';
     };
-  
+
     const errorMessage = validateSurname();
     setSurnameError(errorMessage);
     setSurnameValid(errorMessage === '');
   };
 
-
   const handleEmailChange = (event) => {
-
     const email = event.target.value;
 
-    setEmail(email)
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setEmail(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   setEmailValid(emailRegex.test(email));
+    setEmailValid(emailRegex.test(email));
 
-   const validateEmail = () => {
-     
-     if (email.trim().length === 0) {
-       return 'Email can not be empty';
+    const validateEmail = () => {
+      if (email.trim().length === 0) {
+        return 'Email can not be empty';
+      }
 
-     }
+      if (!emailRegex.test(email)) {
+        return 'Please enter a valid email address';
+      }
 
-     if (!emailRegex.test(email)) {
-       return 'Please enter a valid email address';
-     }
-     
-     if (email.length > 60) {
-       return 'Email should not exceed 60 characters';
-     }
-     return '';
-   };
- 
-   const errorMessage = validateEmail();
-   setEmailError(errorMessage);
-   setEmailValid(errorMessage === '');
- };
+      if (email.length > 60) {
+        return 'Email should not exceed 60 characters';
+      }
+      return '';
+    };
 
- const handlePasswordChange = (event) => {
-  const password = event.target.value;
-  
-  setPassword(password)
-  const validateSurname = () => {
-    
-    if (password.length <= 8) {
-      return `Password must be at least 8 characters long. Your password characters ${password.length}` ;
-    }
-    if (password.length > 45) {
-      return 'Password should not exceed 45 characters';
-    }
-    return '';
+    const errorMessage = validateEmail();
+    setEmailError(errorMessage);
+    setEmailValid(errorMessage === '');
   };
 
-  const errorMessage = validateSurname();
-  setPasswordError(errorMessage);
-  setPasswordValid(errorMessage === '');
-};
+  const handlePasswordChange = (event) => {
+    const password = event.target.value;
 
-const handleRepasswordChange = (event) => {
-  const repassword = event.target.value;
-  setRepassword(repassword)
-  const validateRepassword = () => {
-    
-    if (!(repassword === document.getElementById('password').value)) {
-      return 'Passwords do not match';
-    }
-    if (password.length > 45) {
-      return 'Password should not exceed 45 characters';
-    }
-    return '';
+    setPassword(password);
+    const validateSurname = () => {
+      if (password.length <= 8) {
+        return `Password must be at least 8 characters long. Your password characters ${password.length}`;
+      }
+      if (password.length > 45) {
+        return 'Password should not exceed 45 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateSurname();
+    setPasswordError(errorMessage);
+    setPasswordValid(errorMessage === '');
   };
 
-  const errorMessage = validateRepassword();
-  setRepasswordError(errorMessage);
-  setRepasswordValid(errorMessage === '');
-};
+  const handleRepasswordChange = (event) => {
+    const repassword = event.target.value;
+    setRepassword(repassword);
+    const validateRepassword = () => {
+      if (!(repassword === document.getElementById('password').value)) {
+        return 'Passwords do not match';
+      }
+      if (password.length > 45) {
+        return 'Password should not exceed 45 characters';
+      }
+      return '';
+    };
 
-const handleIdentificationNumberChange = (event) => {
-  const identificationNumber = event.target.value;
-  
-  setIdentificationNumber(identificationNumber);
- 
-const validateID = () => {
-  
-  const re = /^[0-9]+$/;
-  if (!re.test(identificationNumber)) {
-    return 'ID number should only contain numbers';
-  }
-  if (!(identificationNumber.length === 11)) {
-    return `ID number must be 11 characters. Your ID characters: ${identificationNumber.length}`;
-  }
-  
-  return '';
-};
+    const errorMessage = validateRepassword();
+    setRepasswordError(errorMessage);
+    setRepasswordValid(errorMessage === '');
+  };
 
-const errorMessage = validateID();
-setIdentificationNumberError(errorMessage);
-setIdentificationNumberValid(errorMessage === '');
-};
+  const handleIdentificationNumberChange = (event) => {
+    const identificationNumber = event.target.value;
 
+    setIdentificationNumber(identificationNumber);
+
+    const validateID = () => {
+      const re = /^[0-9]+$/;
+      if (!re.test(identificationNumber)) {
+        return 'ID number should only contain numbers';
+      }
+      if (!(identificationNumber.length === 11)) {
+        return `ID number must be 11 characters. Your ID characters: ${identificationNumber.length}`;
+      }
+
+      return '';
+    };
+
+    const errorMessage = validateID();
+    setIdentificationNumberError(errorMessage);
+    setIdentificationNumberValid(errorMessage === '');
+  };
 
   const handleDepartmentChange = (event) => {
-  
-    const department = event.target.value.toLowerCase().trim()
+    const department = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setDepartment(department);
-   
-  const validateDepartment = () => {
-    
-    if (department.trim().length === 0) {
-      
-      return 'Department can not be empty';
-      
-    }
-    const re = /^[A-Za-z]+$/;
-    if (!re.test(department)) {
-      return 'Department should only contain letters';
-    }
-    if (department.length > 25) {
-      return 'Department should not exceed 25 characters';
-    }
-    return '';
-  };
 
-  const errorMessage = validateDepartment();
-  setDepartmentError(errorMessage);
-  setDepartmentValid(errorMessage === '');
+    const validateDepartment = () => {
+      if (department.trim().length === 0) {
+        return 'Department can not be empty';
+      }
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(department)) {
+        return 'Department should only contain letters';
+      }
+      if (department.length > 25) {
+        return 'Department should not exceed 25 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateDepartment();
+    setDepartmentError(errorMessage);
+    setDepartmentValid(errorMessage === '');
   };
 
   const handleCompanyChange = (event) => {
     setCompany(event.target.value);
     console.log(event.target.value);
     setCompanySelected(true);
-    setCompanyError("");
-    
+    setCompanyError('');
   };
 
   const handleSubmit = async (event) => {
@@ -274,14 +255,15 @@ setIdentificationNumberValid(errorMessage === '');
       passwordValid &&
       repasswordValid &&
       identificationNumberValid &&
-      departmentValid && name.length>0 &&
+      departmentValid &&
+      name.length > 0 &&
       middleNameValid &&
-      surname.length>0 &&
-      email.length>0 &&
-      password.length>0 &&
-      repassword.length>0 &&
-      identificationNumber.length>0 &&
-      department.length>0 &&
+      surname.length > 0 &&
+      email.length > 0 &&
+      password.length > 0 &&
+      repassword.length > 0 &&
+      identificationNumber.length > 0 &&
+      department.length > 0 &&
       companySelected === true
     ) {
       const formData = {
@@ -308,103 +290,94 @@ setIdentificationNumberValid(errorMessage === '');
       }
     } else {
       console.log('Form data is invalid');
-      
-        const validateName = () => {
-          if (name.trim().length === 0) {
-            
-            return 'Name can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessageName = validateName();
-        setNameError(errorMessageName);
-        setNameValid(errorMessageName === '');
-      
-        const validateSurname = () => {
-          if (surname.trim().length === 0) {
-            return 'Surname can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessageSurname = validateSurname();
-        setSurnameError(errorMessageSurname);
-        setSurnameValid(errorMessageSurname === '');
-      
-      
-        const validateEmail = () => {
-          if (email.trim().length === 0) {
-            return 'Email can not be empty';
-          }
 
-          return '';
-        };
-      
-        const errorMessageEmail = validateEmail();
-        setEmailError(errorMessageEmail);
-        setEmailValid(errorMessageEmail === '');
-      
-      
-        const validatePassword = () => {
-          if (password.trim().length === 0) {
-            return 'Password can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessagePassword = validatePassword();
-        setPasswordError(errorMessagePassword);
-        setPasswordValid(errorMessagePassword === '');
-      
-        const validateRepassword = () => {
-          if (repassword.trim().length === 0) {
-            return 'Repassword can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessageRepassword = validateRepassword();
-        setRepasswordError(errorMessageRepassword);
-        setRepasswordValid(errorMessageRepassword === '');
-      
-      
-        const validateID = () => {
-          if (identificationNumber.trim().length === 0) {
-            return 'ID number can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessageID = validateID();
-        setIdentificationNumberError(errorMessageID);
-        setIdentificationNumberValid(errorMessageID === '');
-      
-      
-        
-        const validateDepartment = () => {
-          if (department.trim().length === 0) {
-            
-            return 'Department can not be empty';
-          }
-          
-          return '';
-        };
-      
-        const errorMessageDepartment = validateDepartment();
-        setDepartmentError(errorMessageDepartment);
-        setDepartmentValid(errorMessageDepartment === '');
-      
+      const validateName = () => {
+        if (name.trim().length === 0) {
+          return 'Name can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageName = validateName();
+      setNameError(errorMessageName);
+      setNameValid(errorMessageName === '');
+
+      const validateSurname = () => {
+        if (surname.trim().length === 0) {
+          return 'Surname can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageSurname = validateSurname();
+      setSurnameError(errorMessageSurname);
+      setSurnameValid(errorMessageSurname === '');
+
+      const validateEmail = () => {
+        if (email.trim().length === 0) {
+          return 'Email can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageEmail = validateEmail();
+      setEmailError(errorMessageEmail);
+      setEmailValid(errorMessageEmail === '');
+
+      const validatePassword = () => {
+        if (password.trim().length === 0) {
+          return 'Password can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessagePassword = validatePassword();
+      setPasswordError(errorMessagePassword);
+      setPasswordValid(errorMessagePassword === '');
+
+      const validateRepassword = () => {
+        if (repassword.trim().length === 0) {
+          return 'Repassword can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageRepassword = validateRepassword();
+      setRepasswordError(errorMessageRepassword);
+      setRepasswordValid(errorMessageRepassword === '');
+
+      const validateID = () => {
+        if (identificationNumber.trim().length === 0) {
+          return 'ID number can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageID = validateID();
+      setIdentificationNumberError(errorMessageID);
+      setIdentificationNumberValid(errorMessageID === '');
+
+      const validateDepartment = () => {
+        if (department.trim().length === 0) {
+          return 'Department can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageDepartment = validateDepartment();
+      setDepartmentError(errorMessageDepartment);
+      setDepartmentValid(errorMessageDepartment === '');
 
       if (!companySelected) {
         console.log('Please select a company');
-        setCompanyError("Please select a company"); 
-      
+        setCompanyError('Please select a company');
       }
     }
   };
@@ -554,7 +527,9 @@ setIdentificationNumberValid(errorMessage === '');
                 onChange={handleDepartmentChange}
               />
               <FormControl fullWidth margin="normal" error={Boolean(companyError)}>
-                <InputLabel id="company-label" error={Boolean(companyError)}>Company</InputLabel>
+                <InputLabel id="company-label" error={Boolean(companyError)}>
+                  Company
+                </InputLabel>
                 <Select labelId="company-label" id="company" value={company} onChange={handleCompanyChange}>
                   {companies.map((company) => (
                     <MenuItem key={company.companyId} value={company}>
@@ -563,19 +538,15 @@ setIdentificationNumberValid(errorMessage === '');
                   ))}
                 </Select>
                 {companyError && (
-                 <Typography variant="caption" color="error">
-                  {companyError}
-                 </Typography>)}
+                  <Typography variant="caption" color="error">
+                    {companyError}
+                  </Typography>
+                )}
               </FormControl>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign Up
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="/forgotpassword" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href="/login" variant="body2">
                     {'Already have an account? Sign in'}
@@ -583,6 +554,9 @@ setIdentificationNumberValid(errorMessage === '');
                 </Grid>
               </Grid>
             </Box>
+            <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15 }}>
+              Visitor
+            </Button>
           </Box>
         </Grid>
       </Grid>

@@ -29,7 +29,7 @@ export default function CompanyCard(props) {
     }
 
     return (
-        <Card sx={{ maxWidth: 800 }}>
+        <Card sx={{ maxWidth: 800, height: 330 }}>
             <CardMedia
                 sx={{ height: 200 }}
                 image={
@@ -43,7 +43,7 @@ export default function CompanyCard(props) {
                 <Typography gutterBottom variant="h5" component="div" sx={{ color: "#545B77", fontWeight: "bold", bgcolor: "white" }}>
                     {props.item.companyName === undefined
                         ? 'In Maintenance'
-                        : `${props.item.companyName} ${props.item.title}`}
+                        : `${props.item.companyName}`}
                 </Typography>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item xs={6}>

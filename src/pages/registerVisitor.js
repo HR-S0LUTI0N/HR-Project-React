@@ -38,96 +38,85 @@ export default function SignInSide() {
   const [repassword, setRepassword] = React.useState('');
   const navigate = useNavigate();
   const handleEmailChange = (event) => {
+    const email = event.target.value.trim();
 
-     const email = event.target.value.trim();
-      
-     setEmail(email)
+    setEmail(email);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     setEmailValid(emailRegex.test(email));
 
     const validateEmail = () => {
-      
       if (email.length === 0) {
         return 'Email can not be empty';
-
       }
 
       if (!emailRegex.test(email)) {
         return 'Please enter a valid email address';
       }
-      
+
       if (email.length > 60) {
         return 'Email should not exceed 60 characters';
       }
       return '';
     };
-  
+
     const errorMessage = validateEmail();
     setEmailError(errorMessage);
     setEmailValid(errorMessage === '');
   };
 
   const handleNameChange = (event) => {
-    
-    const name = event.target.value.toLowerCase().trim()
-    console.log(name)
+    const name = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
+    console.log(name);
     setName(name);
-   
-  const validateName = () => {
-    
-    if (name.length === 0) {
-      
-      return 'Name can not be empty';
-      
-    }
-    const re = /^[A-Za-z]+$/;
-    if (!re.test(name)) {
-      return 'Name should only contain letters';
-    }
-    if (name.length > 12) {
-      return 'Name should not exceed 12 characters';
-    }
-    return '';
-  };
 
-  const errorMessage = validateName();
-  setNameError(errorMessage);
-  setNameValid(errorMessage === '');
+    const validateName = () => {
+      if (name.length === 0) {
+        return 'Name can not be empty';
+      }
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(name)) {
+        return 'Name should only contain letters';
+      }
+      if (name.length > 12) {
+        return 'Name should not exceed 12 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateName();
+    setNameError(errorMessage);
+    setNameValid(errorMessage === '');
   };
 
   const handleMiddleChange = (event) => {
-    
-    const middleName = event.target.value.toLowerCase().trim()
+    const middleName = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
     setMiddlename(middleName);
-   
-  const validateMiddleName = () => {
-    
-   
-    const re = /^[A-Za-z]+$/;
-    if (!re.test(middleName) && !(middleName.trim().length === 0)) {
-      return 'Middle name should only contain letters';
-    }
-    if (middleName.length > 12) {
-      return 'Middle name should not exceed 12 characters';
-    }
-    return '';
-  };
 
-  const errorMessage = validateMiddleName();
-  setMiddlenameError(errorMessage);
-  setMiddlenameValid(errorMessage === '');
-  };
+    const validateMiddleName = () => {
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(middleName) && !(middleName.trim().length === 0)) {
+        return 'Middle name should only contain letters';
+      }
+      if (middleName.length > 12) {
+        return 'Middle name should not exceed 12 characters';
+      }
+      return '';
+    };
 
+    const errorMessage = validateMiddleName();
+    setMiddlenameError(errorMessage);
+    setMiddlenameValid(errorMessage === '');
+  };
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value.toLowerCase().trim();
-    setSurname(surname)
+    const surname = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
+    setSurname(surname);
     const validateSurname = () => {
       if (surname.length === 0) {
         return 'Surname can not be empty';
       }
-      const re = /^[A-Za-z]+$/;
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(surname)) {
         return 'Surname should only contain letters';
       }
@@ -136,7 +125,7 @@ export default function SignInSide() {
       }
       return '';
     };
-  
+
     const errorMessage = validateSurname();
     setSurnameError(errorMessage);
     setSurnameValid(errorMessage === '');
@@ -144,19 +133,18 @@ export default function SignInSide() {
 
   const handlePasswordChange = (event) => {
     const password = event.target.value;
-    
-    setPassword(password)
+
+    setPassword(password);
     const validateSurname = () => {
-      
       if (password.length <= 8) {
-        return `Password must be at least 8 characters long. Your password characters ${password.length}` ;
+        return `Password must be at least 8 characters long. Your password characters ${password.length}`;
       }
       if (password.length > 45) {
         return 'Password should not exceed 45 characters';
       }
       return '';
     };
-  
+
     const errorMessage = validateSurname();
     setPasswordError(errorMessage);
     setPasswordValid(errorMessage === '');
@@ -164,9 +152,8 @@ export default function SignInSide() {
 
   const handleRepasswordChange = (event) => {
     const repassword = event.target.value;
-    setRepassword(repassword)
+    setRepassword(repassword);
     const validateRepassword = () => {
-      
       if (!(repassword === document.getElementById('password').value)) {
         return 'Passwords do not match';
       }
@@ -175,17 +162,27 @@ export default function SignInSide() {
       }
       return '';
     };
-  
+
     const errorMessage = validateRepassword();
     setRepasswordError(errorMessage);
     setRepasswordValid(errorMessage === '');
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    if (emailValid && nameValid && surnameValid && passwordValid && repasswordValid && middleNameValid && email.length>0 && name.length>0 && surname.length>0 && repassword.length>0) {
+
+    if (
+      emailValid &&
+      nameValid &&
+      surnameValid &&
+      passwordValid &&
+      repasswordValid &&
+      middleNameValid &&
+      email.length > 0 &&
+      name.length > 0 &&
+      surname.length > 0 &&
+      repassword.length > 0
+    ) {
       const data = new FormData(event.currentTarget);
       const formData = {
         email: data.get('email'),
@@ -193,27 +190,23 @@ export default function SignInSide() {
         surname: data.get('surname'),
         password: data.get('password'),
         repassword: data.get('repassword'),
-        
       };
 
-     
-      
       axios
         .post('http://localhost:9090/api/v1/auth/register-visitor', formData)
         .then((response) => {
-          console.log(response.data); 
+          console.log(response.data);
 
           if (response.data === true) {
-            navigate('/register-succesful'); 
+            navigate('/register-succesful');
           } else {
             console.log('İşlem başarısız');
           }
         })
         .catch((error) => {
-          console.error(error); 
+          console.error(error);
         });
     } else {
-      
       if (email.trim().length === 0) {
         const validateName = () => {
           if (email.trim().length === 0) {
@@ -222,37 +215,35 @@ export default function SignInSide() {
 
           return '';
         };
-      
+
         const errorMessage = validateName();
         setEmailError(errorMessage);
         setEmailValid(errorMessage === '');
       }
-  
+
       if (name.trim().length === 0) {
-        
         const validateName = () => {
           if (name.trim().length === 0) {
-            
             return 'Name can not be empty';
           }
-          
+
           return '';
         };
-      
+
         const errorMessage = validateName();
         setNameError(errorMessage);
         setNameValid(errorMessage === '');
       }
-  
+
       if (surname.trim().length === 0) {
         const validateName = () => {
           if (surname.trim().length === 0) {
             return 'Surname can not be empty';
           }
-          
+
           return '';
         };
-      
+
         const errorMessage = validateName();
         setSurnameError(errorMessage);
         setSurnameValid(errorMessage === '');
@@ -263,10 +254,10 @@ export default function SignInSide() {
           if (password.trim().length === 0) {
             return 'Password can not be empty';
           }
-          
+
           return '';
         };
-      
+
         const errorMessage = validateName();
         setPasswordError(errorMessage);
         setPasswordValid(errorMessage === '');
@@ -277,18 +268,14 @@ export default function SignInSide() {
           if (repassword.trim().length === 0) {
             return 'Repassword can not be empty';
           }
-          
+
           return '';
         };
-      
+
         const errorMessage = validateName();
         setRepasswordError(errorMessage);
         setRepasswordValid(errorMessage === '');
       }
-
-
-  
-      
     }
   };
 
@@ -382,7 +369,7 @@ export default function SignInSide() {
                 autoFocus
                 type="email"
                 error={!emailValid}
-                helperText={!emailValid ?  emailError : ''}
+                helperText={!emailValid ? emailError : ''}
                 onChange={handleEmailChange}
               />
               <TextField
@@ -395,7 +382,7 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="new-password"
                 error={!passwordValid}
-                helperText={!passwordValid ?  passwordError : ''}
+                helperText={!passwordValid ? passwordError : ''}
                 onChange={handlePasswordChange}
               />
               <TextField
@@ -416,11 +403,6 @@ export default function SignInSide() {
                 Sign Up
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="/forgotpassword" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href="/login" variant="body2">
                     {'Already have an account? Sign in'}

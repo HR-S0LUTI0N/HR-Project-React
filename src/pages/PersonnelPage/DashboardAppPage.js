@@ -69,7 +69,7 @@ export default function DashboardAppPage() {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Company Name"
               total={personnelData === undefined || personnelData.companyName === null ?
-                "" : `${personnelData.companyName} ${personnelData.title}`} icon={'mdi:company'} />
+                "" : `${personnelData.companyName} `} icon={'mdi:company'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
