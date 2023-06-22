@@ -74,7 +74,7 @@ export default function SignInSide() {
       if (name.length === 0) {
         return 'Name can not be empty';
       }
-      const re = /^[A-Za-z]+$/;
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(name)) {
         return 'Name should only contain letters';
       }
@@ -94,7 +94,7 @@ export default function SignInSide() {
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      const re = /^[A-Za-z]+$/;
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(middleName) && !(middleName.trim().length === 0)) {
         return 'Middle name should only contain letters';
       }
@@ -116,7 +116,7 @@ export default function SignInSide() {
       if (surname.length === 0) {
         return 'Surname can not be empty';
       }
-      const re = /^[A-Za-z]+$/;
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(surname)) {
         return 'Surname should only contain letters';
       }

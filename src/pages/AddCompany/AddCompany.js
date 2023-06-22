@@ -23,6 +23,9 @@ import DatesContext from "./context/DatesContext";
 const comboOptions = ['MALE', 'FEMALE', 'OTHER'];
 
 export default function AddCompany({ title }) {
+  const [companyNameValid, setCompanyNameValid] = React.useState(true);
+  const [companyName, setCompanyName] = React.useState('');
+  const [companyNameError, setCompanyNameError] = React.useState('');
   const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
   const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
   const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
@@ -34,6 +37,28 @@ export default function AddCompany({ title }) {
   // New state for markedDates
 
   // Function to handle marked dates change
+  const handleCompanyNameChange = (event) => {
+    const companyName = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
+    setCompanyName(companyName);
+
+    const validateCompanyName = () => {
+      if (companyName.trim().length === 0) {
+        return 'Company name can not be empty';
+      }
+      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(companyName)) {
+        return 'Company name should only contain letters';
+      }
+      if (companyName.length > 12) {
+        return 'Company name should not exceed 12 characters';
+      }
+      return '';
+    };
+
+    const errorMessage = validateCompanyName();
+    setCompanyNameError(errorMessage);
+    setCompanyNameValid(errorMessage === '');
+  };
 
 
   function handleChange(e) {
@@ -47,9 +72,11 @@ export default function AddCompany({ title }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
-
+    if(companyNameValid &&
+       companyName.length >0 
+      ){
+      const data = new FormData(event.currentTarget);
     const payload = {
       companyName: data.get('companyName'),
       sector: data.get('sector'),
@@ -80,6 +107,21 @@ export default function AddCompany({ title }) {
       .catch((error) => {
         console.error('Error:', error);
       });
+    } else {
+      console.log('Form data is invalid');
+
+      const validateCompanyName = () => {
+        if (companyName.trim().length === 0) {
+          return 'Company name can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageCompanyName = validateCompanyName();
+      setCompanyNameError(errorMessageCompanyName);
+      setCompanyNameValid(errorMessageCompanyName === '');
+    }
   };
 
   return (
@@ -135,7 +177,7 @@ export default function AddCompany({ title }) {
             >
               <CardHeader subheader="Company Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyName" name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyName" name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} error={!companyNameValid} helperText={!companyNameValid ? companyNameError : ''} onChange={handleCompanyNameChange} />
                 <TextField id="sector" name="sector" label="Sector" variant="filled" sx={{ width: 280 }} />
                 <TextField id="taxNumber" name="taxNumber" label="TaxNumber" variant="filled" sx={{ width: 280 }} />
                 <TextField
