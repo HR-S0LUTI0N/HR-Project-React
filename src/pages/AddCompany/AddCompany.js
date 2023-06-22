@@ -8,6 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useContext } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -17,10 +18,12 @@ import Grid from '@mui/material/Grid';
 import Add from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 import InputAdornment from '@mui/material/InputAdornment';
+import { ToastContainer, toast } from 'react-toastify';
+
 import DateCalendarServerRequest from './DateCalendarServerRequest';
 import DatesContext from "./context/DatesContext";
 
-const comboOptions = ['MALE', 'FEMALE', 'OTHER'];
+
 
 export default function AddCompany({ title }) {
   const [companyNameValid, setCompanyNameValid] = React.useState(true);
@@ -41,19 +44,68 @@ export default function AddCompany({ title }) {
   const [companyMailValid, setCompanyMailValid] = React.useState(true);
   const [companyMail, setCompanyMail] = React.useState('');
   const [companyMailError, setCompanyMailError] = React.useState('');
-  const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
-  const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
-  const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
+  const [descriptionValid, setDescriptionValid] = React.useState(true);
+  const [description, setDescription] = React.useState('');
+  const [descriptionError, setDescriptionError] = React.useState('');
+  const [companyNeighbourhoodValid, setCompanyNeighbourhoodValid] = React.useState(true);
+  const [companyNeighbourhood, setCompanyNeighbourhood] = React.useState('');
+  const [companyNeighbourhoodError, setCompanyNeighbourhoodError] = React.useState(true);
+  const [companyDistrictValid, setCompanyDistrictValid] = React.useState(true);
+  const [companyDistrict, setCompanyDistrict] = React.useState('');
+  const [companyDistrictError, setCompanyDistrictError] = React.useState('');
+  const [companyProvinceValid, setCompanyProvinceValid] = React.useState(true);
+  const [companyProvince, setCompanyProvince] = React.useState('');
+  const [companyProvinceError, setCompanyProvinceError] = React.useState('');
+  const [companyCountryValid, setCompanyCountryValid] = React.useState(true);
+  const [companyCountry, setCompanyCountry] = React.useState('');
+  const [companyCountryError, setCompanyCountryError] = React.useState('');
+  const [companyBuildingNumberValid, setCompanyBuildingValid] = React.useState(true);
+  const [companyBuildingNumber, setCompanyBuildingNumber] = React.useState('');
+  const [companyBuildingNumberError, setCompanyBuildingNumberError] = React.useState('');
+  const [companyApartmentNumberValid, setCompanyApartmentNumberValid] = React.useState(true);
+  const [companyApartmentNumber, setCompanyApartmentNumber] = React.useState('');
+  const [companyApartmentNumberError, setCompanyApartmentNumberError] = React.useState(true);
+  const [companyPostalCodeValid, setCompanyPostalCodeValid] = React.useState(true);
+  const [companyPostalCode, setCompanyPostalCode] = React.useState('');
+  const [companyPostalCodeError, setCompanyPostalCodeError] = React.useState(true);
+  const navigate = useNavigate();
+
+  const successRegistrationToastMessage = () => {
+    toast.success('Company Registration successfull !!', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+  const errorRegistrationToastMessage = () => {
+    toast.error('ERROR!! Company could not be registration, Please try again !!', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+
+
+  const [holidayDates, setHolidayDates] = React.useState('');
+
+  const token = sessionStorage.getItem('token');
+  const roles = sessionStorage.getItem('roles');
+
+
   const locale = 'en-gb';
   const [imgs, setImgs] = useState('');
-  const { markedDates } = useContext(DatesContext);
+  const { markedDates, setMarkedDays } = useContext(DatesContext);
 
+
+  React.useEffect(() => {
+    if (token === null) {
+      navigate('/404')
+    } else if (!roles.includes('ADMIN')) {
+      navigate('/404');
+    }
+  }, [])
 
   // New state for markedDates
 
   // Function to handle marked dates change
   const handleCompanyNameChange = (event) => {
-    const companyName = event.target.value.trim()
+    const companyName = event.target.value
     setCompanyName(companyName);
 
     const validateCompanyName = () => {
@@ -76,7 +128,7 @@ export default function AddCompany({ title }) {
   };
 
   const handleSectorChange = (event) => {
-    const sector = event.target.value.trim().charAt(0).toUpperCase() +event.target.value.trim().slice(1).toLowerCase()
+    const sector = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1).toLowerCase()
     setSector(sector);
 
     const validateSector = () => {
@@ -100,7 +152,7 @@ export default function AddCompany({ title }) {
 
 
   const handleTaxNumberChange = (event) => {
-    const taxNumber = event.target.value.trim()
+    const taxNumber = event.target.value
     setTaxNumber(taxNumber);
 
     const validateTaxNumber = () => {
@@ -126,7 +178,7 @@ export default function AddCompany({ title }) {
 
 
   const handleCompanyBalanceStatusChange = (event) => {
-    const companyBalanceStatus = event.target.value.trim()
+    const companyBalanceStatus = event.target.value
     setCompanyBalanceStatus(companyBalanceStatus);
 
     const validateCompanyBalanceStatus = () => {
@@ -150,7 +202,7 @@ export default function AddCompany({ title }) {
 
 
   const handlePhoneNumberChange = (event) => {
-    const companyPhone = event.target.value.trim();
+    const companyPhone = event.target.value;
 
     setCompanyPhone(companyPhone);
 
@@ -199,8 +251,53 @@ export default function AddCompany({ title }) {
     setCompanyMailValid(errorMessage === '');
   };
 
-  
+  const handleDescriptionChange = (event) => {
+    const description = event.target.value;
+    setDescription(description);
 
+  }
+
+  const handleCompanyNeighbourhoodChange = (event) => {
+    const companyNeighbourhood = event.target.value
+    setCompanyNeighbourhood(companyNeighbourhood)
+
+  }
+
+  const handleCompanyProvinceChange = (event) => {
+    const companyProvince = event.target.value;
+    setCompanyProvince(companyProvince);
+
+  }
+
+  const handleCompanyDistrictChange = (event) => {
+    const companyDistrict = event.target.value;
+    setCompanyDistrict(companyDistrict);
+
+  }
+
+  const handleCompanyCountryChange = (event) => {
+    const companyCountry = event.target.value;
+    setCompanyCountry(companyCountry);
+
+  }
+
+  const handleCompanyBuildingNumberChange = (event) => {
+    const companyBuildingNumber = event.target.value;
+    setCompanyBuildingNumber(companyBuildingNumber)
+
+  }
+
+  const handleCompanyApartmentNumberChange = (event) => {
+    const companyApartmentNumber = event.target.value;
+    setCompanyApartmentNumber(companyApartmentNumber)
+
+  }
+
+  const handleCompanyPostalCodeChange = (event) => {
+    const companyPostalCode = event.target.value;
+    setCompanyPostalCode(companyPostalCode)
+
+  }
 
   function handleChange(e) {
     console.log(e.target.files);
@@ -214,51 +311,67 @@ export default function AddCompany({ title }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
-    if(companyNameValid &&
-       companyName.length >0 &&
-       sectorValid &&
-       sector.length >0 &&
-       taxNumberValid &&
-       taxNumber.length >0 &&
-       companyBalanceStatusValid &&
-       companyBalanceStatus.length >0 &&
-       companyPhoneValid &&
-       companyPhone.length>0 &&
-       companyMailValid &&
-       companyMail.lenght > 0
-      ){
+    if (companyNameValid &&
+      companyName.length > 0 &&
+      sectorValid &&
+      sector.length > 0 &&
+      taxNumberValid &&
+      taxNumber.length > 0 &&
+      companyBalanceStatusValid &&
+      companyBalanceStatus.length > 0 &&
+      companyPhoneValid &&
+      companyPhone.length > 0 &&
+      companyMailValid &&
+      companyMail.length > 0 &&
+      descriptionValid &&
+      description.length > 0 &&
+      companyNeighbourhoodValid &&
+      companyNeighbourhood.length > 0 &&
+      companyDistrictValid &&
+      companyDistrict.length > 0 &&
+      companyProvinceValid &&
+      companyProvince.length > 0 &&
+      companyCountryValid &&
+      companyCountry.length > 0 &&
+      companyBuildingNumber.length > 0 &&
+      companyBuildingNumberValid &&
+      companyApartmentNumberValid &&
+      companyApartmentNumber.length > 0 &&
+      companyPostalCodeValid &&
+      companyPostalCode.length > 0
+    ) {
       const data = new FormData(event.currentTarget);
-    const payload = {
-      companyName: data.get('companyName'),
-      sector: data.get('sector'),
-      taxNumber: data.get('taxNumber'),
-      companyBalanceStatus: data.get('companyBalanceStatus'),
-      companyPhone: data.get('companyPhone'),
-      companyMail: data.get('companyMail'),
-      description: data.get('description'),
-      companyNeighbourhood: data.get('companyNeighbourhood'),
-      companyDistrict: data.get('companyDistrict'),
-      companyProvince: data.get('companyProvince'),
-      companyCountry: data.get('companyCountry'),
-      companyBuildingNumber: data.get('companyBuildingNumber'),
-      companyApartmentNumber: data.get('companyApartmentNumber'),
-      companyPostalCode: data.get('companyPostalCode'),
-      holidayDates: markedDates,
-      base64Logo: imgs
-    };
-    console.log('Form Data:', payload);
-
-
-
-    await axios
-      .post(`http://localhost:9070/api/v1/company/save/${token}`, payload)
-      .then((response) => {
-        console.log('Success:', response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      const payload = {
+        companyName: data.get('companyName'),
+        sector: data.get('sector'),
+        taxNumber: data.get('taxNumber'),
+        companyBalanceStatus: data.get('companyBalanceStatus'),
+        companyPhone: data.get('companyPhone'),
+        companyMail: data.get('companyMail'),
+        description: data.get('description'),
+        companyNeighbourhood: data.get('companyNeighbourhood'),
+        companyDistrict: data.get('companyDistrict'),
+        companyProvince: data.get('companyProvince'),
+        companyCountry: data.get('companyCountry'),
+        companyBuildingNumber: data.get('companyBuildingNumber'),
+        companyApartmentNumber: data.get('companyApartmentNumber'),
+        companyPostalCode: data.get('companyPostalCode'),
+        holidayDates: markedDates,
+        base64Logo: imgs
+      };
+      console.log('Form Data:', payload);
+      await axios
+        .post(`http://localhost:9070/api/v1/company/save/${token}`, payload)
+        .then((response) => {
+          console.log('Success:', response.data);
+          successRegistrationToastMessage();
+        })
+        .catch((error) => {
+          errorRegistrationToastMessage();
+          console.error('Error:', error);
+        });
     } else {
+      errorRegistrationToastMessage();
       console.log('Form data is invalid');
 
       const validateCompanyName = () => {
@@ -318,21 +431,52 @@ export default function AddCompany({ title }) {
       };
 
       const errorMessageCompanyPhone = validateCompanyPhone();
-    setCompanyPhoneError(errorMessageCompanyPhone);
-    setCompanyPhoneValid(errorMessageCompanyPhone === '');
+      setCompanyPhoneError(errorMessageCompanyPhone);
+      setCompanyPhoneValid(errorMessageCompanyPhone === '');
 
-    const validateMail = () => {
-      if (companyMail.trim().length === 0) {
-        return 'Mail can not be empty';
-      }
+      const validateMail = () => {
+        if (companyMail.trim().length === 0) {
+          return 'Mail can not be empty';
+        }
 
-      return '';
-    };
+        return '';
+      };
 
-    const errorMessageMail = validateMail();
-  setCompanyMailError(errorMessageMail);
-  setCompanyMailValid(errorMessageMail === '');
+      const errorMessageMail = validateMail();
+      setCompanyMailError(errorMessageMail);
+      setCompanyMailValid(errorMessageMail === '');
+
+      const validateDescription = () => {
+        if (companyMail.trim().length === 0) {
+          return 'Description can not be empty';
+        }
+
+        return '';
+      };
+
+
     }
+
+    setCompanyName('');
+    setSector('');
+    setTaxNumber('');
+    setCompanyBalanceStatus('');
+    setCompanyPhone('');
+    setCompanyMail('');
+    setCompanyBalanceStatus('')
+    setCompanyPhone('')
+    setCompanyMail('');
+    setDescription('');
+    setCompanyNeighbourhood('');
+    setCompanyDistrict('');
+    setCompanyProvince('');
+    setCompanyCountry('');
+    setCompanyBuildingNumber('');
+    setCompanyApartmentNumber('');
+    setCompanyPostalCode('');
+    setHolidayDates('');
+    setImgs('')
+
   };
 
   return (
@@ -347,6 +491,7 @@ export default function AddCompany({ title }) {
               <Button
                 type="submit"
                 variant="contained"
+                value={imgs}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',
@@ -388,11 +533,12 @@ export default function AddCompany({ title }) {
             >
               <CardHeader subheader="Company Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyName" name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} error={!companyNameValid} helperText={!companyNameValid ? companyNameError : ''} onChange={handleCompanyNameChange} />
-                <TextField id="sector" name="sector" label="Sector" variant="filled" sx={{ width: 280 }} error={!sectorValid} helperText={!sectorValid ? sectorError : ''} onChange={handleSectorChange}/>
-                <TextField id="taxNumber" name="taxNumber" label="TaxNumber" variant="filled" sx={{ width: 280 }} error={!taxNumberValid} helperText={!taxNumberValid ? taxNumberError : ''} onChange={handleTaxNumberChange}/>
+                <TextField id="companyName" value={companyName} name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} error={!companyNameValid} helperText={!companyNameValid ? companyNameError : ''} onChange={handleCompanyNameChange} />
+                <TextField id="sector" value={sector} name="sector" label="Sector" variant="filled" sx={{ width: 280 }} error={!sectorValid} helperText={!sectorValid ? sectorError : ''} onChange={handleSectorChange} />
+                <TextField id="taxNumber" value={taxNumber} name="taxNumber" label="TaxNumber" variant="filled" sx={{ width: 280 }} error={!taxNumberValid} helperText={!taxNumberValid ? taxNumberError : ''} onChange={handleTaxNumberChange} />
                 <TextField
                   id="companyBalanceStatus"
+                  value={companyBalanceStatus}
                   name="companyBalanceStatus"
                   label="Company Balance Status"
                   variant="filled"
@@ -402,28 +548,30 @@ export default function AddCompany({ title }) {
                   }}
                   sx={{ width: 280 }}
                 />
-                <TextField id="companyPhone" name="companyPhone" label="Phone" variant="filled" sx={{ width: 280 }} type="tel" error={!companyPhoneValid} helperText={!companyPhoneValid ? companyPhoneError : ''} onChange={handlePhoneNumberChange}/>
-                <TextField id="companyMail" name="companyMail" label="Mail" variant="filled" sx={{ width: 280 }} type={"email"} error={!companyMailValid} helperText={!companyMailValid ? companyMailError : ''} onChange={handleEmailChange}/>
+                <TextField id="companyPhone" value={companyPhone} name="companyPhone" label="Phone" variant="filled" sx={{ width: 280 }} type="tel" error={!companyPhoneValid} helperText={!companyPhoneValid ? companyPhoneError : ''} onChange={handlePhoneNumberChange} />
+                <TextField id="companyMail" value={companyMail} name="companyMail" label="Mail" variant="filled" sx={{ width: 280 }} type={"email"} error={!companyMailValid} helperText={!companyMailValid ? companyMailError : ''} onChange={handleEmailChange} />
                 <TextField
                   id="description"
+                  value={description}
                   name="description"
                   label="Description"
                   variant="filled"
                   rows={10}
                   sx={{ width: 905 }}
                   multiline
+                  onChange={handleDescriptionChange}
                 />
               </Grid>
 
               <CardHeader subheader="Company Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyNeighbourhood" name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyDistrict" name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyProvince" name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyCountry" name="companyCountry" label="Country" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyBuildingNumber" name="companyBuildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyApartmentNumber" name="companyApartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyPostalCode" name="companyPostalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyNeighbourhood" value={companyNeighbourhood} onChange={handleCompanyNeighbourhoodChange} name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyDistrict" value={companyDistrict} onChange={handleCompanyDistrictChange} name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyProvince" value={companyProvince} onChange={handleCompanyProvinceChange} name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyCountry" value={companyCountry} onChange={handleCompanyCountryChange} name="companyCountry" label="Country" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyBuildingNumber" value={companyBuildingNumber} onChange={handleCompanyBuildingNumberChange} name="companyBuildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyApartmentNumber" value={companyApartmentNumber} onChange={handleCompanyApartmentNumberChange} name="companyApartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyPostalCode" value={companyPostalCode} onChange={handleCompanyPostalCodeChange} name="companyPostalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} />
               </Grid>
               <CardHeader subheader="Company Holidays" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
@@ -442,6 +590,7 @@ export default function AddCompany({ title }) {
                   }}>
                   Save
                 </Button>
+                <ToastContainer />
               </Grid>
             </Box>
           </Card>
