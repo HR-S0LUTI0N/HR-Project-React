@@ -51,7 +51,6 @@ export default function AddCompany({ title }) {
     const token = sessionStorage.getItem('token');
 
     const payload = {
-      base64Logo: imgs,
       companyName: data.get('companyName'),
       sector: data.get('sector'),
       taxNumber: data.get('taxNumber'),
@@ -67,7 +66,7 @@ export default function AddCompany({ title }) {
       companyApartmentNumber: data.get('companyApartmentNumber'),
       companyPostalCode: data.get('companyPostalCode'),
       holidayDates: markedDates,
-      logo: imgs
+      base64Logo: imgs
     };
     console.log('Form Data:', payload);
 
