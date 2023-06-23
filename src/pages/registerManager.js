@@ -89,6 +89,7 @@ export default function SignInSide() {
 
   const handleMiddleChange = (event) => {
     const middleName = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
@@ -109,6 +110,7 @@ export default function SignInSide() {
 
   const handleSurnameChange = (event) => {
     const surname = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setSurname(surname);
     const validateSurname = () => {
       if (surname.trim().length === 0) {
@@ -162,7 +164,7 @@ export default function SignInSide() {
 
     setPassword(password);
     const validateSurname = () => {
-      if (password.length <= 8) {
+      if (password.length < 8) {
         return `Password must be at least 8 characters long. Your password characters ${password.length}`;
       }
       if (password.length > 45) {
@@ -218,6 +220,7 @@ export default function SignInSide() {
 
   const handleDepartmentChange = (event) => {
     const department = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setDepartment(department);
 
     const validateDepartment = () => {

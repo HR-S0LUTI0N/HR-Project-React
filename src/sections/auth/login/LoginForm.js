@@ -1,34 +1,42 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Box } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { ToastContainer, toast } from 'react-toastify';
-// components
 import Iconify from '../../../components/iconify';
-
-// ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    // Sayfa yüklendiğinde localStorage'dan kullanıcı bilgilerini alıyoruz.
+    const storedEmail = localStorage.getItem('email');
+    const storedPassword = localStorage.getItem('password');
+
+    if (storedEmail && storedPassword) {
+      setEmail(storedEmail);
+      setPassword(storedPassword);
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const email = data.get('email');
-    const password = data.get('password');
+    const enteredEmail = data.get('email');
+    const enteredPassword = data.get('password');
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(enteredEmail)) {
       toast.error('Lütfen geçerli bir email adresi girin.', {
         autoClose: 2000,
       });
       return;
     }
-
-
 
 
     fetch('http://localhost:9090/api/v1/auth/login', {
@@ -37,8 +45,8 @@ export default function LoginForm() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: data.get('email'),
-        password: data.get('password'),
+        email: enteredEmail,
+        password: enteredPassword,
       }),
     })
       .then((response) => {
@@ -52,6 +60,15 @@ export default function LoginForm() {
         console.log(data);
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('roles', data.roles);
+
+        if (rememberMe) {
+          localStorage.setItem('email', enteredEmail);
+          localStorage.setItem('password', enteredPassword);
+        } else {
+          localStorage.removeItem('email');
+          localStorage.removeItem('password');
+        }
+
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
         } else if (data.roles.includes('MANAGER')) {
@@ -75,13 +92,21 @@ export default function LoginForm() {
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <Stack spacing={3}>
         <ToastContainer />
-        <TextField id="email" name="email" label="Email address" />
+        <TextField
+          id="email"
+          name="email"
+          label="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
         <TextField
           id="password"
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -95,7 +120,15 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me" />
+        <Typography variant="subtitle2" marginLeft={1}>
+          <Checkbox
+            name="remember"
+            label="Remember me"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
+          Remember me
+        </Typography>
         <Link href="/forgotpassword" variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
