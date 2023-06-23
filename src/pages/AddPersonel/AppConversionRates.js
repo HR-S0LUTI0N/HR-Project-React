@@ -339,6 +339,7 @@ export default function AppConversionRates({ title }) {
       gender: gender.toUpperCase(),
       phone: data.get('phone'),
       wage: data.get('wage'),
+      country: data.get('country'),
       wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
       base64Avatar: imgs,
       neighbourhood: formattedNeighbourhood,
@@ -362,37 +363,38 @@ export default function AppConversionRates({ title }) {
       .then((response) => {
         console.log('Success:', response.data);
         successRegistrationToastMessage();
+        setEmail('')
+        setSelectedDateOfBirthChange(dayjs())
+        setSelectedJobStartingDateChange(dayjs())
+        setSelectedPaydayChange(dayjs())
+        setGender(comboOptions[0])
+        setInputValue('')
+        setImgs('')
+        setShiftStart(dayjs())
+        setShiftEnd(dayjs())
+        setName('')
+        setMiddleName('')
+        setSurname('')
+        setBirthPlace('')
+        setIdentificationNumber('')
+        setDepartment('')
+        setBreakk('')
+        setNumberOfDayOff('')
+        setNeighbourhood('')
+        setDistrict('')
+        setProvince('')
+        setCountry('')
+        setBuildingNumber('')
+        setApartmentNumber('')
+        setPostalCode('')
+        setPhone('')
+        setWage('')
+
       })
       .catch((error) => {
         errorRegistrationToastMessage();
         console.error('Error:', error);
       });
-    setEmail('')
-    setSelectedDateOfBirthChange(dayjs())
-    setSelectedJobStartingDateChange(dayjs())
-    setSelectedPaydayChange(dayjs())
-    setGender(comboOptions[0])
-    setInputValue('')
-    setImgs('')
-    setShiftStart(dayjs())
-    setShiftEnd(dayjs())
-    setName('')
-    setMiddleName('')
-    setSurname('')
-    setBirthPlace('')
-    setIdentificationNumber('')
-    setDepartment('')
-    setBreakk('')
-    setNumberOfDayOff('')
-    setNeighbourhood('')
-    setDistrict('')
-    setProvince('')
-    setCountry('')
-    setBuildingNumber('')
-    setApartmentNumber('')
-    setPostalCode('')
-    setPhone('')
-    setWage('')
 
   };
 

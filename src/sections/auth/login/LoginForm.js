@@ -38,11 +38,6 @@ export default function LoginForm() {
       return;
     }
 
-    const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*!])(?=\S+$).{8,}$/;
-    if (!passwordRegex.test(enteredPassword)) {
-      toast.error('Mail adresi ve şifreniz eşleşmemektedir.', { autoClose: 3000 });
-      return;
-    }
 
     fetch('http://localhost:9090/api/v1/auth/login', {
       method: 'POST',
@@ -77,7 +72,7 @@ export default function LoginForm() {
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
         } else if (data.roles.includes('MANAGER')) {
-          navigate('/dashboard/app');
+          navigate('/dashboard/default-app');
         } else if (data.roles.includes('PERSONEL')) {
           navigate('/dashboard/app');
         } else if (data.roles.includes('ADMIN')) {

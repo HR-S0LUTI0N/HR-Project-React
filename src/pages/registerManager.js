@@ -65,7 +65,7 @@ export default function SignInSide() {
     }
   };
   const handleNameChange = (event) => {
-    const name = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    const name = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
     setName(name);
 
     const validateName = () => {
@@ -88,8 +88,8 @@ export default function SignInSide() {
   };
 
   const handleMiddleChange = (event) => {
-    const middleName =
-      event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    const middleName = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
@@ -109,8 +109,8 @@ export default function SignInSide() {
   };
 
   const handleSurnameChange = (event) => {
-    const surname =
-      event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    const surname = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setSurname(surname);
     const validateSurname = () => {
       if (surname.trim().length === 0) {
@@ -219,8 +219,8 @@ export default function SignInSide() {
   };
 
   const handleDepartmentChange = (event) => {
-    const department =
-      event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    const department = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase()
+
     setDepartment(department);
 
     const validateDepartment = () => {
@@ -536,7 +536,7 @@ export default function SignInSide() {
                 <Select labelId="company-label" id="company" value={company} onChange={handleCompanyChange}>
                   {companies.map((company) => (
                     <MenuItem key={company.companyId} value={company}>
-                      {`${company.companyName} ${company.title}`}
+                      {`${company.companyName} `}
                     </MenuItem>
                   ))}
                 </Select>

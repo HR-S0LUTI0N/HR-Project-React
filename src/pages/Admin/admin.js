@@ -198,9 +198,6 @@ export default function DashboardAppPage() {
               Delete
             </MenuItem>
           </Popover>
-          <Grid sx={{ mt: 5, width: '100%' }}>
-            <CompanySaveBox />
-          </Grid>
         </Grid>
       </Container>
     </>
