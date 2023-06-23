@@ -7,7 +7,7 @@ import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
-import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful'
+import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful';
 import RegisterSuccesful from './pages/RegisterSuccesful';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
@@ -19,11 +19,11 @@ import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetail
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
-import AddPersonelPage from './pages/AddPersonel/AddPersonePage'
+import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
-import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
-import ForgotPasswordChange from './pages/ForgotPasswordChange'
-import ConfirmManager from './pages/ConfirmManager'
+import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
+import ForgotPasswordChange from './pages/ForgotPasswordChange';
+import ConfirmManager from './pages/ConfirmManager';
 
 export default function Router() {
   const routes = useRoutes([
@@ -45,6 +45,7 @@ export default function Router() {
         { path: 'admin', element: <Admin /> },
       ],
     },
+
     {
       path: 'visitor',
       element: <VisitorMainPage />,
@@ -91,11 +92,11 @@ export default function Router() {
     },
     {
       path: 'forgotpassword-notification',
-      element: <ForgotPasswordChange />
+      element: <ForgotPasswordChange />,
     },
     {
       path: 'confirm-manager',
-      element: <ConfirmManager />
+      element: <ConfirmManager />,
     },
     {
       element: <SimpleLayout />,
