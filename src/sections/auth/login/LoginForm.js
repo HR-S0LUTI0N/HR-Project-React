@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   useEffect(() => {
     // Sayfa yüklendiğinde localStorage'dan kullanıcı bilgilerini alıyoruz.
@@ -27,8 +27,8 @@ export default function LoginForm() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const enteredEmail = data.get('email');
-    const enteredPassword = data.get('password');
+    let enteredEmail = data.get('email');
+    let enteredPassword = data.get('password');
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(enteredEmail)) {
@@ -65,8 +65,16 @@ export default function LoginForm() {
           localStorage.setItem('email', enteredEmail);
           localStorage.setItem('password', enteredPassword);
         } else {
-          localStorage.removeItem('email');
-          localStorage.removeItem('password');
+          const existingEmail = localStorage.getItem('email');
+          const existingPassword = localStorage.getItem('password');
+
+          if (!existingEmail || !existingPassword) {
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+          } else {
+            enteredEmail = existingEmail;
+            enteredPassword = existingPassword;
+          }
         }
 
         if (data.roles.includes('VISITOR')) {

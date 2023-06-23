@@ -37,7 +37,6 @@ const navConfig = [
     path: '/dashboard/admin',
     icon: icon('ic_blog'),
   },
-
 ];
 
 export default navConfig;
