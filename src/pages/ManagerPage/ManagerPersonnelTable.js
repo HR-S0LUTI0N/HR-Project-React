@@ -102,7 +102,7 @@ export default function StickyHeadTable() {
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.index}>
                                     <>
                                         <TableCell key={row.index} align="center" sx={{ width: 120 }}>
-                                            <Avatar alt={row.name.toUpperCase()} src={row.avatar ? row.avatar : ''} sx={{ bgcolor: '#ffa726' }} />
+                                            <Avatar alt={row.name.toUpperCase()} src={row.avatar !== undefined && row.avatar !== null ? row.avatar : `${row.name}`} sx={{ bgcolor: '#ffa726' }} />
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 400 }}>
                                             {row.name} {row.middleName ? row.middleName : ''} {row.surname}

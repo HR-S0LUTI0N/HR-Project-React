@@ -80,11 +80,11 @@ export default function LoginForm() {
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
         } else if (data.roles.includes('MANAGER')) {
-          navigate('/dashboard/default-app');
+          navigate('/manager/panel');
         } else if (data.roles.includes('PERSONEL')) {
-          navigate('/dashboard/app');
+          navigate('/personnel/panel');
         } else if (data.roles.includes('ADMIN')) {
-          navigate('/dashboard/admin');
+          navigate('/admin/panel');
         } else {
           toast.error('Giriş yapamadın. Şifre ve Mail eşleşmiyor');
         }
