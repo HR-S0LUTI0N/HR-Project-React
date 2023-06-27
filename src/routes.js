@@ -1,6 +1,9 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
+import AdminDashboardLayout from './layouts/admin_dashboard'
+import ManagerDashboardLayout from './layouts/manager_dashboard';
+import PersonnelDashboardLayout from './layouts/personnel_dashboard';
 import SimpleLayout from './layouts/simple';
 
 import BlogPage from './pages/BlogPage';
@@ -36,13 +39,40 @@ export default function Router() {
         { path: 'default-app', element: <DashboardAppPageDefault /> },
         { path: 'registerManager', element: <RegisterManager /> },
         { path: 'registerVisitor', element: <RegisterVisitor /> },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: 'profile', element: <UserPage /> },
         { path: 'userProfile', element: <UserProfile /> },
         { path: 'add-personnel', element: <AddPersonelPage /> },
         { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
+      ],
+    },
+    {
+      path: '/admin',
+      element: <AdminDashboardLayout />,
+      children: [
+        { element: <Navigate to="/admin/control" />, index: true },
+        { path: 'add-company', element: <AddCompanyPage /> },
+        { path: 'panel', element: <Admin /> },
+      ],
+    },
+    {
+      path: '/manager',
+      element: <ManagerDashboardLayout />,
+      children: [
+        { element: <Navigate to="/manager/panel" />, index: true },
+        { path: 'add-personnel', element: <AddPersonelPage /> },
+        { path: 'personnel', element: <DashboardAppPage /> },
+        { path: 'panel', element: <DashboardAppPageDefault /> },
+        { path: 'userprofile', element: <UserProfile /> },
+      ],
+    },
+    {
+      path: '/personnel',
+      element: <PersonnelDashboardLayout />,
+      children: [
+        { element: <Navigate to="/personnel/panel" />, index: true },
+        { path: 'panel', element: <DashboardAppPage /> },
+        { path: 'userprofile', element: <UserProfile /> },
       ],
     },
 
