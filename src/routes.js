@@ -24,9 +24,12 @@ import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
-import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
-import ForgotPasswordChange from './pages/ForgotPasswordChange';
-import ConfirmManager from './pages/ConfirmManager';
+
+import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
+import ForgotPasswordChange from './pages/ForgotPasswordChange'
+import ConfirmManager from './pages/ConfirmManager'
+import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -127,6 +130,10 @@ export default function Router() {
     {
       path: 'confirm-manager',
       element: <ConfirmManager />,
+    },
+    {
+      path: 'forgotpassword-replace/:token',
+      element: <ForgotPasswordReplace />
     },
     {
       element: <SimpleLayout />,
