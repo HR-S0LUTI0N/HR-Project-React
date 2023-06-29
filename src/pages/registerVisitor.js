@@ -66,15 +66,15 @@ export default function SignInSide() {
   };
 
   const handleNameChange = (event) => {
-    const name = event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
-    console.log(name);
+    const name = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    
     setName(name);
 
     const validateName = () => {
       if (name.length === 0) {
         return 'Name can not be empty';
       }
-      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(name)) {
         return 'Name should only contain letters';
       }
@@ -91,11 +91,11 @@ export default function SignInSide() {
 
   const handleMiddleChange = (event) => {
     const middleName =
-      event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(middleName) && !(middleName.trim().length === 0)) {
         return 'Middle name should only contain letters';
       }
@@ -112,13 +112,13 @@ export default function SignInSide() {
 
   const handleSurnameChange = (event) => {
     const surname =
-      event.target.value.trim().charAt(0).toUpperCase() + event.target.value.trim().slice(1).toLowerCase();
+    event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setSurname(surname);
     const validateSurname = () => {
       if (surname.length === 0) {
         return 'Surname can not be empty';
       }
-      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(surname)) {
         return 'Surname should only contain letters';
       }
