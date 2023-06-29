@@ -1,13 +1,16 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
+import AdminDashboardLayout from './layouts/admin_dashboard'
+import ManagerDashboardLayout from './layouts/manager_dashboard';
+import PersonnelDashboardLayout from './layouts/personnel_dashboard';
 import SimpleLayout from './layouts/simple';
 
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
-import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful'
+import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful';
 import RegisterSuccesful from './pages/RegisterSuccesful';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
@@ -19,12 +22,14 @@ import CompanyDetailPage from './pages/Visitor-Company-Detail-Page/CompanyDetail
 import RegisterVisitor from './pages/registerVisitor';
 import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
-import AddPersonelPage from './pages/AddPersonel/AddPersonePage'
+import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
+
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
 import ForgotPasswordChange from './pages/ForgotPasswordChange'
 import ConfirmManager from './pages/ConfirmManager'
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -37,15 +42,43 @@ export default function Router() {
         { path: 'default-app', element: <DashboardAppPageDefault /> },
         { path: 'registerManager', element: <RegisterManager /> },
         { path: 'registerVisitor', element: <RegisterVisitor /> },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: 'profile', element: <UserPage /> },
         { path: 'userProfile', element: <UserProfile /> },
         { path: 'add-personnel', element: <AddPersonelPage /> },
         { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
       ],
     },
+    {
+      path: '/admin',
+      element: <AdminDashboardLayout />,
+      children: [
+        { element: <Navigate to="/admin/control" />, index: true },
+        { path: 'add-company', element: <AddCompanyPage /> },
+        { path: 'panel', element: <Admin /> },
+      ],
+    },
+    {
+      path: '/manager',
+      element: <ManagerDashboardLayout />,
+      children: [
+        { element: <Navigate to="/manager/panel" />, index: true },
+        { path: 'add-personnel', element: <AddPersonelPage /> },
+        { path: 'personnel', element: <DashboardAppPage /> },
+        { path: 'panel', element: <DashboardAppPageDefault /> },
+        { path: 'userprofile', element: <UserProfile /> },
+      ],
+    },
+    {
+      path: '/personnel',
+      element: <PersonnelDashboardLayout />,
+      children: [
+        { element: <Navigate to="/personnel/panel" />, index: true },
+        { path: 'panel', element: <DashboardAppPage /> },
+        { path: 'userprofile', element: <UserProfile /> },
+      ],
+    },
+
     {
       path: 'visitor',
       element: <VisitorMainPage />,
@@ -92,11 +125,11 @@ export default function Router() {
     },
     {
       path: 'forgotpassword-notification',
-      element: <ForgotPasswordChange />
+      element: <ForgotPasswordChange />,
     },
     {
       path: 'confirm-manager',
-      element: <ConfirmManager />
+      element: <ConfirmManager />,
     },
     {
       path: 'forgotpassword-replace/:token',
