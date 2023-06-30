@@ -112,7 +112,7 @@ export default function AddCompany({ title }) {
       if (companyName.trim().length === 0) {
         return 'Company name can not be empty';
       }
-      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(companyName)) {
         return 'Company name should only contain letters';
       }
@@ -128,14 +128,14 @@ export default function AddCompany({ title }) {
   };
 
   const handleSectorChange = (event) => {
-    const sector = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1).toLowerCase()
+    const sector = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setSector(sector);
 
     const validateSector = () => {
       if (sector.trim().length === 0) {
         return 'Sector can not be empty';
       }
-      const re = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(sector)) {
         return 'Sector should only contain letters';
       }
@@ -160,7 +160,7 @@ export default function AddCompany({ title }) {
         return 'Tax number can not be empty';
       }
 
-      const re = /^[a-zA-Z0-9ğüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[a-zA-Z0-9ığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(taxNumber)) {
         return 'Tax number should only contain letters and numbers';
       }
@@ -365,6 +365,26 @@ export default function AddCompany({ title }) {
         .then((response) => {
           console.log('Success:', response.data);
           successRegistrationToastMessage();
+          
+          setCompanyName('');
+          setSector('');
+          setTaxNumber('');
+          setCompanyBalanceStatus('');
+          setCompanyPhone('');
+          setCompanyMail('');
+          setCompanyBalanceStatus('')
+          setCompanyPhone('')
+          setCompanyMail('');
+          setDescription('');
+          setCompanyNeighbourhood('');
+          setCompanyDistrict('');
+          setCompanyProvince('');
+          setCompanyCountry('');
+          setCompanyBuildingNumber('');
+          setCompanyApartmentNumber('');
+          setCompanyPostalCode('');
+          setHolidayDates('');
+          setImgs('')
         })
         .catch((error) => {
           errorRegistrationToastMessage();
@@ -457,25 +477,7 @@ export default function AddCompany({ title }) {
 
     }
 
-    setCompanyName('');
-    setSector('');
-    setTaxNumber('');
-    setCompanyBalanceStatus('');
-    setCompanyPhone('');
-    setCompanyMail('');
-    setCompanyBalanceStatus('')
-    setCompanyPhone('')
-    setCompanyMail('');
-    setDescription('');
-    setCompanyNeighbourhood('');
-    setCompanyDistrict('');
-    setCompanyProvince('');
-    setCompanyCountry('');
-    setCompanyBuildingNumber('');
-    setCompanyApartmentNumber('');
-    setCompanyPostalCode('');
-    setHolidayDates('');
-    setImgs('')
+
 
   };
 
