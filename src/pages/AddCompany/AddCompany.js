@@ -185,9 +185,9 @@ export default function AddCompany({ title }) {
       if (companyBalanceStatus.trim().length === 0) {
         return 'Balance can not be empty';
       }
-      const re = /^[0-9]+$/;
+      const re = /^-?\d+$/;
       if (!re.test(companyBalanceStatus)) {
-        return 'Balance should only contain numbers';
+        return 'Balance should be a positive or negative number';
       }
       if (companyBalanceStatus.length > 13) {
         return 'Balance should not exceed 13 characters';
@@ -252,8 +252,23 @@ export default function AddCompany({ title }) {
   };
 
   const handleDescriptionChange = (event) => {
-    const description = event.target.value;
+    const description = event.target.value
     setDescription(description);
+
+    const validateDescription = () => {
+    if (description.trim().length === 0) {
+      return 'Description can not be empty';
+    }
+    
+    if (description.length > 500) {
+      return 'Description should not exceed 500 characters';
+    }
+    return '';
+  };
+
+  const errorMessageDescription = validateDescription();
+  setDescriptionError(errorMessageDescription);
+  setDescriptionValid(errorMessageDescription === '');
 
   }
 
@@ -474,6 +489,10 @@ export default function AddCompany({ title }) {
         return '';
       };
 
+      const errorMessageDescription = validateDescription();
+      setDescriptionError(errorMessageDescription);
+      setDescriptionValid(errorMessageDescription === '');
+
 
     }
 
@@ -559,8 +578,10 @@ export default function AddCompany({ title }) {
                   label="Description"
                   variant="filled"
                   rows={10}
+                  placeholder="Max 500 characters"
                   sx={{ width: 905 }}
                   multiline
+                  error={!descriptionValid} helperText={!descriptionValid ? descriptionError : ''}
                   onChange={handleDescriptionChange}
                 />
               </Grid>
