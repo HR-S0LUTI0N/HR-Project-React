@@ -32,7 +32,6 @@ export default function AppConversionRates({ title }) {
   const locale = 'en-gb';
   const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
   const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
-  const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
   const [gender, setGender] = useState(comboOptions[0]);
   const [inputValue, setInputValue] = React.useState('');
   const [imgs, setImgs] = useState('');
@@ -340,7 +339,6 @@ export default function AppConversionRates({ title }) {
       phone: data.get('phone'),
       wage: data.get('wage'),
       country: data.get('country'),
-      wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
       base64Avatar: imgs,
       neighbourhood: formattedNeighbourhood,
       district: formattedDistrict,
@@ -366,7 +364,6 @@ export default function AppConversionRates({ title }) {
         setEmail('')
         setSelectedDateOfBirthChange(dayjs())
         setSelectedJobStartingDateChange(dayjs())
-        setSelectedPaydayChange(dayjs())
         setGender(comboOptions[0])
         setInputValue('')
         setImgs('')
@@ -635,18 +632,6 @@ export default function AppConversionRates({ title }) {
                       value={selectedJobStartingDateChange}
                       onChange={(e) => {
                         setSelectedJobStartingDateChange(e);
-                      }}
-                      sx={{ width: 280 }}
-                    />
-                  </DemoContainer>
-                  <DemoContainer components={['DatePicker']}>
-                    <DatePicker
-                      id="payDay"
-                      label="Payday"
-                      name="payDay"
-                      value={selectedPaydayChange}
-                      onChange={(e) => {
-                        setSelectedPaydayChange(e);
                       }}
                       sx={{ width: 280 }}
                     />

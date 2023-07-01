@@ -68,6 +68,8 @@ export default function AddCompany({ title }) {
   const [companyPostalCodeValid, setCompanyPostalCodeValid] = React.useState(true);
   const [companyPostalCode, setCompanyPostalCode] = React.useState('');
   const [companyPostalCodeError, setCompanyPostalCodeError] = React.useState(true);
+  const [selectedPaydayChange, setSelectedPaydayChange] = useState(dayjs());
+
   const navigate = useNavigate();
 
   const successRegistrationToastMessage = () => {
@@ -128,7 +130,7 @@ export default function AddCompany({ title }) {
   };
 
   const handleSectorChange = (event) => {
-    const sector = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const sector = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setSector(sector);
 
     const validateSector = () => {
@@ -256,19 +258,19 @@ export default function AddCompany({ title }) {
     setDescription(description);
 
     const validateDescription = () => {
-    if (description.trim().length === 0) {
-      return 'Description can not be empty';
-    }
-    
-    if (description.length > 500) {
-      return 'Description should not exceed 500 characters';
-    }
-    return '';
-  };
+      if (description.trim().length === 0) {
+        return 'Description can not be empty';
+      }
 
-  const errorMessageDescription = validateDescription();
-  setDescriptionError(errorMessageDescription);
-  setDescriptionValid(errorMessageDescription === '');
+      if (description.length > 500) {
+        return 'Description should not exceed 500 characters';
+      }
+      return '';
+    };
+
+    const errorMessageDescription = validateDescription();
+    setDescriptionError(errorMessageDescription);
+    setDescriptionValid(errorMessageDescription === '');
 
   }
 
@@ -371,6 +373,7 @@ export default function AddCompany({ title }) {
         companyBuildingNumber: data.get('companyBuildingNumber'),
         companyApartmentNumber: data.get('companyApartmentNumber'),
         companyPostalCode: data.get('companyPostalCode'),
+        wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
         holidayDates: markedDates,
         base64Logo: imgs
       };
@@ -380,7 +383,6 @@ export default function AddCompany({ title }) {
         .then((response) => {
           console.log('Success:', response.data);
           successRegistrationToastMessage();
-          
           setCompanyName('');
           setSector('');
           setTaxNumber('');
@@ -400,6 +402,7 @@ export default function AddCompany({ title }) {
           setCompanyPostalCode('');
           setHolidayDates('');
           setImgs('')
+          setSelectedPaydayChange(dayjs())
         })
         .catch((error) => {
           errorRegistrationToastMessage();
@@ -584,6 +587,23 @@ export default function AddCompany({ title }) {
                   error={!descriptionValid} helperText={!descriptionValid ? descriptionError : ''}
                   onChange={handleDescriptionChange}
                 />
+              </Grid>
+
+              <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      id="payDay"
+                      label="Payday"
+                      name="payDay"
+                      value={selectedPaydayChange}
+                      onChange={(e) => {
+                        setSelectedPaydayChange(e);
+                      }}
+                      sx={{ width: 280 }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
               </Grid>
 
               <CardHeader subheader="Company Address" sx={{ marginLeft: '3rem' }} />
