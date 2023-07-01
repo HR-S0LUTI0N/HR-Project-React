@@ -441,77 +441,62 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
-            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative', height: 385 }}>
               <h3>Change Password</h3>
               <div>
-                <Button
-                  variant="contained"
-                  onClick={handlePasswordChangeClick}
-                  style={{ minWidth: 140 }}
-                  sx={{
-                    borderRadius: 2,
-                    padding: 1,
-                    bgcolor: '#ffa726',
-                    '&:hover': {
-                      bgcolor: 'grey',
-                    },
-                  }}
-                  endIcon={<KeyboardArrowDownIcon />}
-                >
-                  {isPasswordChangeMode ? 'Close' : 'Change Password'}
-                </Button>
-                {isPasswordChangeMode && (
-                  <div style={{ marginTop: '20px' }}>
-                    <TextField
-                      id="old-password"
-                      label="Old Password"
-                      type="password"
-                      variant="outlined"
-                      value={oldPassword}
-                      onChange={handleOldPasswordChange}
-                      style={{ marginBottom: '10px' }}
-                    />
-                    <br />
-                    <TextField
-                      id="new-password"
-                      label="New Password"
-                      type="password"
-                      variant="outlined"
-                      value={newPassword}
-                      onChange={handleNewPasswordChange}
-                      style={{ marginBottom: '10px' }}
-                      error={!passwordsMatch}
-                      helperText={!passwordsMatch && "Passwords don't match"}
-                    />
-                    <br />
-                    <TextField
-                      id="confirm-password"
-                      label="Confirm Password"
-                      type="password"
-                      variant="outlined"
-                      value={confirmPassword}
-                      onChange={handleConfirmPasswordChange}
-                      style={{ marginBottom: '10px' }}
-                      error={!passwordsMatch}
-                    />
-                    <br />
-                    <Button
-                      variant="contained"
-                      onClick={handlePasswordUpdate}
-                      style={{ maxWidth: 140, minWidth: 140 }}
-                      sx={{
-                        borderRadius: 2,
-                        padding: 1,
-                        bgcolor: '#ffa726',
-                        '&:hover': {
-                          bgcolor: 'grey',
-                        },
-                      }}
-                    >
-                      Update Password
-                    </Button>
-                  </div>
-                )}
+
+
+                <div style={{ marginTop: '20px' }}>
+                  <TextField
+                    id="old-password"
+                    label="Old Password"
+                    type="password"
+                    variant="outlined"
+                    value={oldPassword}
+                    onChange={handleOldPasswordChange}
+                    style={{ marginBottom: '10px' }}
+                  />
+                  <br />
+                  <TextField
+                    id="new-password"
+                    label="New Password"
+                    type="password"
+                    variant="outlined"
+                    value={newPassword}
+                    onChange={handleNewPasswordChange}
+                    style={{ marginBottom: '10px' }}
+                    error={!passwordsMatch}
+                    helperText={!passwordsMatch && "Passwords don't match"}
+                  />
+                  <br />
+                  <TextField
+                    id="confirm-password"
+                    label="Confirm Password"
+                    type="password"
+                    variant="outlined"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    style={{ marginBottom: '10px' }}
+                    error={!passwordsMatch}
+                  />
+                  <br />
+                  <Button
+                    variant="contained"
+                    onClick={handlePasswordUpdate}
+                    style={{ maxWidth: 140, minWidth: 140 }}
+                    sx={{
+                      borderRadius: 2,
+                      padding: 1,
+                      bgcolor: '#ffa726',
+                      '&:hover': {
+                        bgcolor: 'grey',
+                      },
+                    }}
+                  >
+                    Update Password
+                  </Button>
+                </div>
+
               </div>
             </div>
           </Grid>
