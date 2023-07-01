@@ -64,7 +64,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/manager/panel" />, index: true },
         { path: 'add-personnel', element: <AddPersonelPage /> },
-        { path: 'personnel', element: <DashboardAppPage /> },
+        { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
       ],

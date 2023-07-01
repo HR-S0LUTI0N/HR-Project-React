@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Profile',
     icon: 'eva:home-fill',
   },
 ];
@@ -46,6 +46,12 @@ export default function AccountPopover() {
 
     setOpen(null);
   };
+
+  const handleProfile = () => {
+    navigate("/manager/userprofile")
+    setOpen(null);
+  };
+
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -108,7 +114,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem key={option.label} onClick={handleProfile}>
               {option.label}
             </MenuItem>
           ))}
