@@ -114,12 +114,9 @@ export default function AddCompany({ title }) {
       if (companyName.trim().length === 0) {
         return 'Company name can not be empty';
       }
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(companyName)) {
-        return 'Company name should only contain letters';
-      }
-      if (companyName.length > 12) {
-        return 'Company name should not exceed 12 characters';
+      
+      if (companyName.length > 45) {
+        return 'Company name should not exceed 45 characters';
       }
       return '';
     };
@@ -275,8 +272,23 @@ export default function AddCompany({ title }) {
   }
 
   const handleCompanyNeighbourhoodChange = (event) => {
-    const companyNeighbourhood = event.target.value
+    const companyNeighbourhood = event.target.value.trim()
     setCompanyNeighbourhood(companyNeighbourhood)
+
+    const validateNeighbourhood = () => {
+      if (companyNeighbourhood.trim().length === 0) {
+        return 'Neighbourhood can not be empty';
+      }
+      
+      if (companyNeighbourhood.length > 25) {
+        return 'Neighbourhood should not exceed 25 characters';
+      }
+      return '';
+    };
+
+    const errorMessageNeighbourhood = validateNeighbourhood();
+    setCompanyNeighbourhoodError(errorMessageNeighbourhood);
+    setCompanyNeighbourhoodValid(errorMessageNeighbourhood === '');
 
   }
 
@@ -496,6 +508,97 @@ export default function AddCompany({ title }) {
       setDescriptionError(errorMessageDescription);
       setDescriptionValid(errorMessageDescription === '');
 
+      const validateNeighbourhood = () => {
+        if (companyNeighbourhood.trim().length === 0) {
+          return 'Neighbourhood can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageNeighbourhood = validateNeighbourhood();
+      setCompanyNeighbourhoodError(errorMessageNeighbourhood);
+      setCompanyNeighbourhoodValid(errorMessageNeighbourhood === '');
+
+      const validateDistrict = () => {
+        if (companyDistrict.trim().length === 0) {
+          return 'District can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageDistrict = validateDistrict();
+      setCompanyDistrictError(errorMessageDistrict);
+      setCompanyDistrictValid(errorMessageDistrict === '');
+
+      const validateProvince = () => {
+        if (companyProvince.trim().length === 0) {
+          return 'Province can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageProvince = validateProvince();
+      setCompanyProvinceError(errorMessageProvince);
+      setCompanyProvinceValid(errorMessageProvince === '');
+
+
+      const validateCountry = () => {
+        if (companyCountry.trim().length === 0) {
+          return 'Country can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageCountry = validateCountry();
+      setCompanyCountryError(errorMessageCountry);
+      setCompanyCountryValid(errorMessageCountry === '');
+
+
+      const validateBuildingNumber = () => {
+        if (companyBuildingNumber.trim().length === 0) {
+          return 'Building number can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageBuildingNumber = validateBuildingNumber();
+      setCompanyBuildingNumberError(errorMessageBuildingNumber);
+      setCompanyBuildingValid(errorMessageBuildingNumber === '');
+
+
+      const validateApartmentNumber = () => {
+        if (companyApartmentNumber.trim().length === 0) {
+          return 'Apartment number can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageApartmentNumber = validateApartmentNumber();
+      setCompanyApartmentNumberError(errorMessageApartmentNumber);
+      setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+
+
+      const validatePostalCode = () => {
+        if (companyPostalCode.trim().length === 0) {
+          return 'Postal code can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessagePostalCode = validatePostalCode();
+      setCompanyPostalCodeError(errorMessagePostalCode);
+      setCompanyPostalCodeValid(errorMessagePostalCode === '');
+
+
+      
+
 
     }
 
@@ -608,13 +711,13 @@ export default function AddCompany({ title }) {
 
               <CardHeader subheader="Company Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyNeighbourhood" value={companyNeighbourhood} onChange={handleCompanyNeighbourhoodChange} name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyDistrict" value={companyDistrict} onChange={handleCompanyDistrictChange} name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyProvince" value={companyProvince} onChange={handleCompanyProvinceChange} name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyCountry" value={companyCountry} onChange={handleCompanyCountryChange} name="companyCountry" label="Country" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyBuildingNumber" value={companyBuildingNumber} onChange={handleCompanyBuildingNumberChange} name="companyBuildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyApartmentNumber" value={companyApartmentNumber} onChange={handleCompanyApartmentNumberChange} name="companyApartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} />
-                <TextField id="companyPostalCode" value={companyPostalCode} onChange={handleCompanyPostalCodeChange} name="companyPostalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} />
+                <TextField id="companyNeighbourhood" value={companyNeighbourhood} onChange={handleCompanyNeighbourhoodChange} name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} error={!companyNeighbourhoodValid} helperText={!companyNeighbourhoodValid ? companyNeighbourhoodError : ''}/>
+                <TextField id="companyDistrict" value={companyDistrict} onChange={handleCompanyDistrictChange} name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} error={!companyDistrictValid} helperText={!companyDistrictValid ? companyDistrictError : ''}/>
+                <TextField id="companyProvince" value={companyProvince} onChange={handleCompanyProvinceChange} name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} error={!companyProvinceValid} helperText={!companyProvinceValid ? companyProvinceError : ''}/>
+                <TextField id="companyCountry" value={companyCountry} onChange={handleCompanyCountryChange} name="companyCountry" label="Country" variant="filled" sx={{ width: 280 }} error={!companyCountryValid} helperText={!companyCountryValid ? companyCountryError : ''}/>
+                <TextField id="companyBuildingNumber" value={companyBuildingNumber} onChange={handleCompanyBuildingNumberChange} name="companyBuildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} error={!companyBuildingNumberValid} helperText={!companyBuildingNumberValid ? companyBuildingNumberError : ''}/>
+                <TextField id="companyApartmentNumber" value={companyApartmentNumber} onChange={handleCompanyApartmentNumberChange} name="companyApartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} error={!companyApartmentNumberValid} helperText={!companyApartmentNumberValid ? companyApartmentNumberError : ''}/>
+                <TextField id="companyPostalCode" value={companyPostalCode} onChange={handleCompanyPostalCodeChange} name="companyPostalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} error={!companyPostalCodeValid} helperText={!companyPostalCodeValid ? companyPostalCodeError : ''}/>
               </Grid>
               <CardHeader subheader="Company Holidays" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
