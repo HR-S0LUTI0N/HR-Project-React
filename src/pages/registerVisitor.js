@@ -66,18 +66,17 @@ export default function SignInSide() {
   };
 
   const handleNameChange = (event) => {
-    const name = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    
+    const name = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim() 
     
     setName(name);
 
     const validateName = () => {
+
       if (name.length === 0) {
         return 'Name can not be empty';
       }
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(name)) {
-        return 'Name should only contain letters';
-      }
+      
       if (name.length > 12) {
         return 'Name should not exceed 12 characters';
       }
@@ -87,18 +86,28 @@ export default function SignInSide() {
     const errorMessage = validateName();
     setNameError(errorMessage);
     setNameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Name should only contain letters"
+      setNameError(errorMessage);
+      setNameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setNameError(errorMessage);
+        setNameValid(errorMessage === '');
+      }, 2000);
+    }
+    
   };
 
   const handleMiddleChange = (event) => {
     const middleName =
-    event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(middleName) && !(middleName.trim().length === 0)) {
-        return 'Middle name should only contain letters';
-      }
+      
       if (middleName.length > 12) {
         return 'Middle name should not exceed 12 characters';
       }
@@ -108,11 +117,23 @@ export default function SignInSide() {
     const errorMessage = validateMiddleName();
     setMiddlenameError(errorMessage);
     setMiddlenameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Middle name should only contain letters"
+      setMiddlenameError(errorMessage);
+      setMiddlenameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setMiddlenameError(errorMessage);
+        setMiddlenameValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handleSurnameChange = (event) => {
     const surname =
-    event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
     setSurname(surname);
     const validateSurname = () => {
       if (surname.length === 0) {
@@ -131,6 +152,18 @@ export default function SignInSide() {
     const errorMessage = validateSurname();
     setSurnameError(errorMessage);
     setSurnameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Surname should only contain letters"
+      setSurnameError(errorMessage);
+      setSurnameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setSurnameError(errorMessage);
+      setSurnameValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handlePasswordChange = (event) => {
@@ -186,10 +219,16 @@ export default function SignInSide() {
       repassword.length > 0
     ) {
       const data = new FormData(event.currentTarget);
+      const nameupperlower = data.get('name').trim();
+      const formattedName = nameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + nameupperlower.slice(1).toLocaleLowerCase('tr-TR');
+      const middlenameupperlower = data.get('middleName').trim();
+      const formattedMiddleName = middlenameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + middlenameupperlower.slice(1).toLocaleLowerCase('tr-TR');
+      const surnameupperlower = data.get('surname').trim();
+      const formattedSurname = surnameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + surnameupperlower.slice(1).toLocaleLowerCase('tr-TR');
       const formData = {
         email: data.get('email'),
-        name: data.get('name'),
-        surname: data.get('surname'),
+        name: formattedName,
+        surname: formattedSurname,
         password: data.get('password'),
         repassword: data.get('repassword'),
       };
@@ -327,6 +366,7 @@ export default function SignInSide() {
                     name="name"
                     autoComplete="name"
                     autoFocus
+                    value={name}
                     error={!nameValid}
                     helperText={!nameValid ? nameError : ''}
                     onChange={handleNameChange}
@@ -341,6 +381,7 @@ export default function SignInSide() {
                     name="middleName"
                     autoComplete="middleName"
                     autoFocus
+                    value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
                     onChange={handleMiddleChange}
@@ -356,6 +397,7 @@ export default function SignInSide() {
                 name="surname"
                 autoComplete="surname"
                 autoFocus
+                value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
                 onChange={handleSurnameChange}
