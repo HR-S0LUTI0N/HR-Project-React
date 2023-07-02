@@ -88,18 +88,42 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={14}>
-            <AppOrderTimeline
-              title="Shift, Break, Public Holiday"
-              list={[...Array(3)].map((_, index) => ({
-                title: [
-                  `Shifts: ${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
-                  `Break: ${personnelData === undefined || personnelData.jobBreak === null ? "" : personnelData.jobBreak}`,
-                  `Public Holiday: ${personnelData === undefined || personnelData.holidayDates === null ? "" : personnelData.holidayDates}`,
-                ][index],
-                type: `order${index + 1}`,
-              }))}
-            />
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: '0 0 33%', marginRight: 10 }}>
+                <AppOrderTimeline
+                  style={{ height: '100%' }}
+                  title="Holiday Dates"
+                  list={personnelData && personnelData.holidayDates ? personnelData.holidayDates.map((holidayDate, index) => ({
+                    id: faker.datatype.uuid(),
+                    title: `${holidayDate}`,
+                    type: `order${index + 1}`,
+                  })) : []}
+                />
+              </div>
+              <div style={{ flex: '0 0 33%', marginRight: 10 }}>
+                <AppOrderTimeline
+                  style={{ height: '100%' }}
+                  title="Break Information"
+                  list={personnelData && personnelData.jobBreak ? personnelData.jobBreak.map((jobBreak, index) => ({
+                    id: faker.datatype.uuid(),
+                    title: `${jobBreak}`,
+                    type: `order${index + 1}`,
+                  })) : []}
+                />
+              </div>
+              <div style={{ flex: '0 0 33%' }}>
+                <AppOrderTimeline
+                  style={{ height: '100%' }}
+                  title="Shift Information"
+                  list={[...Array(1)].map((_, index) => ({
+                    title: `Shifts: ${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
+                    type: `order${index + 1}`,
+                  }))}
+                />
+              </div>
+            </div>
           </Grid>
+
 
 
           <Grid item xs={12} md={6} lg={14} mt={2} >

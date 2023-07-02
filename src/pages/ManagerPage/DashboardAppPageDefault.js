@@ -41,6 +41,7 @@ import {
 
 } from '../../sections/@dashboard/app';
 import { UserListHead, UserListToolbar } from '../../sections/@dashboard/user';
+import VocationGirl from '../../images/VocationGirl.jpg'
 
 // ----------------------------------------------------------------------
 
@@ -187,20 +188,7 @@ export default function DashboardAppPage() {
           </Grid>
 
 
-          <Grid item sx={{ width: '100%', overflow: 'hidden' }}>
-            <AppOrderTimeline
-              title="Holiday Dates"
-              list={[...Array(`${managerData === undefined || managerData.holidayDates === null ? "" : managerData.holidayDates}`)].map((_, index) => ({
-                id: faker.datatype.uuid(),
-                title: [
 
-                  `Holiday: ${managerData === undefined || managerData.holidayDates === null ? "" : managerData.holidayDates}`,
-
-                ][index],
-                type: `order${index + 1}`,
-              }))}
-            />
-          </Grid>
         </Grid>
       </Container>
     </>
