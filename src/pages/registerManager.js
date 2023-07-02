@@ -56,6 +56,8 @@ export default function SignInSide() {
     fetchCompanies();
   }, []);
 
+  
+
   const fetchCompanies = async () => {
     try {
       const response = await axios.get('http://localhost:9070/api/v1/company/find-all');
@@ -500,7 +502,7 @@ export default function SignInSide() {
                     label="Middle Name"
                     name="middleName"
                     autoComplete="middleName"
-                    autoFocus
+                    
                     value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
@@ -516,7 +518,7 @@ export default function SignInSide() {
                 label="Surname"
                 name="surname"
                 autoComplete="surname"
-                autoFocus
+               
                 value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
@@ -530,7 +532,7 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
+                placeholder="email@address.com"
                 type="email"
                 error={!emailValid}
                 helperText={!emailValid ? emailError : ''}
@@ -570,7 +572,7 @@ export default function SignInSide() {
                 label="Identification Number"
                 name="identificationNumber"
                 autoComplete="identificationNumber"
-                autoFocus
+                
                 value={identificationNumber}
                 error={!identificationNumberValid}
                 helperText={!identificationNumberValid ? identificationNumberError : ''}
@@ -584,7 +586,7 @@ export default function SignInSide() {
                 label="Department"
                 name="department"
                 autoComplete="department"
-                autoFocus
+                
                 value={department}
                 error={!departmentValid}
                 helperText={!departmentValid ? departmentError : ''}

@@ -572,8 +572,8 @@ export default function AddCompany({ title }) {
                   }}
                   sx={{ width: 280 }}
                 />
-                <TextField id="companyPhone" value={companyPhone} name="companyPhone" label="Phone" variant="filled" sx={{ width: 280 }} type="tel" error={!companyPhoneValid} helperText={!companyPhoneValid ? companyPhoneError : ''} onChange={handlePhoneNumberChange} />
-                <TextField id="companyMail" value={companyMail} name="companyMail" label="Mail" variant="filled" sx={{ width: 280 }} type={"email"} error={!companyMailValid} helperText={!companyMailValid ? companyMailError : ''} onChange={handleEmailChange} />
+                <TextField id="companyPhone" value={companyPhone} name="companyPhone" label="Phone" variant="filled" placeholder="05XXXXXXXXX" sx={{ width: 280 }} type="tel" error={!companyPhoneValid} helperText={!companyPhoneValid ? companyPhoneError : ''} onChange={handlePhoneNumberChange} />
+                <TextField id="companyMail" value={companyMail} name="companyMail" label="Mail" variant="filled" placeholder="email@address.com" sx={{ width: 280 }} type={"email"} error={!companyMailValid} helperText={!companyMailValid ? companyMailError : ''} onChange={handleEmailChange} />
                 <TextField
                   id="description"
                   value={description}

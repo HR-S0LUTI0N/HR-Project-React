@@ -369,7 +369,7 @@ export default function SignInSide() {
                     value={name}
                     error={!nameValid}
                     helperText={!nameValid ? nameError : ''}
-                    onChange={handleNameChange}
+                    onChange={handleNameChange} 
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -380,7 +380,7 @@ export default function SignInSide() {
                     label="Middle Name"
                     name="middleName"
                     autoComplete="middleName"
-                    autoFocus
+                    
                     value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
@@ -396,7 +396,7 @@ export default function SignInSide() {
                 label="Surname"
                 name="surname"
                 autoComplete="surname"
-                autoFocus
+                
                 value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
@@ -410,7 +410,7 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
+                placeholder="email@address.com"
                 type="email"
                 error={!emailValid}
                 helperText={!emailValid ? emailError : ''}
@@ -443,7 +443,7 @@ export default function SignInSide() {
                 onChange={handleRepasswordChange}
               />
 
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button  type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign Up
               </Button>
               <Grid container>
