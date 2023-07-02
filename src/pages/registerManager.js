@@ -56,7 +56,7 @@ export default function SignInSide() {
     fetchCompanies();
   }, []);
 
-  
+
 
   const fetchCompanies = async () => {
     try {
@@ -74,7 +74,7 @@ export default function SignInSide() {
       if (name.trim().length === 0) {
         return 'Name can not be empty';
       }
-      
+
       if (name.length > 12) {
         return 'Name should not exceed 12 characters';
       }
@@ -86,8 +86,8 @@ export default function SignInSide() {
     setNameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Name should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Name should only contain letters"
       setNameError(errorMessage);
       setNameValid(errorMessage === '');
       setTimeout(() => {
@@ -96,7 +96,7 @@ export default function SignInSide() {
         setNameValid(errorMessage === '');
       }, 2000);
     }
-    
+
   };
 
   const handleMiddleChange = (event) => {
@@ -105,7 +105,7 @@ export default function SignInSide() {
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      
+
       if (middleName.length > 12) {
         return 'Middle name should not exceed 12 characters';
       }
@@ -117,8 +117,8 @@ export default function SignInSide() {
     setMiddlenameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Middle name should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Middle name should only contain letters"
       setMiddlenameError(errorMessage);
       setMiddlenameValid(errorMessage === '');
       setTimeout(() => {
@@ -137,7 +137,7 @@ export default function SignInSide() {
       if (surname.trim().length === 0) {
         return 'Surname can not be empty';
       }
-      
+
       if (surname.length > 15) {
         return 'Surname should not exceed 15 characters';
       }
@@ -149,14 +149,14 @@ export default function SignInSide() {
     setSurnameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Surname should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Surname should only contain letters"
       setSurnameError(errorMessage);
       setSurnameValid(errorMessage === '');
       setTimeout(() => {
         const errorMessage = ''
         setSurnameError(errorMessage);
-      setSurnameValid(errorMessage === '');
+        setSurnameValid(errorMessage === '');
       }, 2000);
     }
   };
@@ -229,11 +229,11 @@ export default function SignInSide() {
   const handleIdentificationNumberChange = (event) => {
     const identificationNumber = event.target.value.replace(/\D/g, '').trim();
 
-    
+
     setIdentificationNumber(identificationNumber);
 
     const validateID = () => {
-      
+
       if (!(identificationNumber.length === 11)) {
         return `ID number must be 11 characters. Your ID characters: ${identificationNumber.length}`;
       }
@@ -246,8 +246,8 @@ export default function SignInSide() {
     setIdentificationNumberValid(errorMessage === '');
 
     const reg = /^\d+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="ID number should only contain numbers"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "ID number should only contain numbers"
       setIdentificationNumberError(errorMessage);
       setIdentificationNumberValid(errorMessage === '');
       console.log(event.target.value)
@@ -279,8 +279,8 @@ export default function SignInSide() {
     setDepartmentValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Department should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Department should only contain letters"
       setDepartmentError(errorMessage);
       setDepartmentValid(errorMessage === '');
       setTimeout(() => {
@@ -502,7 +502,7 @@ export default function SignInSide() {
                     label="Middle Name"
                     name="middleName"
                     autoComplete="middleName"
-                    
+
                     value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
@@ -518,7 +518,7 @@ export default function SignInSide() {
                 label="Surname"
                 name="surname"
                 autoComplete="surname"
-               
+
                 value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
@@ -572,7 +572,7 @@ export default function SignInSide() {
                 label="Identification Number"
                 name="identificationNumber"
                 autoComplete="identificationNumber"
-                
+
                 value={identificationNumber}
                 error={!identificationNumberValid}
                 helperText={!identificationNumberValid ? identificationNumberError : ''}
@@ -586,7 +586,7 @@ export default function SignInSide() {
                 label="Department"
                 name="department"
                 autoComplete="department"
-                
+
                 value={department}
                 error={!departmentValid}
                 helperText={!departmentValid ? departmentError : ''}
@@ -620,8 +620,11 @@ export default function SignInSide() {
                 </Grid>
               </Grid>
             </Box>
-            <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15 }}>
+            <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15, width: 90 }}>
               Visitor
+            </Button>
+            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: 685, width: 90 }}>
+              PRICING
             </Button>
           </Box>
         </Grid>

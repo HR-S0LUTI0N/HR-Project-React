@@ -29,6 +29,7 @@ import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
 import ForgotPasswordChange from './pages/ForgotPasswordChange'
 import ConfirmManager from './pages/ConfirmManager'
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
+import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
 
 
 export default function Router() {
@@ -134,6 +135,10 @@ export default function Router() {
     {
       path: 'forgotpassword-replace/:token',
       element: <ForgotPasswordReplace />
+    },
+    {
+      path: 'company-buyout-page',
+      element: <ManagerBuyoutPage />
     },
     {
       element: <SimpleLayout />,
