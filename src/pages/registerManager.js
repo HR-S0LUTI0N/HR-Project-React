@@ -65,17 +65,14 @@ export default function SignInSide() {
     }
   };
   const handleNameChange = (event) => {
-    const name = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const name = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
     setName(name);
 
     const validateName = () => {
       if (name.trim().length === 0) {
         return 'Name can not be empty';
       }
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(name)) {
-        return 'Name should only contain letters';
-      }
+      
       if (name.length > 12) {
         return 'Name should not exceed 12 characters';
       }
@@ -85,18 +82,28 @@ export default function SignInSide() {
     const errorMessage = validateName();
     setNameError(errorMessage);
     setNameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Name should only contain letters"
+      setNameError(errorMessage);
+      setNameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setNameError(errorMessage);
+        setNameValid(errorMessage === '');
+      }, 2000);
+    }
+    
   };
 
   const handleMiddleChange = (event) => {
-    const middleName = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const middleName = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
 
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(middleName) && !(middleName.trim().length === 0)) {
-        return 'Middle name should only contain letters';
-      }
+      
       if (middleName.length > 12) {
         return 'Middle name should not exceed 12 characters';
       }
@@ -106,20 +113,29 @@ export default function SignInSide() {
     const errorMessage = validateMiddleName();
     setMiddlenameError(errorMessage);
     setMiddlenameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Middle name should only contain letters"
+      setMiddlenameError(errorMessage);
+      setMiddlenameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setMiddlenameError(errorMessage);
+        setMiddlenameValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handleSurnameChange = (event) => {
-    const surname = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const surname = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
 
     setSurname(surname);
     const validateSurname = () => {
       if (surname.trim().length === 0) {
         return 'Surname can not be empty';
       }
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(surname)) {
-        return 'Surname should only contain letters';
-      }
+      
       if (surname.length > 15) {
         return 'Surname should not exceed 15 characters';
       }
@@ -129,6 +145,18 @@ export default function SignInSide() {
     const errorMessage = validateSurname();
     setSurnameError(errorMessage);
     setSurnameValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Surname should only contain letters"
+      setSurnameError(errorMessage);
+      setSurnameValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setSurnameError(errorMessage);
+      setSurnameValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -197,15 +225,13 @@ export default function SignInSide() {
   };
 
   const handleIdentificationNumberChange = (event) => {
-    const identificationNumber = event.target.value;
+    const identificationNumber = event.target.value.replace(/\D/g, '').trim();
 
+    console.log(event.target.value)
     setIdentificationNumber(identificationNumber);
 
     const validateID = () => {
-      const re = /^[0-9]+$/;
-      if (!re.test(identificationNumber)) {
-        return 'ID number should only contain numbers';
-      }
+      
       if (!(identificationNumber.length === 11)) {
         return `ID number must be 11 characters. Your ID characters: ${identificationNumber.length}`;
       }
@@ -216,20 +242,29 @@ export default function SignInSide() {
     const errorMessage = validateID();
     setIdentificationNumberError(errorMessage);
     setIdentificationNumberValid(errorMessage === '');
+
+    const reg = /^\d+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="ID number should only contain numbers"
+      setIdentificationNumberError(errorMessage);
+      setIdentificationNumberValid(errorMessage === '');
+      console.log(event.target.value)
+      setTimeout(() => {
+        const errorMessage = ''
+        setIdentificationNumberError(errorMessage);
+        setIdentificationNumberValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handleDepartmentChange = (event) => {
-    const department = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const department = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
 
     setDepartment(department);
 
     const validateDepartment = () => {
       if (department.trim().length === 0) {
         return 'Department can not be empty';
-      }
-      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-      if (!re.test(department)) {
-        return 'Department should only contain letters';
       }
       if (department.length > 25) {
         return 'Department should not exceed 25 characters';
@@ -240,6 +275,18 @@ export default function SignInSide() {
     const errorMessage = validateDepartment();
     setDepartmentError(errorMessage);
     setDepartmentValid(errorMessage === '');
+
+    const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage ="Department should only contain letters"
+      setDepartmentError(errorMessage);
+      setDepartmentValid(errorMessage === '');
+      setTimeout(() => {
+        const errorMessage = ''
+        setDepartmentError(errorMessage);
+        setDepartmentValid(errorMessage === '');
+      }, 2000);
+    }
   };
 
   const handleCompanyChange = (event) => {
@@ -269,14 +316,23 @@ export default function SignInSide() {
       department.length > 0 &&
       companySelected === true
     ) {
+      const data = new FormData(event.currentTarget);
+      const nameupperlower = data.get('name').trim();
+      const formattedName = nameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + nameupperlower.slice(1).toLocaleLowerCase('tr-TR');
+      const middlenameupperlower = data.get('middleName').trim();
+      const formattedMiddleName = middlenameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + middlenameupperlower.slice(1).toLocaleLowerCase('tr-TR');
+      const surnameupperlower = data.get('surname').trim();
+      const formattedSurname = surnameupperlower.charAt(0).toLocaleUpperCase('tr-TR') + surnameupperlower.slice(1).toLocaleLowerCase('tr-TR');
+      const departmentupperlower = data.get('department').trim();
+      const formattedDepartment = departmentupperlower.charAt(0).toLocaleUpperCase('tr-TR') + departmentupperlower.slice(1).toLocaleLowerCase('tr-TR');
       const formData = {
         email: event.target.email.value,
-        name: event.target.name.value,
-        surname: event.target.surname.value,
+        name: formattedName,
+        surname: formattedSurname,
         password: event.target.password.value,
         repassword: event.target.repassword.value,
         identificationNumber: event.target.identificationNumber.value,
-        department: event.target.department.value,
+        department: formattedDepartment,
         companyId: company.companyId,
       };
       try {
@@ -430,6 +486,7 @@ export default function SignInSide() {
                     name="name"
                     autoComplete="name"
                     autoFocus
+                    value={name}
                     error={!nameValid}
                     helperText={!nameValid ? nameError : ''}
                     onChange={handleNameChange}
@@ -444,6 +501,7 @@ export default function SignInSide() {
                     name="middleName"
                     autoComplete="middleName"
                     autoFocus
+                    value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
                     onChange={handleMiddleChange}
@@ -459,6 +517,7 @@ export default function SignInSide() {
                 name="surname"
                 autoComplete="surname"
                 autoFocus
+                value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
                 onChange={handleSurnameChange}
@@ -512,6 +571,7 @@ export default function SignInSide() {
                 name="identificationNumber"
                 autoComplete="identificationNumber"
                 autoFocus
+                value={identificationNumber}
                 error={!identificationNumberValid}
                 helperText={!identificationNumberValid ? identificationNumberError : ''}
                 onChange={handleIdentificationNumberChange}
@@ -525,6 +585,7 @@ export default function SignInSide() {
                 name="department"
                 autoComplete="department"
                 autoFocus
+                value={department}
                 error={!departmentValid}
                 helperText={!departmentValid ? departmentError : ''}
                 onChange={handleDepartmentChange}
