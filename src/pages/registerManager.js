@@ -227,7 +227,7 @@ export default function SignInSide() {
   const handleIdentificationNumberChange = (event) => {
     const identificationNumber = event.target.value.replace(/\D/g, '').trim();
 
-    console.log(event.target.value)
+    
     setIdentificationNumber(identificationNumber);
 
     const validateID = () => {
