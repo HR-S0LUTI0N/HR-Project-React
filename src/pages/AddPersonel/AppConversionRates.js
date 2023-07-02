@@ -16,6 +16,13 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Add from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+import CommentIcon from '@mui/icons-material/Comment';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -51,8 +58,6 @@ export default function AppConversionRates({ title }) {
   const [identificationNumberError, setIdentificationNumberError] = useState('');
   const [department, setDepartment] = useState('');
   const [departmentError, setDepartmentError] = useState('');
-  const [breakk, setBreakk] = useState('');
-  const [breakkError, setBreakkError] = useState('');
   const [numberOfDayOff, setNumberOfDayOff] = useState('');
   const [numberOfDayOffError, setNumberOfDayOffError] = useState('');
   const [neighbourhood, setNeighbourhood] = useState('');
@@ -184,15 +189,7 @@ export default function AppConversionRates({ title }) {
       setDepartment(value);
     }
   };
-  const handleBreakChange = (event) => {
-    const value = event.target.value;
-    if (value.length > 30) {
-      setBreakkError('Break must not exceed 30 characters');
-    } else {
-      setBreakkError('');
-      setBreakk(value);
-    }
-  };
+
   const handleNumberOfDayOffChange = (event) => {
     let value = event.target.value;
     value = value.replace(/\D/g, '');
@@ -350,7 +347,7 @@ export default function AppConversionRates({ title }) {
       department: formattedDepartment,
       jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
       jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
-      jobBreak: data.get('jobBreak'),
+      jobBreak: checked,
       employeeLeaves: data.get('employeeLeaves'),
     };
     console.log('Form Data:', payload);
@@ -375,7 +372,6 @@ export default function AppConversionRates({ title }) {
         setBirthPlace('')
         setIdentificationNumber('')
         setDepartment('')
-        setBreakk('')
         setNumberOfDayOff('')
         setNeighbourhood('')
         setDistrict('')
@@ -386,16 +382,35 @@ export default function AppConversionRates({ title }) {
         setPostalCode('')
         setPhone('')
         setWage('')
-
+        setChecked([])
       })
       .catch((error) => {
         errorRegistrationToastMessage();
         console.error('Error:', error);
       });
 
+
   };
 
-  const handleOnClick = async () => { };
+  const [checked, setChecked] = React.useState([]);
+
+  const handleToggle = (value) => () => {
+    console.log(checked)
+
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+    console.log(checked)
+
+  };
+
 
   return (
     <>
@@ -532,17 +547,7 @@ export default function AppConversionRates({ title }) {
                   error={Boolean(departmentError)}
                   helperText={departmentError}
                 />
-                <TextField
-                  id="jobBreak"
-                  name="jobBreak"
-                  label="Break"
-                  variant="filled"
-                  sx={{ width: 280 }}
-                  value={breakk}
-                  onChange={handleBreakChange}
-                  error={Boolean(breakkError)}
-                  helperText={breakkError}
-                />
+
                 <TextField
                   id="employeeLeaves"
                   name="employeeLeaves"
@@ -568,6 +573,8 @@ export default function AppConversionRates({ title }) {
                   }}
                   sx={{ width: 280 }}
                 />
+
+
                 <Grid container justifyContent="center" sx={{ mx: 'auto' }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['TimePicker', 'TimePicker']}>
@@ -637,6 +644,36 @@ export default function AppConversionRates({ title }) {
                     />
                   </DemoContainer>
                 </LocalizationProvider>
+              </Grid>
+              <Grid container justifyContent="center" sx={{ mx: 'auto' }}>
+                <Grid item xs={12}>
+                  <CardHeader subheader="Break Information" sx={{ marginLeft: '3rem' }} />
+                </Grid>
+                <Grid item xs={12} sx={{ ml: 30 }}>
+                  <List sx={{ display: 'flex', flexWrap: 'wrap', width: '100%', maxWidth: 2000, bgcolor: 'background.paper' }}>
+                    {['Smoke Break', 'Rest Break', 'Lunch Break', 'Health Issue Break'].map((value) => {
+                      const labelId = `checkbox-list-label-${value}`;
+
+                      return (
+                        <ListItem key={value} sx={{ width: '40%', justifyContent: 'center' }}>
+                          <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                            <ListItemIcon>
+                              <Checkbox
+                                edge="start"
+                                checked={checked.indexOf(value) !== -1}
+                                tabIndex={-1}
+                                disableRipple
+                                inputProps={{ 'aria-labelledby': labelId }}
+                                style={{ color: "#ffa726" }}
+                              />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={`${value}`} />
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Grid>
               </Grid>
               <CardHeader subheader="Employee Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
