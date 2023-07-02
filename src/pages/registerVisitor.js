@@ -66,9 +66,9 @@ export default function SignInSide() {
   };
 
   const handleNameChange = (event) => {
-    
-    const name = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim() 
-    
+
+    const name = event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
+
     setName(name);
 
     const validateName = () => {
@@ -76,7 +76,7 @@ export default function SignInSide() {
       if (name.length === 0) {
         return 'Name can not be empty';
       }
-      
+
       if (name.length > 12) {
         return 'Name should not exceed 12 characters';
       }
@@ -88,8 +88,8 @@ export default function SignInSide() {
     setNameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Name should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Name should only contain letters"
       setNameError(errorMessage);
       setNameValid(errorMessage === '');
       setTimeout(() => {
@@ -98,16 +98,16 @@ export default function SignInSide() {
         setNameValid(errorMessage === '');
       }, 2000);
     }
-    
+
   };
 
   const handleMiddleChange = (event) => {
     const middleName =
-    event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
+      event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
     setMiddlename(middleName);
 
     const validateMiddleName = () => {
-      
+
       if (middleName.length > 12) {
         return 'Middle name should not exceed 12 characters';
       }
@@ -119,8 +119,8 @@ export default function SignInSide() {
     setMiddlenameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Middle name should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Middle name should only contain letters"
       setMiddlenameError(errorMessage);
       setMiddlenameValid(errorMessage === '');
       setTimeout(() => {
@@ -133,7 +133,7 @@ export default function SignInSide() {
 
   const handleSurnameChange = (event) => {
     const surname =
-    event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
+      event.target.value.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '').trim()
     setSurname(surname);
     const validateSurname = () => {
       if (surname.length === 0) {
@@ -154,14 +154,14 @@ export default function SignInSide() {
     setSurnameValid(errorMessage === '');
 
     const reg = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-    if ( !reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessage ="Surname should only contain letters"
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessage = "Surname should only contain letters"
       setSurnameError(errorMessage);
       setSurnameValid(errorMessage === '');
       setTimeout(() => {
         const errorMessage = ''
         setSurnameError(errorMessage);
-      setSurnameValid(errorMessage === '');
+        setSurnameValid(errorMessage === '');
       }, 2000);
     }
   };
@@ -369,7 +369,7 @@ export default function SignInSide() {
                     value={name}
                     error={!nameValid}
                     helperText={!nameValid ? nameError : ''}
-                    onChange={handleNameChange} 
+                    onChange={handleNameChange}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -380,7 +380,7 @@ export default function SignInSide() {
                     label="Middle Name"
                     name="middleName"
                     autoComplete="middleName"
-                    
+
                     value={middleName}
                     error={!middleNameValid}
                     helperText={!middleNameValid ? middleNameError : ''}
@@ -396,7 +396,7 @@ export default function SignInSide() {
                 label="Surname"
                 name="surname"
                 autoComplete="surname"
-                
+
                 value={surname}
                 error={!surnameValid}
                 helperText={!surnameValid ? surnameError : ''}
@@ -443,7 +443,7 @@ export default function SignInSide() {
                 onChange={handleRepasswordChange}
               />
 
-              <Button  type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign Up
               </Button>
               <Grid container>
@@ -454,7 +454,7 @@ export default function SignInSide() {
                 </Grid>
               </Grid>
             </Box>
-            <Button href="/registerManager" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15 }}>
+            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15 }}>
               Manager
             </Button>
           </Box>
