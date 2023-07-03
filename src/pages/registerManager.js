@@ -632,7 +632,7 @@ export default function SignInSide() {
             <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15, width: 90 }}>
               Visitor
             </Button>
-            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: 685, width: 90 }}>
+            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: '35%', width: 90 }}>
               PRICING
             </Button>
             <ToastContainer />
