@@ -26,6 +26,7 @@ import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
 
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
+import AddExpensePage from './pages/AddExpense/AddExpensePage'
 import ForgotPasswordChange from './pages/ForgotPasswordChange'
 import ConfirmManager from './pages/ConfirmManager'
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
@@ -48,6 +49,7 @@ export default function Router() {
         { path: 'add-personnel', element: <AddPersonelPage /> },
         { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -68,6 +70,7 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -77,6 +80,7 @@ export default function Router() {
         { element: <Navigate to="/personnel/panel" />, index: true },
         { path: 'panel', element: <DashboardAppPage /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
 

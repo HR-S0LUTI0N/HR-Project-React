@@ -21,6 +21,11 @@ const navConfig = [
     path: '/manager/add-personnel',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Expense Demand',
+    path: '/personnel/expense-demand',
+    icon: icon('ic_expense'),
+  },
 ];
 
 export default navConfig;

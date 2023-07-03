@@ -11,6 +11,11 @@ const navConfig = [
     path: '/personnel/panel',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Expense Demand',
+    path: '/personnel/expense-demand',
+    icon: icon('ic_expense'),
+  },
 
 ];
 
