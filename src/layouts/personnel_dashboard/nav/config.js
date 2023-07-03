@@ -16,12 +16,11 @@ const navConfig = [
     path: '/personnel/permission-request',
     icon: icon('ic_user'),
   },
-
+  {
     title: 'Expense Demand',
     path: '/personnel/expense-demand',
     icon: icon('ic_expense'),
   },
-
 ];
 
 export default navConfig;
