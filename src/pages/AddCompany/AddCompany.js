@@ -201,15 +201,12 @@ export default function AddCompany({ title }) {
 
 
   const handlePhoneNumberChange = (event) => {
-    const companyPhone = event.target.value;
+    const companyPhone = event.target.value.replace(/\D/g, '').trim();
 
     setCompanyPhone(companyPhone);
 
     const validateCompanyPhone = () => {
-      const re = /^[0-9]+$/;
-      if (!re.test(companyPhone)) {
-        return 'Phone number should only contain numbers';
-      }
+      
       if (!(companyPhone.length === 11)) {
         return `Phone must be 11 characters. lenght: ${companyPhone.length}`;
       }
@@ -220,6 +217,18 @@ export default function AddCompany({ title }) {
     const errorMessageCompanyPhone = validateCompanyPhone();
     setCompanyPhoneError(errorMessageCompanyPhone);
     setCompanyPhoneValid(errorMessageCompanyPhone === '');
+
+    const reg = /^\d+$/;
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessageCompanyPhone = "Phone should only contain numbers"
+      setCompanyPhoneError(errorMessageCompanyPhone);
+    setCompanyPhoneValid(errorMessageCompanyPhone === '');
+      setTimeout(() => {
+        const errorMessageCompanyPhone = ''
+        setCompanyPhoneError(errorMessageCompanyPhone);
+        setCompanyPhoneValid(errorMessageCompanyPhone === '');
+      }, 2000);
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -293,14 +302,53 @@ export default function AddCompany({ title }) {
   }
 
   const handleCompanyProvinceChange = (event) => {
-    const companyProvince = event.target.value;
+    const companyProvince = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setCompanyProvince(companyProvince);
+    const validateProvince = () => {
+    if (companyProvince.trim().length === 0) {
+      return 'Province can not be empty';
+    }
+
+    const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(companyProvince)) {
+        return 'Province should only contain letters';
+      }
+    
+    if (companyProvince.length > 25) {
+      return 'Province should not exceed 25 characters';
+    }
+    return '';
+  };
+
+  const errorMessageProvince = validateProvince();
+  setCompanyProvinceError(errorMessageProvince);
+  setCompanyProvinceValid(errorMessageProvince === '');
 
   }
 
   const handleCompanyDistrictChange = (event) => {
-    const companyDistrict = event.target.value;
+    const companyDistrict = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
     setCompanyDistrict(companyDistrict);
+
+    const validateDistrict = () => {
+    if (companyDistrict.trim().length === 0) {
+      return 'District can not be empty';
+    }
+
+    const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+      if (!re.test(companyDistrict)) {
+        return 'District should only contain letters';
+      }
+    
+    if (companyDistrict.length > 25) {
+      return 'District should not exceed 25 characters';
+    }
+    return '';
+  };
+
+  const errorMessageDistrict = validateDistrict();
+  setCompanyDistrictError(errorMessageDistrict);
+  setCompanyDistrictValid(errorMessageDistrict === '');
 
   }
 
@@ -308,23 +356,119 @@ export default function AddCompany({ title }) {
     const companyCountry = event.target.value;
     setCompanyCountry(companyCountry);
 
+    const validateCountry = () => {
+      if (companyCountry.trim().length === 0) {
+        return 'Country can not be empty';
+      }
+  
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+        if (!re.test(companyCountry)) {
+          return 'Country should only contain letters';
+        }
+      
+      if (companyCountry.length > 30) {
+        return 'Country should not exceed 30 characters';
+      }
+      return '';
+    };
+  
+    const errorMessageCountry = validateCountry();
+    setCompanyCountryError(errorMessageCountry);
+    setCompanyCountryValid(errorMessageCountry === '');
+
   }
 
   const handleCompanyBuildingNumberChange = (event) => {
-    const companyBuildingNumber = event.target.value;
+    const companyBuildingNumber = event.target.value.replace(/\D/g, '').trim();
     setCompanyBuildingNumber(companyBuildingNumber)
+
+
+    const validateBuildingNumber = () => {
+
+      if ((companyBuildingNumber.trim().length === 0)) {
+        return `Building number can not be empty`;
+      }
+
+      return '';
+    };
+
+    const errorMessageBuildingNumber = validateBuildingNumber();
+    setCompanyBuildingNumberError(errorMessageBuildingNumber);
+    setCompanyBuildingValid(errorMessageBuildingNumber === '');
+
+    const reg = /^\d+$/;
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessageBuildingNumber = "Building number should only contain numbers"
+      setCompanyBuildingNumberError(errorMessageBuildingNumber);
+    setCompanyBuildingValid(errorMessageBuildingNumber === '');
+      setTimeout(() => {
+        const errorMessageBuildingNumber = ''
+        setCompanyBuildingNumberError(errorMessageBuildingNumber);
+    setCompanyBuildingValid(errorMessageBuildingNumber === '');
+      }, 2000);
+    }
 
   }
 
   const handleCompanyApartmentNumberChange = (event) => {
-    const companyApartmentNumber = event.target.value;
+    const companyApartmentNumber = event.target.value.replace(/\D/g, '').trim();
     setCompanyApartmentNumber(companyApartmentNumber)
+
+    const validateApartmentNumber = () => {
+
+      if ((companyApartmentNumber.trim().length === 0)) {
+        return `Apartment number can not be empty`;
+      }
+
+      return '';
+    };
+
+    const errorMessageApartmentNumber = validateApartmentNumber();
+    setCompanyApartmentNumberError(errorMessageApartmentNumber);
+    setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+
+    const reg = /^\d+$/;
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessageApartmentNumber = "Apartment number should only contain numbers"
+      setCompanyApartmentNumberError(errorMessageApartmentNumber);
+    setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+      setTimeout(() => {
+        const errorMessageApartmentNumber = ''
+        setCompanyApartmentNumberError(errorMessageApartmentNumber);
+    setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+      }, 2000);
+    }
 
   }
 
   const handleCompanyPostalCodeChange = (event) => {
-    const companyPostalCode = event.target.value;
+    const companyPostalCode = event.target.value.replace(/\D/g, '').trim();
     setCompanyPostalCode(companyPostalCode)
+
+    const validatePostalCode = () => {
+
+      if ((companyPostalCode.trim().length === 0)) {
+        return `Postal code can not be empty`;
+      }
+
+      return '';
+    };
+
+    const errorMessagePostalCode = validatePostalCode();
+    setCompanyPostalCodeError(errorMessagePostalCode);
+    setCompanyPostalCodeValid(errorMessagePostalCode === '');
+
+    const reg = /^\d+$/;
+    if (!reg.test(event.target.value) && !(event.target.value === '')) {
+      const errorMessagePostalCode = "Postal code should only contain numbers"
+      setCompanyPostalCodeError(errorMessagePostalCode);
+    setCompanyPostalCodeValid(errorMessagePostalCode === '');
+      setTimeout(() => {
+        const errorMessagePostalCode = ''
+        setCompanyPostalCodeError(errorMessagePostalCode);
+    setCompanyPostalCodeValid(errorMessagePostalCode === '');
+      }, 2000);
+    }
 
   }
 
