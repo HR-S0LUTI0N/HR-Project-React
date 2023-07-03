@@ -11,7 +11,11 @@ const navConfig = [
     path: '/personnel/panel',
     icon: icon('ic_user'),
   },
-
+  {
+    title: 'Permission Request',
+    path: '/personnel/permission-request',
+    icon: icon('ic_user'),
+  },
 ];
 
 export default navConfig;
