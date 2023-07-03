@@ -86,7 +86,7 @@ export default function AppConversionRates({ title }) {
   React.useEffect(() => {
     if (token === null) {
       navigate('/404')
-    } else if (!roles.includes('MANAGER')) {
+    } else if (!roles.includes('FOUNDER')) {
       navigate('/404');
     }
   }, [])
@@ -462,7 +462,7 @@ export default function AppConversionRates({ title }) {
               onSubmit={handleSubmit}
               sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', p: '2rem' }}
             >
-              <CardHeader subheader="Employee Information" sx={{ marginLeft: '3rem' }} />
+              <CardHeader subheader="Manager Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <TextField
                   id="name"
@@ -548,7 +548,7 @@ export default function AppConversionRates({ title }) {
                 />
 
                 <TextField
-                  id="employeeLeaves"
+                  id="ManagerLeaves"
                   name="employeeLeaves"
                   label="Number Of Day Off"
                   variant="filled"
@@ -674,7 +674,7 @@ export default function AppConversionRates({ title }) {
                   </List>
                 </Grid>
               </Grid>
-              <CardHeader subheader="Employee Address" sx={{ marginLeft: '3rem' }} />
+              <CardHeader subheader="Manager Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <TextField
                   id="neighbourhood"

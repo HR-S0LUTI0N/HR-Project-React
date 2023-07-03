@@ -4,6 +4,7 @@ import DashboardLayout from './layouts/dashboard';
 import AdminDashboardLayout from './layouts/admin_dashboard'
 import ManagerDashboardLayout from './layouts/manager_dashboard';
 import PersonnelDashboardLayout from './layouts/personnel_dashboard';
+import FounderDashboardLayout from './layouts/founder_dashboard';
 import SimpleLayout from './layouts/simple';
 
 import BlogPage from './pages/BlogPage';
@@ -30,6 +31,8 @@ import ForgotPasswordChange from './pages/ForgotPasswordChange'
 import ConfirmManager from './pages/ConfirmManager'
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
 import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
+import AddManagerPage from './pages/AddManager/AddManagerPage';
+
 
 
 export default function Router() {
@@ -79,7 +82,18 @@ export default function Router() {
         { path: 'userprofile', element: <UserProfile /> },
       ],
     },
-
+    {
+      path: '/founder',
+      element: <FounderDashboardLayout />,
+      children: [
+        { element: <Navigate to="/founder/panel" />, index: true },
+        { path: 'add-personnel', element: <AddPersonelPage /> },
+        { path: 'add-manager', element: <AddManagerPage /> },
+        { path: 'personnel/panel', element: <DashboardAppPage /> },
+        { path: 'panel', element: <DashboardAppPageDefault /> },
+        { path: 'userprofile', element: <UserProfile /> },
+      ],
+    },
     {
       path: 'visitor',
       element: <VisitorMainPage />,
