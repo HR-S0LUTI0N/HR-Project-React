@@ -9,6 +9,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
+import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import StarIcon from '@mui/icons-material/StarBorder';
 import Typography from '@mui/material/Typography';
@@ -47,7 +48,7 @@ const tiers = [
             '90 days included',
         ],
         day: 90,
-        buttonText: 'Contact us',
+        buttonText: 'Get started',
         buttonVariant: 'outlined',
     },
 ];
@@ -130,10 +131,7 @@ export default function ManagerBuyoutPage() {
                                         align: 'center',
                                     }}
                                     sx={{
-                                        backgroundColor: (theme) =>
-                                            theme.palette.mode === 'light'
-                                                ? theme.palette.grey[200]
-                                                : theme.palette.grey[700],
+                                        backgroundColor: '#ffa726',
                                     }}
                                 />
                                 <CardContent>
@@ -166,14 +164,24 @@ export default function ManagerBuyoutPage() {
                                     </ul>
                                 </CardContent>
                                 <CardActions>
-                                    <Button fullWidth variant={tier.buttonVariant} onClick={(e) => setDay(tier.day)}>
+                                    <Button fullWidth sx={{ color: '#ffa726', borderColor: '#ffa726' }} variant={tier.buttonVariant} onClick={(e) => setDay(tier.day)}>
                                         {tier.buttonText}
                                     </Button>
                                 </CardActions>
                             </Card>
                         </Grid>
                     ))}
+                    <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 3, marginLeft: 5 }}>
+                        <Grid item>
+                            <Link href="/login" variant="body2" textAlign="center">
+                                {'Already have an account? Sign in'}
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Grid>
+                <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15, width: 90 }}>
+                    Visitor
+                </Button>
             </Container>
         </ThemeProvider>
     );

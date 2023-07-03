@@ -116,7 +116,7 @@ export default function DashboardAppPage() {
                   style={{ height: '100%' }}
                   title="Shift Information"
                   list={[...Array(1)].map((_, index) => ({
-                    title: `Shifts: ${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
+                    title: `${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
                     type: `order${index + 1}`,
                   }))}
                 />
