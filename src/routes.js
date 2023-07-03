@@ -1,7 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
-import AdminDashboardLayout from './layouts/admin_dashboard'
+import AdminDashboardLayout from './layouts/admin_dashboard';
 import ManagerDashboardLayout from './layouts/manager_dashboard';
 import PersonnelDashboardLayout from './layouts/personnel_dashboard';
 import FounderDashboardLayout from './layouts/founder_dashboard';
@@ -26,11 +26,14 @@ import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
 
+
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
 import ForgotPasswordChange from './pages/ForgotPasswordChange'
 import ConfirmManager from './pages/ConfirmManager'
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
 import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
+import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
+import AddExpensePage from './pages/AddExpense/AddExpensePage'
 import AddManagerPage from './pages/AddManager/AddManagerPage';
 
 
@@ -51,6 +54,7 @@ export default function Router() {
         { path: 'add-personnel', element: <AddPersonelPage /> },
         { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -71,6 +75,7 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -80,6 +85,8 @@ export default function Router() {
         { element: <Navigate to="/personnel/panel" />, index: true },
         { path: 'panel', element: <DashboardAppPage /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'permission-request', element: <PermissionRequest /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -148,11 +155,11 @@ export default function Router() {
     },
     {
       path: 'forgotpassword-replace/:token',
-      element: <ForgotPasswordReplace />
+      element: <ForgotPasswordReplace />,
     },
     {
       path: 'company-buyout-page',
-      element: <ManagerBuyoutPage />
+      element: <ManagerBuyoutPage />,
     },
     {
       element: <SimpleLayout />,
