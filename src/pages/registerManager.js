@@ -17,6 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from 'axios';
 
 const defaultTheme = createTheme();
@@ -51,6 +53,8 @@ export default function SignInSide() {
   const [companySelected, setCompanySelected] = React.useState(false);
   const [companyError, setCompanyError] = React.useState('');
   const navigate = useNavigate();
+  const day = sessionStorage.getItem('day');
+
 
   React.useEffect(() => {
     fetchCompanies();
@@ -336,18 +340,23 @@ export default function SignInSide() {
         identificationNumber: event.target.identificationNumber.value,
         department: formattedDepartment,
         companyId: company.companyId,
+        companySubscribeDay: day,
       };
+      console.log(formData)
       try {
         const response = await axios.post('http://localhost:9090/api/v1/auth/register-manager', formData);
         console.log('Success:', response.data);
         if (response.status === 200) {
           console.log('Successful registration');
+          sessionStorage.setItem('day', 0);
           navigate('/register-succesful');
         } else {
           console.log('Registration failed. Status code:', response.status);
         }
       } catch (error) {
         console.error('Error signing up:', error);
+        toast.error(error.response.data.message)
+
       }
     } else {
       console.log('Form data is invalid');
@@ -623,9 +632,10 @@ export default function SignInSide() {
             <Button href="/registerVisitor" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15, width: 90 }}>
               Visitor
             </Button>
-            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: 685, width: 90 }}>
+            <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: '35%', width: 90 }}>
               PRICING
             </Button>
+            <ToastContainer />
           </Box>
         </Grid>
       </Grid>

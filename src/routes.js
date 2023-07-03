@@ -31,6 +31,8 @@ import ConfirmManager from './pages/ConfirmManager';
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace';
 import ManagerBuyoutPage from './pages/ManagerBuyoutPage';
 import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
+import AddExpensePage from './pages/AddExpense/AddExpensePage'
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -48,6 +50,7 @@ export default function Router() {
         { path: 'add-personnel', element: <AddPersonelPage /> },
         { path: 'add-company', element: <AddCompanyPage /> },
         { path: 'admin', element: <Admin /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -68,6 +71,7 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
     {
@@ -78,6 +82,7 @@ export default function Router() {
         { path: 'panel', element: <DashboardAppPage /> },
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'permission-request', element: <PermissionRequest /> },
+        { path: 'expense-demand', element: <AddExpensePage /> },
       ],
     },
 
