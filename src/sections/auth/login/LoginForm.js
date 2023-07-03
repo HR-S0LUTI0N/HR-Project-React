@@ -79,6 +79,8 @@ export default function LoginForm() {
 
         if (data.roles.includes('VISITOR')) {
           navigate('/visitor');
+        } else if (data.roles.includes('FOUNDER')) {
+          navigate('/founder/panel');
         } else if (data.roles.includes('MANAGER')) {
           navigate('/manager/panel');
         } else if (data.roles.includes('PERSONEL')) {

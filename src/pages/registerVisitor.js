@@ -13,6 +13,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from 'axios';
 
 const defaultTheme = createTheme();
@@ -246,6 +248,7 @@ export default function SignInSide() {
         })
         .catch((error) => {
           console.error(error);
+          toast.error(error.response.data.message)
         });
     } else {
       if (email.trim().length === 0) {
@@ -457,6 +460,7 @@ export default function SignInSide() {
             <Button href="/company-buyout-page" variant="outlined" sx={{ position: 'absolute', top: 15, right: 15 }}>
               Manager
             </Button>
+            <ToastContainer />
           </Box>
         </Grid>
       </Grid>
