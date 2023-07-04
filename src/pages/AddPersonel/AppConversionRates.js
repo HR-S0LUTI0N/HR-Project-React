@@ -288,7 +288,7 @@ export default function AppConversionRates({ title }) {
 
   const handleWageChange = (event) => {
     let value = event.target.value;
-    value = value.replace(/\D/g, '');
+    value = value.replace(/[^\d.]/g, '');
     if (value.length > 12) {
       value = value.slice(0, 12);
       setWageError('Number of Phone Number must not exceed 12 characters');
