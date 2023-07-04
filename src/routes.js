@@ -77,6 +77,7 @@ export default function Router() {
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
       ],
     },
     {
