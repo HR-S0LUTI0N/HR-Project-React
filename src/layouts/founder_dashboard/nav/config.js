@@ -26,6 +26,11 @@ const navConfig = [
     path: '/founder/add-manager',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Confirm Expense',
+    path: '/founder/expense-confirmation-page',
+    icon: icon('ic_user'),
+  },
 ];
 
 export default navConfig;

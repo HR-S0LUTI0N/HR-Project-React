@@ -35,6 +35,7 @@ import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
 import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
 import AddExpensePage from './pages/AddExpense/AddExpensePage'
 import AddManagerPage from './pages/AddManager/AddManagerPage';
+import ExpenseConfirmationPage from './pages/ExpenseConfirmationPage/ExpenseConfirmationPage';
 
 
 
@@ -99,6 +100,7 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
       ],
     },
     {
