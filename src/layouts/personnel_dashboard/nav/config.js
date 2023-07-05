@@ -14,12 +14,12 @@ const navConfig = [
   {
     title: 'Advance Request',
     path: '/personnel/advancerequest',
-    icon: icon('ic_user'),
+    icon: icon('ic_advancerequest'),
   },
   {
     title: 'Permission Request',
     path: '/personnel/permission-request',
-    icon: icon('ic_user'),
+    icon: icon('ic_permissionrequest'),
   },
   {
     title: 'Expense Demand',

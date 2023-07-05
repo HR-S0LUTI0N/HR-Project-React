@@ -34,12 +34,17 @@ const navConfig = [
   {
     title: 'Confirm Expense',
     path: '/manager/expense-confirmation-page',
-    icon: icon('ic_user'),
+    icon: icon('ic_confirmexpense'),
+  },
+  {
+    title: 'Confirm Advance',
+    path: '/manager/advance-confirmation-page',
+    icon: icon('ic_confirmadvance'),
   },
   {
     title: 'Day Off Permission',
     path: '/manager/day-off-permission',
-    icon: icon('ic_user'),
+    icon: icon('ic_dayoff'),
 
   },
 ];

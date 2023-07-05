@@ -9,12 +9,12 @@ const navConfig = [
   {
     title: 'Add Company',
     path: '/admin/add-company',
-    icon: icon('ic_user'),
+    icon: icon('ic_addcompany'),
   },
   {
     title: 'admin',
     path: '/admin/panel',
-    icon: icon('ic_blog'),
+    icon: icon('ic_admin'),
   },
 ];
 
