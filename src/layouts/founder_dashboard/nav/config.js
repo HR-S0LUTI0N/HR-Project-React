@@ -29,7 +29,7 @@ const navConfig = [
   {
     title: 'Advance Request',
     path: '/founder/advancerequest',
-    icon: icon('ic_user'),
+    icon: icon('ic_advancerequest'),
   },
   {
     title: 'Expense Demand',
