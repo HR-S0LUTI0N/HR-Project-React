@@ -78,12 +78,11 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
-
         { path: 'advancerequest', element: <AdvanceRequest /> },
-
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
         { path: 'day-off-permission', element: <ConfirPermissionPage /> },
+        { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> },
 
       ],
     },
@@ -100,6 +99,7 @@ export default function Router() {
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
+        
       ],
     },
     {
@@ -115,6 +115,7 @@ export default function Router() {
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
         { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> },
+        { path: 'advancerequest', element: <AdvanceRequest /> },
         { path: 'day-off-permission', element: <ConfirPermissionPage /> },
       ],
     },
