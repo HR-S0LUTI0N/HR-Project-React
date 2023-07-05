@@ -77,7 +77,7 @@ export default function Router() {
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
-        { path: '/manager/day-off-permission', element: <ConfirPermissionPage /> },
+        { path: 'day-off-permission', element: <ConfirPermissionPage /> },
       ],
     },
     {
@@ -105,6 +105,7 @@ export default function Router() {
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
         { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> },
+        { path: 'day-off-permission', element: <ConfirPermissionPage /> },
       ],
     },
     {
