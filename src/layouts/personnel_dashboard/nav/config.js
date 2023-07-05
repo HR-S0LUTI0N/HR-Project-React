@@ -9,7 +9,7 @@ const navConfig = [
   {
     title: 'Personnel',
     path: '/personnel/panel',
-    icon: icon('ic_user'),
+    icon: icon('ic_personnel'),
   },
   {
     title: 'Advance Request',
