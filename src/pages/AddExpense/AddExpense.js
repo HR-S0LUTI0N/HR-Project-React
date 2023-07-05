@@ -27,7 +27,7 @@ import trFlag from './Flag/tr-flag.svg';
 import ImageModal from './ImageModal';
 import FaturaIcon from './Flag/ic_expense.svg';
 
-const comboOptions = ['HEALTH', 'FOOD','ACCOMMODATİON', 'OTHER'];
+const comboOptions = ['HEALTH', 'FOOD','ACCOMMODATION', 'OTHER'];
 const comboPayment = ['CARD', 'CASH', 'OTHER'];
 const comboCurrency = [
     { label: 'TRY', flag: <img src={trFlag} alt="TR Flag" />, currency: 'TRY', symbol: '₺'},
@@ -56,8 +56,6 @@ export default function AddExpense({ title }) {
   const [amountError, setAmountError] = React.useState(true);
   const [selectedBillDateChange, setSelectedBillDateChange] = useState(dayjs());
   const [selectedDemandDateChange, setSelectedDemandDateChange] = useState(dayjs());
-
-
   const [descriptionValid, setDescriptionValid] = React.useState(true);
   const [description, setDescription] = React.useState('');
   const [descriptionError, setDescriptionError] = React.useState('');
@@ -124,8 +122,8 @@ export default function AddExpense({ title }) {
         return 'Description can not be empty';
       }
 
-      if (description.length > 500) {
-        return 'Description should not exceed 500 characters';
+      if (description.length > 50) {
+        return 'Description should not exceed 50 characters';
       }
       return '';
     };
@@ -248,8 +246,9 @@ export default function AddExpense({ title }) {
         taxValid &&
         tax.length > 0 &&
         taxZoneValid &&
-        taxZone.length >0 
-        
+        taxZone.length >0 &&
+        descriptionValid &&
+        description.length > 0
         
         ) {
       const data = new FormData(event.currentTarget);
@@ -272,6 +271,9 @@ export default function AddExpense({ title }) {
         .then((response) => {
           console.log('Success:', response.data);
           setSelectedImage('')
+          setInputValue('');
+          setInputValueCurrency('');
+          setInputValuePayment('')
           setNetAmount('');
           setTax('');
           setTaxZone('');
@@ -495,7 +497,7 @@ export default function AddExpense({ title }) {
                 <Autocomplete
                   sx={{ width: 280 }}
                   name="Payment Method"
-                  value={paymentMethod}
+                  value={inputValuePayment}
                   options={comboPayment}
                   autoFocus
                   onChange={(event, newInputValuePayment) => {
@@ -548,7 +550,7 @@ export default function AddExpense({ title }) {
                   label="Description"
                   variant="filled"
                   rows={10}
-                  placeholder="Max 500 characters"
+                  placeholder="Max 50 characters"
                   sx={{ width: 905 }}
                   multiline
                   error={!descriptionValid} helperText={!descriptionValid ? descriptionError : ''}

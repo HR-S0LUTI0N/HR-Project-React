@@ -603,7 +603,7 @@ export default function AppConversionRates({ title }) {
                 <Autocomplete
                   sx={{ width: 280 }}
                   name="Gender"
-                  value={gender}
+                  value={inputValue}
                   options={comboOptions}
                   onChange={(event, newInputValue) => {
                     console.log(newInputValue);
