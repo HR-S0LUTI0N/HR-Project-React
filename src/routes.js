@@ -6,15 +6,12 @@ import ManagerDashboardLayout from './layouts/manager_dashboard';
 import PersonnelDashboardLayout from './layouts/personnel_dashboard';
 import FounderDashboardLayout from './layouts/founder_dashboard';
 import SimpleLayout from './layouts/simple';
-
-import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful';
 import RegisterSuccesful from './pages/RegisterSuccesful';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
@@ -26,17 +23,23 @@ import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
 
+
+
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
 import ForgotPasswordChange from './pages/ForgotPasswordChange';
 import ConfirmManager from './pages/ConfirmManager';
 import ForgotPasswordReplace from './pages/ForgotPasswordReplace';
 import ManagerBuyoutPage from './pages/ManagerBuyoutPage';
+
+import AdvanceRequest from './pages/AdvanceRequest';
+
 import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
 import AddExpensePage from './pages/AddExpense/AddExpensePage';
 import AddManagerPage from './pages/AddManager/AddManagerPage';
 import ExpenseConfirmationPage from './pages/ExpenseConfirmationPage/ExpenseConfirmationPage';
 import AdvanceConfirmationPage from './pages/AdvanceConfirmationPage/AdvanceConfirmationPage';
 import ConfirPermissionPage from './pages/ManagerPage/ConfirmPermissionPage';
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -75,9 +78,13 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+
+        { path: 'advancerequest', element: <AdvanceRequest /> },
+
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
         { path: 'day-off-permission', element: <ConfirPermissionPage /> },
+
       ],
     },
     {
@@ -87,6 +94,9 @@ export default function Router() {
         { element: <Navigate to="/personnel/panel" />, index: true },
         { path: 'panel', element: <DashboardAppPage /> },
         { path: 'userprofile', element: <UserProfile /> },
+
+        { path: 'advancerequest', element: <AdvanceRequest /> },
+
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },

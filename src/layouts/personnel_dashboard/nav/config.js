@@ -12,6 +12,12 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+
+    title: 'Advance Request',
+    path: '/personnel/advancerequest',
+    icon: icon('ic_user'),
+  },
+
     title: 'Permission Request',
     path: '/personnel/permission-request',
     icon: icon('ic_user'),
@@ -21,6 +27,7 @@ const navConfig = [
     path: '/personnel/expense-demand',
     icon: icon('ic_expense'),
   },
+
 ];
 
 export default navConfig;

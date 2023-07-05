@@ -22,6 +22,11 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+    title: 'Advance Request',
+    path: '/manager/advancerequest',
+    icon: icon('ic_analytics'),
+    },
+    {
     title: 'Expense Demand',
     path: '/manager/expense-demand',
     icon: icon('ic_expense'),
@@ -35,6 +40,7 @@ const navConfig = [
     title: 'Day Off Permission',
     path: '/manager/day-off-permission',
     icon: icon('ic_user'),
+
   },
 ];
 
