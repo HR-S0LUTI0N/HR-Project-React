@@ -354,7 +354,7 @@ export default function AppConversionRates({ title }) {
 
 
     await axios
-      .post(`http://localhost:9080/api/v1/user-profile/create-manager/${token}`, payload)
+      .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
       .then((response) => {
         console.log('Success:', response.data);
         successRegistrationToastMessage();
