@@ -1,19 +1,16 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
-import AdminDashboardLayout from './layouts/admin_dashboard'
+import AdminDashboardLayout from './layouts/admin_dashboard';
 import ManagerDashboardLayout from './layouts/manager_dashboard';
 import PersonnelDashboardLayout from './layouts/personnel_dashboard';
 import SimpleLayout from './layouts/simple';
-
-import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ForgotPasswordSuccesful from './pages/ForgotPassword/ForgotPasswordSuccesful';
 import RegisterSuccesful from './pages/RegisterSuccesful';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/PersonnelPage/DashboardAppPage';
 import SignUp from './pages/SignUp';
 import VisitorMainPage from './pages/Visitor-Main-Page/Home';
@@ -24,13 +21,12 @@ import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
-
-import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
-import ForgotPasswordChange from './pages/ForgotPasswordChange'
-import ConfirmManager from './pages/ConfirmManager'
-import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
-import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
-
+import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
+import ForgotPasswordChange from './pages/ForgotPasswordChange';
+import ConfirmManager from './pages/ConfirmManager';
+import ForgotPasswordReplace from './pages/ForgotPasswordReplace';
+import ManagerBuyoutPage from './pages/ManagerBuyoutPage';
+import AdvanceRequest from './pages/AdvanceRequest';
 
 export default function Router() {
   const routes = useRoutes([
@@ -68,6 +64,7 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'advancerequest', element: <AdvanceRequest /> },
       ],
     },
     {
@@ -77,6 +74,7 @@ export default function Router() {
         { element: <Navigate to="/personnel/panel" />, index: true },
         { path: 'panel', element: <DashboardAppPage /> },
         { path: 'userprofile', element: <UserProfile /> },
+        { path: 'advancerequest', element: <AdvanceRequest /> },
       ],
     },
 
@@ -134,11 +132,11 @@ export default function Router() {
     },
     {
       path: 'forgotpassword-replace/:token',
-      element: <ForgotPasswordReplace />
+      element: <ForgotPasswordReplace />,
     },
     {
       path: 'company-buyout-page',
-      element: <ManagerBuyoutPage />
+      element: <ManagerBuyoutPage />,
     },
     {
       element: <SimpleLayout />,

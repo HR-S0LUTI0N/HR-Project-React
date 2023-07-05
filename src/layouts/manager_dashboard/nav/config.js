@@ -21,6 +21,11 @@ const navConfig = [
     path: '/manager/add-personnel',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Advance Request',
+    path: '/manager/advancerequest',
+    icon: icon('ic_analytics'),
+  },
 ];
 
 export default navConfig;

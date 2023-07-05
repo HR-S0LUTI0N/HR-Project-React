@@ -9,7 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box, Card, CardHeader, Paper } from '@mui/material';
@@ -21,9 +21,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { ToastContainer, toast } from 'react-toastify';
 
 import DateCalendarServerRequest from './DateCalendarServerRequest';
-import DatesContext from "./context/DatesContext";
-
-
+import DatesContext from './context/DatesContext';
 
 export default function AddCompany({ title }) {
   const [companyNameValid, setCompanyNameValid] = React.useState(true);
@@ -83,38 +81,35 @@ export default function AddCompany({ title }) {
     });
   };
 
-
   const [holidayDates, setHolidayDates] = React.useState('');
 
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
-
   const locale = 'en-gb';
   const [imgs, setImgs] = useState('');
   const { markedDates, setMarkedDays } = useContext(DatesContext);
 
-
   React.useEffect(() => {
     if (token === null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('ADMIN')) {
       navigate('/404');
     }
-  }, [])
+  }, []);
 
   // New state for markedDates
 
   // Function to handle marked dates change
   const handleCompanyNameChange = (event) => {
-    const companyName = event.target.value
+    const companyName = event.target.value;
     setCompanyName(companyName);
 
     const validateCompanyName = () => {
       if (companyName.trim().length === 0) {
         return 'Company name can not be empty';
       }
-      
+
       if (companyName.length > 45) {
         return 'Company name should not exceed 45 characters';
       }
@@ -127,7 +122,9 @@ export default function AddCompany({ title }) {
   };
 
   const handleSectorChange = (event) => {
-    const sector = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const sector =
+      event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +
+      event.target.value.trim().slice(1).toLocaleLowerCase('tr');
     setSector(sector);
 
     const validateSector = () => {
@@ -149,9 +146,8 @@ export default function AddCompany({ title }) {
     setSectorValid(errorMessageSector === '');
   };
 
-
   const handleTaxNumberChange = (event) => {
-    const taxNumber = event.target.value
+    const taxNumber = event.target.value;
     setTaxNumber(taxNumber);
 
     const validateTaxNumber = () => {
@@ -175,9 +171,8 @@ export default function AddCompany({ title }) {
     setTaxNumberValid(errorMessageTaxNumber === '');
   };
 
-
   const handleCompanyBalanceStatusChange = (event) => {
-    const companyBalanceStatus = event.target.value
+    const companyBalanceStatus = event.target.value;
     setCompanyBalanceStatus(companyBalanceStatus);
 
     const validateCompanyBalanceStatus = () => {
@@ -199,14 +194,12 @@ export default function AddCompany({ title }) {
     setCompanyBalanceStatusValid(errorMessageCompanyBalanceStatus === '');
   };
 
-
   const handlePhoneNumberChange = (event) => {
     const companyPhone = event.target.value.replace(/\D/g, '').trim();
 
     setCompanyPhone(companyPhone);
 
     const validateCompanyPhone = () => {
-      
       if (!(companyPhone.length === 11)) {
         return `Phone must be 11 characters. lenght: ${companyPhone.length}`;
       }
@@ -220,11 +213,11 @@ export default function AddCompany({ title }) {
 
     const reg = /^\d+$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessageCompanyPhone = "Phone should only contain numbers"
+      const errorMessageCompanyPhone = 'Phone should only contain numbers';
       setCompanyPhoneError(errorMessageCompanyPhone);
-    setCompanyPhoneValid(errorMessageCompanyPhone === '');
+      setCompanyPhoneValid(errorMessageCompanyPhone === '');
       setTimeout(() => {
-        const errorMessageCompanyPhone = ''
+        const errorMessageCompanyPhone = '';
         setCompanyPhoneError(errorMessageCompanyPhone);
         setCompanyPhoneValid(errorMessageCompanyPhone === '');
       }, 2000);
@@ -260,7 +253,7 @@ export default function AddCompany({ title }) {
   };
 
   const handleDescriptionChange = (event) => {
-    const description = event.target.value
+    const description = event.target.value;
     setDescription(description);
 
     const validateDescription = () => {
@@ -277,18 +270,17 @@ export default function AddCompany({ title }) {
     const errorMessageDescription = validateDescription();
     setDescriptionError(errorMessageDescription);
     setDescriptionValid(errorMessageDescription === '');
-
-  }
+  };
 
   const handleCompanyNeighbourhoodChange = (event) => {
-    const companyNeighbourhood = event.target.value.trim()
-    setCompanyNeighbourhood(companyNeighbourhood)
+    const companyNeighbourhood = event.target.value.trim();
+    setCompanyNeighbourhood(companyNeighbourhood);
 
     const validateNeighbourhood = () => {
       if (companyNeighbourhood.trim().length === 0) {
         return 'Neighbourhood can not be empty';
       }
-      
+
       if (companyNeighbourhood.length > 25) {
         return 'Neighbourhood should not exceed 25 characters';
       }
@@ -298,59 +290,60 @@ export default function AddCompany({ title }) {
     const errorMessageNeighbourhood = validateNeighbourhood();
     setCompanyNeighbourhoodError(errorMessageNeighbourhood);
     setCompanyNeighbourhoodValid(errorMessageNeighbourhood === '');
-
-  }
+  };
 
   const handleCompanyProvinceChange = (event) => {
-    const companyProvince = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const companyProvince =
+      event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +
+      event.target.value.trim().slice(1).toLocaleLowerCase('tr');
     setCompanyProvince(companyProvince);
     const validateProvince = () => {
-    if (companyProvince.trim().length === 0) {
-      return 'Province can not be empty';
-    }
+      if (companyProvince.trim().length === 0) {
+        return 'Province can not be empty';
+      }
 
-    const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(companyProvince)) {
         return 'Province should only contain letters';
       }
-    
-    if (companyProvince.length > 25) {
-      return 'Province should not exceed 25 characters';
-    }
-    return '';
+
+      if (companyProvince.length > 25) {
+        return 'Province should not exceed 25 characters';
+      }
+      return '';
+    };
+
+    const errorMessageProvince = validateProvince();
+    setCompanyProvinceError(errorMessageProvince);
+    setCompanyProvinceValid(errorMessageProvince === '');
   };
 
-  const errorMessageProvince = validateProvince();
-  setCompanyProvinceError(errorMessageProvince);
-  setCompanyProvinceValid(errorMessageProvince === '');
-
-  }
-
   const handleCompanyDistrictChange = (event) => {
-    const companyDistrict = event.target.value.trim().charAt(0).toLocaleUpperCase('tr') + event.target.value.trim().slice(1).toLocaleLowerCase('tr')
+    const companyDistrict =
+      event.target.value.trim().charAt(0).toLocaleUpperCase('tr') +
+      event.target.value.trim().slice(1).toLocaleLowerCase('tr');
     setCompanyDistrict(companyDistrict);
 
     const validateDistrict = () => {
-    if (companyDistrict.trim().length === 0) {
-      return 'District can not be empty';
-    }
+      if (companyDistrict.trim().length === 0) {
+        return 'District can not be empty';
+      }
 
-    const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
+      const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
       if (!re.test(companyDistrict)) {
         return 'District should only contain letters';
       }
-    
-    if (companyDistrict.length > 25) {
-      return 'District should not exceed 25 characters';
-    }
-    return '';
+
+      if (companyDistrict.length > 25) {
+        return 'District should not exceed 25 characters';
+      }
+      return '';
+    };
+
+    const errorMessageDistrict = validateDistrict();
+    setCompanyDistrictError(errorMessageDistrict);
+    setCompanyDistrictValid(errorMessageDistrict === '');
   };
-
-  const errorMessageDistrict = validateDistrict();
-  setCompanyDistrictError(errorMessageDistrict);
-  setCompanyDistrictValid(errorMessageDistrict === '');
-
-  }
 
   const handleCompanyCountryChange = (event) => {
     const companyCountry = event.target.value;
@@ -360,32 +353,29 @@ export default function AddCompany({ title }) {
       if (companyCountry.trim().length === 0) {
         return 'Country can not be empty';
       }
-  
+
       const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-        if (!re.test(companyCountry)) {
-          return 'Country should only contain letters';
-        }
-      
+      if (!re.test(companyCountry)) {
+        return 'Country should only contain letters';
+      }
+
       if (companyCountry.length > 30) {
         return 'Country should not exceed 30 characters';
       }
       return '';
     };
-  
+
     const errorMessageCountry = validateCountry();
     setCompanyCountryError(errorMessageCountry);
     setCompanyCountryValid(errorMessageCountry === '');
-
-  }
+  };
 
   const handleCompanyBuildingNumberChange = (event) => {
     const companyBuildingNumber = event.target.value.replace(/\D/g, '').trim();
-    setCompanyBuildingNumber(companyBuildingNumber)
-
+    setCompanyBuildingNumber(companyBuildingNumber);
 
     const validateBuildingNumber = () => {
-
-      if ((companyBuildingNumber.trim().length === 0)) {
+      if (companyBuildingNumber.trim().length === 0) {
         return `Building number can not be empty`;
       }
 
@@ -398,25 +388,23 @@ export default function AddCompany({ title }) {
 
     const reg = /^\d+$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessageBuildingNumber = "Building number should only contain numbers"
+      const errorMessageBuildingNumber = 'Building number should only contain numbers';
       setCompanyBuildingNumberError(errorMessageBuildingNumber);
-    setCompanyBuildingValid(errorMessageBuildingNumber === '');
+      setCompanyBuildingValid(errorMessageBuildingNumber === '');
       setTimeout(() => {
-        const errorMessageBuildingNumber = ''
+        const errorMessageBuildingNumber = '';
         setCompanyBuildingNumberError(errorMessageBuildingNumber);
-    setCompanyBuildingValid(errorMessageBuildingNumber === '');
+        setCompanyBuildingValid(errorMessageBuildingNumber === '');
       }, 2000);
     }
-
-  }
+  };
 
   const handleCompanyApartmentNumberChange = (event) => {
     const companyApartmentNumber = event.target.value.replace(/\D/g, '').trim();
-    setCompanyApartmentNumber(companyApartmentNumber)
+    setCompanyApartmentNumber(companyApartmentNumber);
 
     const validateApartmentNumber = () => {
-
-      if ((companyApartmentNumber.trim().length === 0)) {
+      if (companyApartmentNumber.trim().length === 0) {
         return `Apartment number can not be empty`;
       }
 
@@ -429,25 +417,23 @@ export default function AddCompany({ title }) {
 
     const reg = /^\d+$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessageApartmentNumber = "Apartment number should only contain numbers"
+      const errorMessageApartmentNumber = 'Apartment number should only contain numbers';
       setCompanyApartmentNumberError(errorMessageApartmentNumber);
-    setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+      setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
       setTimeout(() => {
-        const errorMessageApartmentNumber = ''
+        const errorMessageApartmentNumber = '';
         setCompanyApartmentNumberError(errorMessageApartmentNumber);
-    setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
+        setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
       }, 2000);
     }
-
-  }
+  };
 
   const handleCompanyPostalCodeChange = (event) => {
     const companyPostalCode = event.target.value.replace(/\D/g, '').trim();
-    setCompanyPostalCode(companyPostalCode)
+    setCompanyPostalCode(companyPostalCode);
 
     const validatePostalCode = () => {
-
-      if ((companyPostalCode.trim().length === 0)) {
+      if (companyPostalCode.trim().length === 0) {
         return `Postal code can not be empty`;
       }
 
@@ -460,17 +446,16 @@ export default function AddCompany({ title }) {
 
     const reg = /^\d+$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessagePostalCode = "Postal code should only contain numbers"
+      const errorMessagePostalCode = 'Postal code should only contain numbers';
       setCompanyPostalCodeError(errorMessagePostalCode);
-    setCompanyPostalCodeValid(errorMessagePostalCode === '');
+      setCompanyPostalCodeValid(errorMessagePostalCode === '');
       setTimeout(() => {
-        const errorMessagePostalCode = ''
+        const errorMessagePostalCode = '';
         setCompanyPostalCodeError(errorMessagePostalCode);
-    setCompanyPostalCodeValid(errorMessagePostalCode === '');
+        setCompanyPostalCodeValid(errorMessagePostalCode === '');
       }, 2000);
     }
-
-  }
+  };
 
   function handleChange(e) {
     console.log(e.target.files);
@@ -484,7 +469,8 @@ export default function AddCompany({ title }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
-    if (companyNameValid &&
+    if (
+      companyNameValid &&
       companyName.length > 0 &&
       sectorValid &&
       sector.length > 0 &&
@@ -531,7 +517,7 @@ export default function AddCompany({ title }) {
         companyPostalCode: data.get('companyPostalCode'),
         wageDate: selectedPaydayChange.format('DD-MM-YYYY'),
         holidayDates: markedDates,
-        base64Logo: imgs
+        base64Logo: imgs,
       };
       console.log('Form Data:', payload);
       await axios
@@ -545,8 +531,8 @@ export default function AddCompany({ title }) {
           setCompanyBalanceStatus('');
           setCompanyPhone('');
           setCompanyMail('');
-          setCompanyBalanceStatus('')
-          setCompanyPhone('')
+          setCompanyBalanceStatus('');
+          setCompanyPhone('');
           setCompanyMail('');
           setDescription('');
           setCompanyNeighbourhood('');
@@ -557,8 +543,8 @@ export default function AddCompany({ title }) {
           setCompanyApartmentNumber('');
           setCompanyPostalCode('');
           setHolidayDates('');
-          setImgs('')
-          setSelectedPaydayChange(dayjs())
+          setImgs('');
+          setSelectedPaydayChange(dayjs());
         })
         .catch((error) => {
           errorRegistrationToastMessage();
@@ -688,7 +674,6 @@ export default function AddCompany({ title }) {
       setCompanyProvinceError(errorMessageProvince);
       setCompanyProvinceValid(errorMessageProvince === '');
 
-
       const validateCountry = () => {
         if (companyCountry.trim().length === 0) {
           return 'Country can not be empty';
@@ -700,7 +685,6 @@ export default function AddCompany({ title }) {
       const errorMessageCountry = validateCountry();
       setCompanyCountryError(errorMessageCountry);
       setCompanyCountryValid(errorMessageCountry === '');
-
 
       const validateBuildingNumber = () => {
         if (companyBuildingNumber.trim().length === 0) {
@@ -714,7 +698,6 @@ export default function AddCompany({ title }) {
       setCompanyBuildingNumberError(errorMessageBuildingNumber);
       setCompanyBuildingValid(errorMessageBuildingNumber === '');
 
-
       const validateApartmentNumber = () => {
         if (companyApartmentNumber.trim().length === 0) {
           return 'Apartment number can not be empty';
@@ -727,7 +710,6 @@ export default function AddCompany({ title }) {
       setCompanyApartmentNumberError(errorMessageApartmentNumber);
       setCompanyApartmentNumberValid(errorMessageApartmentNumber === '');
 
-
       const validatePostalCode = () => {
         if (companyPostalCode.trim().length === 0) {
           return 'Postal code can not be empty';
@@ -739,15 +721,7 @@ export default function AddCompany({ title }) {
       const errorMessagePostalCode = validatePostalCode();
       setCompanyPostalCodeError(errorMessagePostalCode);
       setCompanyPostalCodeValid(errorMessagePostalCode === '');
-
-
-      
-
-
     }
-
-
-
   };
 
   return (
@@ -804,23 +778,79 @@ export default function AddCompany({ title }) {
             >
               <CardHeader subheader="Company Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyName" value={companyName} name="companyName" label="Company Name" variant="filled" sx={{ width: 280 }} error={!companyNameValid} helperText={!companyNameValid ? companyNameError : ''} onChange={handleCompanyNameChange} />
-                <TextField id="sector" value={sector} name="sector" label="Sector" variant="filled" sx={{ width: 280 }} error={!sectorValid} helperText={!sectorValid ? sectorError : ''} onChange={handleSectorChange} />
-                <TextField id="taxNumber" value={taxNumber} name="taxNumber" label="TaxNumber" variant="filled" sx={{ width: 280 }} error={!taxNumberValid} helperText={!taxNumberValid ? taxNumberError : ''} onChange={handleTaxNumberChange} />
+                <TextField
+                  id="companyName"
+                  value={companyName}
+                  name="companyName"
+                  label="Company Name"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyNameValid}
+                  helperText={!companyNameValid ? companyNameError : ''}
+                  onChange={handleCompanyNameChange}
+                />
+                <TextField
+                  id="sector"
+                  value={sector}
+                  name="sector"
+                  label="Sector"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!sectorValid}
+                  helperText={!sectorValid ? sectorError : ''}
+                  onChange={handleSectorChange}
+                />
+                <TextField
+                  id="taxNumber"
+                  value={taxNumber}
+                  name="taxNumber"
+                  label="TaxNumber"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!taxNumberValid}
+                  helperText={!taxNumberValid ? taxNumberError : ''}
+                  onChange={handleTaxNumberChange}
+                />
                 <TextField
                   id="companyBalanceStatus"
                   value={companyBalanceStatus}
                   name="companyBalanceStatus"
                   label="Company Balance Status"
                   variant="filled"
-                  error={!companyBalanceStatusValid} helperText={!companyBalanceStatusValid ? companyBalanceStatusError : ''} onChange={handleCompanyBalanceStatusChange}
+                  error={!companyBalanceStatusValid}
+                  helperText={!companyBalanceStatusValid ? companyBalanceStatusError : ''}
+                  onChange={handleCompanyBalanceStatusChange}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">₺</InputAdornment>,
                   }}
                   sx={{ width: 280 }}
                 />
-                <TextField id="companyPhone" value={companyPhone} name="companyPhone" label="Phone" variant="filled" placeholder="05XXXXXXXXX" sx={{ width: 280 }} type="tel" error={!companyPhoneValid} helperText={!companyPhoneValid ? companyPhoneError : ''} onChange={handlePhoneNumberChange} />
-                <TextField id="companyMail" value={companyMail} name="companyMail" label="Mail" variant="filled" placeholder="email@address.com" sx={{ width: 280 }} type={"email"} error={!companyMailValid} helperText={!companyMailValid ? companyMailError : ''} onChange={handleEmailChange} />
+                <TextField
+                  id="companyPhone"
+                  value={companyPhone}
+                  name="companyPhone"
+                  label="Phone"
+                  variant="filled"
+                  placeholder="05XXXXXXXXX"
+                  sx={{ width: 280 }}
+                  type="tel"
+                  error={!companyPhoneValid}
+                  helperText={!companyPhoneValid ? companyPhoneError : ''}
+                  onChange={handlePhoneNumberChange}
+                />
+                <TextField
+                  id="companyMail"
+                  value={companyMail}
+                  name="companyMail"
+                  label="Mail"
+                  variant="filled"
+                  placeholder="email@address.com"
+                  sx={{ width: 280 }}
+                  type={'email'}
+                  error={!companyMailValid}
+                  helperText={!companyMailValid ? companyMailError : ''}
+                  onChange={handleEmailChange}
+                />
                 <TextField
                   id="description"
                   value={description}
@@ -831,7 +861,8 @@ export default function AddCompany({ title }) {
                   placeholder="Max 500 characters"
                   sx={{ width: 905 }}
                   multiline
-                  error={!descriptionValid} helperText={!descriptionValid ? descriptionError : ''}
+                  error={!descriptionValid}
+                  helperText={!descriptionValid ? descriptionError : ''}
                   onChange={handleDescriptionChange}
                 />
               </Grid>
@@ -855,29 +886,102 @@ export default function AddCompany({ title }) {
 
               <CardHeader subheader="Company Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <TextField id="companyNeighbourhood" value={companyNeighbourhood} onChange={handleCompanyNeighbourhoodChange} name="companyNeighbourhood" label="Neighbourhood" variant="filled" sx={{ width: 280 }} error={!companyNeighbourhoodValid} helperText={!companyNeighbourhoodValid ? companyNeighbourhoodError : ''}/>
-                <TextField id="companyDistrict" value={companyDistrict} onChange={handleCompanyDistrictChange} name="companyDistrict" label="District" variant="filled" sx={{ width: 280 }} error={!companyDistrictValid} helperText={!companyDistrictValid ? companyDistrictError : ''}/>
-                <TextField id="companyProvince" value={companyProvince} onChange={handleCompanyProvinceChange} name="companyProvince" label="Province" variant="filled" sx={{ width: 280 }} error={!companyProvinceValid} helperText={!companyProvinceValid ? companyProvinceError : ''}/>
-                <TextField id="companyCountry" value={companyCountry} onChange={handleCompanyCountryChange} name="companyCountry" label="Country" variant="filled" sx={{ width: 280 }} error={!companyCountryValid} helperText={!companyCountryValid ? companyCountryError : ''}/>
-                <TextField id="companyBuildingNumber" value={companyBuildingNumber} onChange={handleCompanyBuildingNumberChange} name="companyBuildingNumber" label="Building Number" variant="filled" sx={{ width: 280 }} error={!companyBuildingNumberValid} helperText={!companyBuildingNumberValid ? companyBuildingNumberError : ''}/>
-                <TextField id="companyApartmentNumber" value={companyApartmentNumber} onChange={handleCompanyApartmentNumberChange} name="companyApartmentNumber" label="Apartment Number" variant="filled" sx={{ width: 280 }} error={!companyApartmentNumberValid} helperText={!companyApartmentNumberValid ? companyApartmentNumberError : ''}/>
-                <TextField id="companyPostalCode" value={companyPostalCode} onChange={handleCompanyPostalCodeChange} name="companyPostalCode" label="Postal Code" variant="filled" sx={{ width: 280 }} error={!companyPostalCodeValid} helperText={!companyPostalCodeValid ? companyPostalCodeError : ''}/>
+                <TextField
+                  id="companyNeighbourhood"
+                  value={companyNeighbourhood}
+                  onChange={handleCompanyNeighbourhoodChange}
+                  name="companyNeighbourhood"
+                  label="Neighbourhood"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyNeighbourhoodValid}
+                  helperText={!companyNeighbourhoodValid ? companyNeighbourhoodError : ''}
+                />
+                <TextField
+                  id="companyDistrict"
+                  value={companyDistrict}
+                  onChange={handleCompanyDistrictChange}
+                  name="companyDistrict"
+                  label="District"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyDistrictValid}
+                  helperText={!companyDistrictValid ? companyDistrictError : ''}
+                />
+                <TextField
+                  id="companyProvince"
+                  value={companyProvince}
+                  onChange={handleCompanyProvinceChange}
+                  name="companyProvince"
+                  label="Province"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyProvinceValid}
+                  helperText={!companyProvinceValid ? companyProvinceError : ''}
+                />
+                <TextField
+                  id="companyCountry"
+                  value={companyCountry}
+                  onChange={handleCompanyCountryChange}
+                  name="companyCountry"
+                  label="Country"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyCountryValid}
+                  helperText={!companyCountryValid ? companyCountryError : ''}
+                />
+                <TextField
+                  id="companyBuildingNumber"
+                  value={companyBuildingNumber}
+                  onChange={handleCompanyBuildingNumberChange}
+                  name="companyBuildingNumber"
+                  label="Building Number"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyBuildingNumberValid}
+                  helperText={!companyBuildingNumberValid ? companyBuildingNumberError : ''}
+                />
+                <TextField
+                  id="companyApartmentNumber"
+                  value={companyApartmentNumber}
+                  onChange={handleCompanyApartmentNumberChange}
+                  name="companyApartmentNumber"
+                  label="Apartment Number"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyApartmentNumberValid}
+                  helperText={!companyApartmentNumberValid ? companyApartmentNumberError : ''}
+                />
+                <TextField
+                  id="companyPostalCode"
+                  value={companyPostalCode}
+                  onChange={handleCompanyPostalCodeChange}
+                  name="companyPostalCode"
+                  label="Postal Code"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!companyPostalCodeValid}
+                  helperText={!companyPostalCodeValid ? companyPostalCodeError : ''}
+                />
               </Grid>
               <CardHeader subheader="Company Holidays" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <DateCalendarServerRequest />
               </Grid>
-              <Grid container justifyContent="center" >
-                <Button type="submit"
+              <Grid container justifyContent="center">
+                <Button
+                  type="submit"
                   variant="contained"
                   style={{ maxWidth: 140, minWidth: 140 }}
                   sx={{
                     borderRadius: 2,
                     padding: 1,
-                    bgcolor: "#ffa726", '&:hover': {
+                    bgcolor: '#ffa726',
+                    '&:hover': {
                       bgcolor: 'grey',
                     },
-                  }}>
+                  }}
+                >
                   Save
                 </Button>
                 <ToastContainer />
