@@ -117,7 +117,7 @@ export default function StickyHeadTable() {
                                             {row.employeeLeaves}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
-                                            {row.wage == null ? 0 : row.wage}
+                                            {row.wage == null ? 0 : `${row.wage} + TRY`}
                                         </TableCell>
                                         <TableCell key={row.index} align="center" sx={{ width: 1800 }}>
                                             {row.wageDate == null ? 0 : row.wageDate}
