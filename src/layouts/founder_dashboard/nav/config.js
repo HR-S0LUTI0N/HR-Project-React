@@ -27,8 +27,18 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+    title: 'Expense Demand',
+    path: '/founder/expense-demand',
+    icon: icon('ic_expense'),
+  },
+  {
     title: 'Confirm Expense',
     path: '/founder/expense-confirmation-page',
+    icon: icon('ic_user'),
+  },
+  {
+    title: 'Confirm Advance',
+    path: '/founder/advance-confirmation-page',
     icon: icon('ic_user'),
   },
 ];

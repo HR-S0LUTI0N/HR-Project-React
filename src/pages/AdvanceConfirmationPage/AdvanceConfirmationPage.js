@@ -19,13 +19,11 @@ import { useNavigate } from 'react-router-dom';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 
 const columns = [
-    { id: 'avatar', label: 'Avatar', width: 50, align: 'center' },
-    { id: 'name', label: 'Name', width: 100, align: 'center' },
-    { id: 'expenseType', label: 'Type', width: 70, align: 'center' },
-    { id: 'billDate', label: 'Date', width: 100, align: 'center' },
-    { id: 'amount', label: 'Amount', width: 100, align: 'center' },
-    { id: 'billPhoto', label: 'Recipe Photo', width: 100, align: 'center' },
-    { id: 'description', label: 'Description', width: 300, align: 'center' },
+    { id: 'avatar', label: 'Avatar', width: 20, align: 'center' },
+    { id: 'name', label: 'Name', width: 150, align: 'center' },
+    { id: 'advanceRequest', label: 'Amount', width: 100, align: 'center' },
+    { id: 'requestDate', label: 'Date', width: 100, align: 'center' },
+    { id: 'description', label: 'Description', width: 400, align: 'center' },
     {
         id: 'status',
         label: 'Status',
@@ -35,21 +33,18 @@ const columns = [
     },
 ];
 
-function createData(avatar, name, expenseType, billDate, amount, description, billPhoto, status, expenseId) {
-    return { avatar, name, expenseType, billDate, amount, description, billPhoto, status, expenseId };
+function createData(avatar, name, advanceRequest, requestDate, description, status, advancedPermissionId) {
+    return { avatar, name, advanceRequest, requestDate, description, status, advancedPermissionId };
 }
 
-export default function ExpenseConfirmationPage() {
+export default function AdvanceConfirmationPage() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rows, setRows] = React.useState([]);
     const token = sessionStorage.getItem('token');
     const [newActionC, setNewActionC] = React.useState();
-    const [newExpenseId, setNewExpenseId] = React.useState('');
+    const [newAdvancedPermissionId, setAdvancedPermissionId] = React.useState('');
     const roles = sessionStorage.getItem('roles');
-    const [showBillPhoto, setShowBillPhoto] = React.useState(false);
-    const [img, setImg] = React.useState('');
-    const [isImageVisible, setIsImageVisible] = React.useState(false);
 
     const navigate = useNavigate();
 
@@ -69,23 +64,18 @@ export default function ExpenseConfirmationPage() {
 
     const fetchManager = async () => {
         try {
-            const response = await axios.get(`http://localhost:9070/api/v1/expense/find-all-company-expense-list/${token}`);
+            const response = await axios.get(`http://localhost:9080/api/v1/user-profile/find-all-advance-request-list/${token}`);
             const data = response.data;
             console.log(data);
             const formattedRows = data.map((item) => {
                 const row = createData(
                     <Avatar alt={item.name.toUpperCase()} src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`} sx={{ bgcolor: '#ffa726' }} />,
                     `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
-                    item.expenseType,
-                    item.billDate,
-                    `${item.amount} ${item.currency}`,
+                    `${item.advanceRequest} ${item.currency}`,
+                    item.requestDate,
                     item.description,
-                    <Button onClick={() => handleDescriptionClick(item.recipePhoto)} sx={{ color: "#ffa726" }}>
-                        <DescriptionIcon />
-                    </Button>,
-                    item.eexpenseStatus,
-                    item.expenseId,
-                    item.billPhoto
+                    item.status,
+                    item.advancedPermissionId,
                 );
                 console.log(row);
                 return row;
@@ -105,62 +95,13 @@ export default function ExpenseConfirmationPage() {
         fetchManager();
     }, [newActionC]);
 
-    const handleDescriptionClick = (recipePhoto) => {
-        console.log(recipePhoto)
-        setImg(recipePhoto)
-        setShowBillPhoto((prevShowBillPhoto) => !prevShowBillPhoto);
-    };
-
-    let billPhotoContent = null;
-    if (showBillPhoto) {
-        billPhotoContent = (
-            <>
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        zIndex: 9999,
-                    }}
-                    onClick={() => {
-                        setShowBillPhoto(false);
-                    }}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            setShowBillPhoto(false);
-                        }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                />
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'fixed',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        zIndex: 10000,
-                    }}
-                >
-                    <img src={img} alt="Expense Bill" />
-                </div>
-            </>
-        );
-    }
-
-    const handleButtonConfirmClick = async (expenseId) => {
+    const handleButtonConfirmClick = async (advancedPermissionId) => {
         try {
-            setNewExpenseId(expenseId);
-            console.log(expenseId);
+            setAdvancedPermissionId(advancedPermissionId);
+            console.log(advancedPermissionId);
             setNewActionC(true);
             await axios.put(`http://localhost:9070/api/v1/expense/change-expense-status/${token}`, {
-                expenseId,
+                advancedPermissionId,
                 action: true,
             });
             fetchManager();
@@ -169,13 +110,13 @@ export default function ExpenseConfirmationPage() {
         }
     };
 
-    const handleButtonDeleteClick = async (expenseId) => {
+    const handleButtonDeleteClick = async (advancedPermissionId) => {
         try {
-            setNewExpenseId(expenseId);
-            console.log(expenseId);
+            setAdvancedPermissionId(advancedPermissionId);
+            console.log(advancedPermissionId);
             setNewActionC(false);
             await axios.put(`http://localhost:9070/api/v1/expense/change-expense-status/${token}`, {
-                expenseId,
+                advancedPermissionId,
                 action: false,
             });
             fetchManager();
@@ -199,7 +140,6 @@ export default function ExpenseConfirmationPage() {
                 <Typography variant="h4" component="h1" gutterBottom>
                     Expense Confirmation Page
                 </Typography>
-                {billPhotoContent}
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer sx={{ maxHeight: 440 }}>
                         <Table stickyHeader aria-label="sticky table">
@@ -247,7 +187,7 @@ export default function ExpenseConfirmationPage() {
                                                                     color: 'white',
                                                                 }}
                                                                 startIcon={<DoneOutlineIcon />}
-                                                                onClick={() => handleButtonConfirmClick(row.expenseId)}
+                                                                onClick={() => handleButtonConfirmClick(row.advancedPermissionId)}
                                                             >
                                                                 Confirm
                                                             </Button>
@@ -267,7 +207,7 @@ export default function ExpenseConfirmationPage() {
 
                                                                     },
                                                                 }}
-                                                                onClick={() => handleButtonDeleteClick(row.expenseId)}
+                                                                onClick={() => handleButtonDeleteClick(row.advancedPermissionId)}
                                                             >
                                                                 Decline
                                                             </Button>
@@ -277,7 +217,7 @@ export default function ExpenseConfirmationPage() {
                                                         <Button
                                                             variant="outlined"
                                                             startIcon={<SendIcon />}
-                                                            onClick={() => handleButtonDeleteClick(row.expenseId)}
+                                                            onClick={() => handleButtonDeleteClick(row.advancedPermissionId)}
                                                         >
                                                             Send
                                                         </Button>

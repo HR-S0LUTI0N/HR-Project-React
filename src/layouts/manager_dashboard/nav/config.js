@@ -23,8 +23,13 @@ const navConfig = [
   },
   {
     title: 'Expense Demand',
-    path: '/personnel/expense-demand',
+    path: '/manager/expense-demand',
     icon: icon('ic_expense'),
+  },
+  {
+    title: 'Confirm Expense',
+    path: '/manager/expense-confirmation-page',
+    icon: icon('ic_user'),
   },
 ];
 

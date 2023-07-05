@@ -36,6 +36,7 @@ import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
 import AddExpensePage from './pages/AddExpense/AddExpensePage'
 import AddManagerPage from './pages/AddManager/AddManagerPage';
 import ExpenseConfirmationPage from './pages/ExpenseConfirmationPage/ExpenseConfirmationPage';
+import AdvanceConfirmationPage from './pages/AdvanceConfirmationPage/AdvanceConfirmationPage';
 
 
 
@@ -77,6 +78,7 @@ export default function Router() {
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
       ],
     },
     {
@@ -88,6 +90,7 @@ export default function Router() {
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
       ],
     },
     {
@@ -100,7 +103,9 @@ export default function Router() {
         { path: 'personnel/panel', element: <DashboardAppPage /> },
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
-        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
+        { path: 'expense-demand', element: <AddExpensePage /> },
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
+        { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> }
       ],
     },
     {
