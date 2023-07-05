@@ -9,22 +9,22 @@ const navConfig = [
   {
     title: 'Personnel',
     path: '/founder/personnel/panel',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_user'),
   },
   {
     title: 'Manager',
     path: '/founder/panel',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_manager'),
   },
   {
     title: 'Add Personnel',
     path: '/founder/add-personnel',
-    icon: icon('ic_user'),
+    icon: icon('ic_addpersonnel'),
   },
   {
     title: 'Add Manager',
     path: '/founder/add-manager',
-    icon: icon('ic_user'),
+    icon: icon('ic_addmanager'),
   },
   {
     title: 'Expense Demand',
