@@ -100,7 +100,7 @@ export default function AdvanceConfirmationPage() {
             setAdvancedPermissionId(advancedPermissionId);
             console.log(advancedPermissionId);
             setNewActionC(true);
-            await axios.put(`http://localhost:9070/api/v1/expense/change-expense-status/${token}`, {
+            await axios.put(`http://localhost:9080/api/v1/user-profile/change-advance-status/${token}`, {
                 advancedPermissionId,
                 action: true,
             });
@@ -115,7 +115,7 @@ export default function AdvanceConfirmationPage() {
             setAdvancedPermissionId(advancedPermissionId);
             console.log(advancedPermissionId);
             setNewActionC(false);
-            await axios.put(`http://localhost:9070/api/v1/expense/change-expense-status/${token}`, {
+            await axios.put(`http://localhost:9080/api/v1/user-profile/change-advance-status/${token}`, {
                 advancedPermissionId,
                 action: false,
             });
@@ -201,8 +201,8 @@ export default function AdvanceConfirmationPage() {
                                                                     border: '1px solid red',
                                                                     width: 100,
                                                                     '&:hover': {
-                                                                        backgroundColor: 'red', // Change this to your desired hover color
-                                                                        color: 'white', // Change this to the desired text color
+                                                                        backgroundColor: 'red',
+                                                                        color: 'white',
                                                                         border: 'none'
 
                                                                     },
