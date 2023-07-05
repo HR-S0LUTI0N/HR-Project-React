@@ -627,7 +627,7 @@ export default function AddCompany({ title }) {
       setCompanyMailValid(errorMessageMail === '');
 
       const validateDescription = () => {
-        if (companyMail.trim().length === 0) {
+        if (description.trim().length === 0) {
           return 'Description can not be empty';
         }
 

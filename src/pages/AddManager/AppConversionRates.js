@@ -86,7 +86,7 @@ export default function AppConversionRates({ title }) {
   React.useEffect(() => {
     if (token === null) {
       navigate('/404')
-    } else if (!roles.includes('MANAGER')) {
+    } else if (!roles.includes('FOUNDER')) {
       navigate('/404');
     }
   }, [])
@@ -288,7 +288,7 @@ export default function AppConversionRates({ title }) {
 
   const handleWageChange = (event) => {
     let value = event.target.value;
-    value = value.replace(/[^\d.]/g, '');
+    value = value.replace(/\D/g, '');
     if (value.length > 12) {
       value = value.slice(0, 12);
       setWageError('Number of Phone Number must not exceed 12 characters');
@@ -354,7 +354,7 @@ export default function AppConversionRates({ title }) {
 
 
     await axios
-      .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
+      .post(`http://localhost:9080/api/v1/user-profile/create-manager/${token}`, payload)
       .then((response) => {
         console.log('Success:', response.data);
         successRegistrationToastMessage();
@@ -462,7 +462,7 @@ export default function AppConversionRates({ title }) {
               onSubmit={handleSubmit}
               sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', p: '2rem' }}
             >
-              <CardHeader subheader="Employee Information" sx={{ marginLeft: '3rem' }} />
+              <CardHeader subheader="Manager Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <TextField
                   id="name"
@@ -548,7 +548,7 @@ export default function AppConversionRates({ title }) {
                 />
 
                 <TextField
-                  id="employeeLeaves"
+                  id="ManagerLeaves"
                   name="employeeLeaves"
                   label="Number Of Day Off"
                   variant="filled"
@@ -603,7 +603,7 @@ export default function AppConversionRates({ title }) {
                 <Autocomplete
                   sx={{ width: 280 }}
                   name="Gender"
-                  value={inputValue}
+                  value={gender}
                   options={comboOptions}
                   onChange={(event, newInputValue) => {
                     console.log(newInputValue);
@@ -674,7 +674,7 @@ export default function AppConversionRates({ title }) {
                   </List>
                 </Grid>
               </Grid>
-              <CardHeader subheader="Employee Address" sx={{ marginLeft: '3rem' }} />
+              <CardHeader subheader="Manager Address" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <TextField
                   id="neighbourhood"

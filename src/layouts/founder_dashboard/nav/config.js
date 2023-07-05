@@ -8,39 +8,43 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 const navConfig = [
   {
     title: 'Personnel',
-    path: '/manager/personnel/panel',
-    icon: icon('ic_analytics'),
-  },
-  {
-    title: 'Manager',
-    path: '/manager/panel',
-    icon: icon('ic_analytics'),
-  },
-  {
-    title: 'Add Personnel',
-    path: '/manager/add-personnel',
+    path: '/founder/personnel/panel',
     icon: icon('ic_user'),
   },
   {
-    title: 'Advance Request',
-    path: '/manager/advancerequest',
-    icon: icon('ic_analytics'),
-    },
-    {
+    title: 'Manager',
+    path: '/founder/panel',
+    icon: icon('ic_manager'),
+  },
+  {
+    title: 'Add Personnel',
+    path: '/founder/add-personnel',
+    icon: icon('ic_addpersonnel'),
+  },
+  {
+    title: 'Add Manager',
+    path: '/founder/add-manager',
+    icon: icon('ic_addmanager'),
+  },
+  {
     title: 'Expense Demand',
-    path: '/manager/expense-demand',
+    path: '/founder/expense-demand',
     icon: icon('ic_expense'),
   },
   {
     title: 'Confirm Expense',
-    path: '/manager/expense-confirmation-page',
+    path: '/founder/expense-confirmation-page',
+    icon: icon('ic_user'),
+  },
+  {
+    title: 'Confirm Advance',
+    path: '/founder/advance-confirmation-page',
     icon: icon('ic_user'),
   },
   {
     title: 'Day Off Permission',
-    path: '/manager/day-off-permission',
+    path: '/founder/day-off-permission',
     icon: icon('ic_user'),
-
   },
 ];
 
