@@ -78,7 +78,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={userData.avatar} alt="photoURL" />
+        <Avatar src={userData.avatar !== undefined && userData.avatar !== null ? userData.avatar : `${userData.name}`} sx={{ bgcolor: '#ffa726' }} alt={userData.name} />
       </IconButton>
 
       <Popover

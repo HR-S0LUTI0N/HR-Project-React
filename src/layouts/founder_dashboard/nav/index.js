@@ -68,17 +68,16 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src={userData.avatar} alt="photoURL" />
+            <Avatar src={userData.avatar !== undefined && userData.avatar !== null ? userData.avatar : `${userData.name}`} sx={{ bgcolor: '#ffa726' }} alt={userData.name} />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {`${userData.name === null ? '' : userData.name} ${
-                  userData.middleName === null ? '' : userData.middleName
-                } ${userData.surname === null ? '' : userData.surname}`}
+                {`${userData.name === null ? '' : userData.name} ${userData.middleName === null ? '' : userData.middleName
+                  } ${userData.surname === null ? '' : userData.surname}`}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {}
+                { }
               </Typography>
             </Box>
           </StyledAccount>

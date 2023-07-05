@@ -115,7 +115,7 @@ export default function DashboardAppPage() {
                 <AppOrderTimeline
                   style={{ height: '100%' }}
                   title="Shift Information"
-                  list={[...Array(1)].map((_, index) => ({
+                  list={[...Array(personnelData === undefined || personnelData.jobShift === null ? 0 : personnelData.length)].map((_, index) => ({
                     title: `${personnelData === undefined || personnelData.jobShift === null ? "" : personnelData.jobShift}`,
                     type: `order${index + 1}`,
                   }))}
