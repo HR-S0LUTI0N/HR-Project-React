@@ -37,50 +37,13 @@ const comboOptions = ['Pregnancy Leave', 'Paternity Leave', 'Annual Leave', 'Com
 
 export default function PermissionRequest({ title }) {
   const locale = 'en-gb';
-  const [selectedDateOfBirthChange, setSelectedDateOfBirthChange] = useState(dayjs());
-  const [selectedJobStartingDateChange, setSelectedJobStartingDateChange] = useState(dayjs());
-  const [gender, setGender] = useState(comboOptions[0]);
+  const [startingDate, setStartingDate] = useState(dayjs());
+  const [endingDate, setEndingDate] = useState(dayjs());
+  const [epermissionTypes, setEpermissionTypes] = useState(comboOptions[0]);
   const [inputValue, setInputValue] = React.useState('');
-  const [imgs, setImgs] = useState('');
-  const [shiftStart, setShiftStart] = useState(dayjs());
-  const [shiftEnd, setShiftEnd] = useState(dayjs());
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [middleName, setMiddleName] = useState('');
-  const [middleNameError, setMiddleNameError] = useState('');
-  const [surname, setSurname] = useState('');
-  const [surnameError, setSurnameError] = useState('');
-  const [birthPlace, setBirthPlace] = useState('');
-  const [birthPlaceError, setBirthPlaceError] = useState('');
-  const [identificationNumber, setIdentificationNumber] = useState('');
-  const [identificationNumberError, setIdentificationNumberError] = useState('');
-  const [department, setDepartment] = useState('');
-  const [departmentError, setDepartmentError] = useState('');
-  const [numberOfDayOff, setNumberOfDayOff] = useState('');
-  const [numberOfDayOffError, setNumberOfDayOffError] = useState('');
-  const [neighbourhood, setNeighbourhood] = useState('');
-  const [neighbourhoodError, setNeighbourhoodError] = useState('');
-  const [district, setDistrict] = useState('');
   const [descriptionValid, setDescriptionValid] = React.useState(true);
   const [description, setDescription] = React.useState('');
   const [descriptionError, setDescriptionError] = React.useState('');
-  const [districtError, setDistrictError] = useState('');
-  const [province, setProvince] = useState('');
-  const [provinceError, setProvinceError] = useState('');
-  const [country, setCountry] = useState('');
-  const [countryError, setCountryError] = useState('');
-  const [buildingNumber, setBuildingNumber] = useState('');
-  const [buildingNumberError, setBuildingNumberError] = useState('');
-  const [apartmentNumber, setApartmentNumber] = useState('');
-  const [apartmentNumberError, setApartmentNumberError] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [postalCodeError, setPostalCodeError] = useState('');
-  const [phone, setPhone] = useState('');
-  const [phoneError, setPhoneError] = useState('');
-  const [wage, setWage] = useState('');
-  const [wageError, setWageError] = useState('');
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
   const navigate = useNavigate();
@@ -104,22 +67,6 @@ export default function PermissionRequest({ title }) {
     });
   };
 
-  const handleEmailChange = (event) => {
-    const value = event.target.value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (value.trim() === '') {
-      setEmailError('Email is required');
-    } else if (value.length > 30) {
-      setEmailError('Email must not exceed 30 characters');
-    } else if (!emailRegex.test(value)) {
-      setEmailError('Invalid email format');
-    } else {
-      setEmailError('');
-    }
-
-    setEmail(value);
-  };
-
   const handleDescriptionChange = (event) => {
     const description = event.target.value;
     setDescription(description);
@@ -135,86 +82,42 @@ export default function PermissionRequest({ title }) {
     setDescriptionValid(errorMessageDescription === '');
   };
 
-  function handleChange(e) {
-    console.log(e.target.files);
-    const data = new FileReader();
-    data.addEventListener('load', () => {
-      setImgs(data.result);
-    });
-    data.readAsDataURL(e.target.files[0]);
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
-    const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    const formattedBirthPlace = birthPlace.charAt(0).toUpperCase() + birthPlace.slice(1).toLowerCase();
-    const formattedMiddleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
-    const formattedSurname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
-    const formattedNeighbourhood = neighbourhood.charAt(0).toUpperCase() + neighbourhood.slice(1).toLowerCase();
-    const formattedDistrict = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
-    const formattedProvince = province.charAt(0).toUpperCase() + province.slice(1).toLowerCase();
-    const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
-    const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
+
+    let type;
+    if (epermissionTypes === 'Pregnancy Leave') {
+      type = 'PREGNANCY';
+    }
+    if (epermissionTypes === 'Paternity Leave') {
+      type = 'PATERNITY';
+    }
+    if (epermissionTypes === 'Annual Leave') {
+      type = 'ANNUAL';
+    }
+    if (epermissionTypes === 'OTHER') {
+      type = 'OTHER';
+    }
 
     const payload = {
-      email: data.get('email'),
-      birthPlace: formattedBirthPlace,
-      name: formattedName,
-      middleName: formattedMiddleName,
-      surname: formattedSurname,
-      dateOfBirth: selectedDateOfBirthChange.format('DD-MM-YYYY'),
-      identificationNumber: data.get('identificationNumber'),
-      gender: gender.toUpperCase(),
-      phone: data.get('phone'),
-      wage: data.get('wage'),
-      country: data.get('country'),
-      neighbourhood: formattedNeighbourhood,
-      district: formattedDistrict,
-      province: formattedProvince,
-      formattedCountry,
-      buildingNumber: data.get('buildingNumber'),
-      apartmentNumber: data.get('apartmentNumber'),
-      postalCode: data.get('postalCode'),
-      department: formattedDepartment,
-      jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
-      jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
-      jobBreak: checked,
-      employeeLeaves: data.get('employeeLeaves'),
+      description: data.get('description'),
+      epermissionTypes: type.toUpperCase(),
+      startingDate: startingDate.format('DD-MM-YYYY'),
+      endingDate: endingDate.format('DD-MM-YYYY'),
     };
     console.log('Form Data:', payload);
 
     await axios
-      .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
+      .post(`http://localhost:9080/api/v1/day-off-permission/take-day-off-permission/${token}`, payload)
       .then((response) => {
         console.log('Success:', response.data);
+        setDescription('');
         successRegistrationToastMessage();
-        setEmail('');
-        setSelectedDateOfBirthChange(dayjs());
-        setSelectedJobStartingDateChange(dayjs());
-        setGender(comboOptions[0]);
-        setInputValue('');
-        setImgs('');
-        setShiftStart(dayjs());
-        setShiftEnd(dayjs());
-        setName('');
-        setMiddleName('');
-        setSurname('');
-        setBirthPlace('');
-        setIdentificationNumber('');
-        setDepartment('');
-        setNumberOfDayOff('');
-        setNeighbourhood('');
-        setDistrict('');
-        setProvince('');
-        setCountry('');
-        setBuildingNumber('');
-        setApartmentNumber('');
-        setPostalCode('');
-        setPhone('');
-        setWage('');
-        setChecked([]);
+        setStartingDate(dayjs());
+        setEndingDate(dayjs());
+        setEpermissionTypes(comboOptions[0]);
       })
       .catch((error) => {
         errorRegistrationToastMessage();
@@ -257,11 +160,11 @@ export default function PermissionRequest({ title }) {
                 <Autocomplete
                   sx={{ width: 280 }}
                   name="Permission Type"
-                  value={gender}
+                  value={epermissionTypes}
                   options={comboOptions}
                   onChange={(event, newInputValue) => {
                     console.log(newInputValue);
-                    setGender(newInputValue);
+                    setEpermissionTypes(newInputValue);
                   }}
                   onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
@@ -292,9 +195,9 @@ export default function PermissionRequest({ title }) {
                         id="permissionStartingDate"
                         label="Start Permission Date"
                         name="permissionStartingDate"
-                        value={selectedDateOfBirthChange}
+                        value={startingDate}
                         onChange={(e) => {
-                          setSelectedDateOfBirthChange(e);
+                          setStartingDate(e);
                         }}
                         sx={{ width: 280 }}
                       />
@@ -304,9 +207,9 @@ export default function PermissionRequest({ title }) {
                         id="permissionEndingDate"
                         label="End Permission Date"
                         name="permissionEndingDate"
-                        value={selectedJobStartingDateChange}
+                        value={endingDate}
                         onChange={(e) => {
-                          setSelectedJobStartingDateChange(e);
+                          setEndingDate(e);
                         }}
                         sx={{ width: 280 }}
                       />

@@ -31,6 +31,11 @@ const navConfig = [
     path: '/manager/expense-confirmation-page',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Day Off Permission',
+    path: '/manager/day-off-permission',
+    icon: icon('ic_user'),
+  },
 ];
 
 export default navConfig;

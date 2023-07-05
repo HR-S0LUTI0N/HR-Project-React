@@ -26,19 +26,17 @@ import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
 
-
-import AddCompanyPage from './pages/AddCompany/AddCompanyPage'
-import ForgotPasswordChange from './pages/ForgotPasswordChange'
-import ConfirmManager from './pages/ConfirmManager'
-import ForgotPasswordReplace from './pages/ForgotPasswordReplace'
-import ManagerBuyoutPage from './pages/ManagerBuyoutPage'
+import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
+import ForgotPasswordChange from './pages/ForgotPasswordChange';
+import ConfirmManager from './pages/ConfirmManager';
+import ForgotPasswordReplace from './pages/ForgotPasswordReplace';
+import ManagerBuyoutPage from './pages/ManagerBuyoutPage';
 import PermissionRequest from './pages/PersonnelPage/PermissionRequest';
-import AddExpensePage from './pages/AddExpense/AddExpensePage'
+import AddExpensePage from './pages/AddExpense/AddExpensePage';
 import AddManagerPage from './pages/AddManager/AddManagerPage';
 import ExpenseConfirmationPage from './pages/ExpenseConfirmationPage/ExpenseConfirmationPage';
 import AdvanceConfirmationPage from './pages/AdvanceConfirmationPage/AdvanceConfirmationPage';
-
-
+import ConfirPermissionPage from './pages/ManagerPage/ConfirmPermissionPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -78,7 +76,8 @@ export default function Router() {
         { path: 'panel', element: <DashboardAppPageDefault /> },
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
-        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
+        { path: '/manager/day-off-permission', element: <ConfirPermissionPage /> },
       ],
     },
     {
@@ -90,7 +89,7 @@ export default function Router() {
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
-        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> }
+        { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
       ],
     },
     {
@@ -105,7 +104,7 @@ export default function Router() {
         { path: 'userprofile', element: <UserProfile /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
-        { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> }
+        { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> },
       ],
     },
     {
