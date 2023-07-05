@@ -13,6 +13,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
 import { Typography, Container } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { useNavigate } from 'react-router-dom';
 
@@ -94,18 +95,21 @@ export default function AdvanceConfirmationPage() {
     }, [newActionC]);
 
     const handleButtonConfirmClick = async (advancedPermissionId) => {
-        try {
-            setAdvancedPermissionId(advancedPermissionId);
-            console.log(advancedPermissionId);
-            setNewActionC(true);
-            await axios.put(`http://localhost:9080/api/v1/user-profile/change-advance-status/${token}`, {
-                advancedPermissionId,
-                action: true,
+
+        setAdvancedPermissionId(advancedPermissionId);
+        console.log(advancedPermissionId);
+        setNewActionC(true);
+        await axios.put(`http://localhost:9080/api/v1/user-profile/change-advance-status/${token}`, {
+            advancedPermissionId,
+            action: true,
+        })
+            .then((response) => {
+                fetchManager();
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message)
+                console.error('Error updating status:', error);
             });
-            fetchManager();
-        } catch (error) {
-            console.error('Error updating status:', error);
-        }
     };
 
     const handleButtonDeleteClick = async (advancedPermissionId) => {
@@ -238,6 +242,8 @@ export default function AdvanceConfirmationPage() {
                     />
                 </Paper>
             </Container>
+            <ToastContainer />
+
         </>
     );
 }
