@@ -14,15 +14,13 @@ import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
 import { Typography, Container } from '@mui/material';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
-import DescriptionIcon from '@mui/icons-material/Description';
 import { useNavigate } from 'react-router-dom';
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 
 const columns = [
     { id: 'avatar', label: 'Avatar', width: 20, align: 'center' },
     { id: 'name', label: 'Name', width: 150, align: 'center' },
-    { id: 'advanceRequest', label: 'Amount', width: 100, align: 'center' },
     { id: 'requestDate', label: 'Date', width: 100, align: 'center' },
+    { id: 'advanceRequest', label: 'Amount', width: 100, align: 'center' },
     { id: 'description', label: 'Description', width: 400, align: 'center' },
     {
         id: 'status',
