@@ -74,7 +74,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={userData.avatar} alt="photoURL" />
+        <Avatar src={userData.avatar !== undefined && userData.avatar !== null ? userData.avatar : `${userData.name}`} sx={{ bgcolor: '#ffa726' }} alt={userData.name} />
       </IconButton>
 
       <Popover
@@ -98,8 +98,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {`${userData.name} ${userData.middleName === null ? '' : userData.middleName} ${userData.surname === null ? '' : userData.surname
-              }`}
+            {`${userData.name} ${userData.middleName === null ? '' : userData.middleName} ${userData.surname === null ? '' : userData.surname}`}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {userData.email}
