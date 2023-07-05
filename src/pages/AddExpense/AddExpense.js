@@ -36,9 +36,9 @@ const comboCurrency = [
   ];
 export default function AddExpense({ title }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-  const [expenseType, setExpenseType] = useState(comboOptions[0]);
+  const [expenseType, setExpenseType] = useState(comboOptions[-1]);
   const [inputValue, setInputValue] = React.useState('');
-  const [paymentMethod, setPaymentMethod] = useState(comboPayment[0]);
+  const [paymentMethod, setPaymentMethod] = useState(comboPayment[-1]);
   const [inputValuePayment, setInputValuePayment] = React.useState('');
   const [currency, setCurrency] = useState(comboCurrency[0].currency);
   const [inputValueCurrency, setInputValueCurrency] = React.useState('');
@@ -248,7 +248,10 @@ export default function AddExpense({ title }) {
         taxZoneValid &&
         taxZone.length >0 &&
         descriptionValid &&
-        description.length > 0
+        description.length > 0 &&
+        expenseType !== undefined &&
+        paymentMethod !== undefined &&
+        inputValueCurrency.length > 0
         
         ) {
       const data = new FormData(event.currentTarget);
@@ -273,7 +276,9 @@ export default function AddExpense({ title }) {
           setSelectedImage('')
           setInputValue('');
           setInputValueCurrency('');
-          setInputValuePayment('')
+          setInputValuePayment('');
+          setExpenseType(undefined);
+          setPaymentMethod(undefined);
           setNetAmount('');
           setTax('');
           setTaxZone('');
