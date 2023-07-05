@@ -9,22 +9,22 @@ const navConfig = [
   {
     title: 'Personnel',
     path: '/manager/personnel/panel',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_user'),
   },
   {
     title: 'Manager',
     path: '/manager/panel',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_manager'),
   },
   {
     title: 'Add Personnel',
     path: '/manager/add-personnel',
-    icon: icon('ic_user'),
+    icon: icon('ic_addpersonnel'),
   },
   {
     title: 'Advance Request',
     path: '/manager/advancerequest',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_advancerequest'),
     },
     {
     title: 'Expense Demand',
