@@ -41,6 +41,11 @@ const navConfig = [
     path: '/founder/advance-confirmation-page',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Day Off Permission',
+    path: '/founder/day-off-permission',
+    icon: icon('ic_user'),
+  },
 ];
 
 export default navConfig;
