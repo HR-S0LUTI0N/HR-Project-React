@@ -91,7 +91,9 @@ export default function AppConversionRates({ title }) {
       setDescriptionError('');
     } catch (error) {
       console.error('Error:', error);
-      errorRegistrationToastMessage();
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
