@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AppAppBar from '../../Visitor-Main-Page/views/AppAppBar';
+import Home from '../Home';
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -218,6 +219,7 @@ function Overview() {
   };
   return (
     <>
+      <Home />
       <section style={{ padding: '30px', marginLeft: 0, marginRight: 0 }}>
         <Avatar
           alt="Remy Sharp"
@@ -492,7 +494,7 @@ function Overview() {
                     <Button
                       variant="contained"
                       onClick={handlePasswordUpdate}
-                      style={{ maxWidth: 140, minWidth: 140 }}
+                      style={{ maxWidth: 200, minWidth: 140 }}
                       sx={{
                         borderRadius: 2,
                         padding: 1,
