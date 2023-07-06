@@ -181,7 +181,7 @@ export default function ConfirmPermissionPage() {
                                 color: 'white',
                               }}
                               startIcon={<DoneOutlineIcon />}
-                              onClick={() => handleButtonConfirmClick(row.advancedPermissionId)}
+                              onClick={() => handleButtonConfirmClick(row.dayOffPermissionId)}
                             >
                               Confirm
                             </Button>
