@@ -7,6 +7,7 @@ import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Overview() {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -150,6 +151,9 @@ function Overview() {
       })
       .catch((error) => {
         console.error(error);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
   };
 
@@ -175,6 +179,9 @@ function Overview() {
       })
       .catch((error) => {
         console.error(error);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
   };
   const handleUpdateAddress = () => {
@@ -203,6 +210,9 @@ function Overview() {
       })
       .catch((error) => {
         console.error(error);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
   };
   const handlePasswordUpdate = () => {
@@ -222,9 +232,15 @@ function Overview() {
           setConfirmPassword(changePassword.confirmPassword);
           setPasswordsMatch(true);
           setPasswordChangeMode(false);
+          toast.success('Şifre değiştirme işleminiz başarılı olmuştur', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         })
         .catch((error) => {
           console.error(error);
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         });
     } else {
       setPasswordsMatch(false);
@@ -487,6 +503,7 @@ function Overview() {
               </div>
             </div>
           </Grid>
+          <ToastContainer />
         </Grid>
       </div>
     </section>
