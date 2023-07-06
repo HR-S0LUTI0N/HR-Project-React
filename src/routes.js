@@ -22,8 +22,7 @@ import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
-
-
+import UserProfileVisitor from './pages/userprofile-visitor';
 
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
 import ForgotPasswordChange from './pages/ForgotPasswordChange';
@@ -39,7 +38,6 @@ import AddManagerPage from './pages/AddManager/AddManagerPage';
 import ExpenseConfirmationPage from './pages/ExpenseConfirmationPage/ExpenseConfirmationPage';
 import AdvanceConfirmationPage from './pages/AdvanceConfirmationPage/AdvanceConfirmationPage';
 import ConfirPermissionPage from './pages/ManagerPage/ConfirmPermissionPage';
-
 
 export default function Router() {
   const routes = useRoutes([
@@ -84,7 +82,6 @@ export default function Router() {
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'day-off-permission', element: <ConfirPermissionPage /> },
         { path: 'advance-confirmation-page', element: <AdvanceConfirmationPage /> },
-
       ],
     },
     {
@@ -100,7 +97,6 @@ export default function Router() {
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'expense-demand', element: <AddExpensePage /> },
         { path: 'expense-confirmation-page', element: <ExpenseConfirmationPage /> },
-
       ],
     },
     {
@@ -120,6 +116,10 @@ export default function Router() {
         { path: 'permission-request', element: <PermissionRequest /> },
         { path: 'day-off-permission', element: <ConfirPermissionPage /> },
       ],
+    },
+    {
+      path: 'userprofile-visitor',
+      element: <UserProfileVisitor />,
     },
     {
       path: 'visitor',
