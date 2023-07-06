@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Logo from '../../components/logo';
+import ForgotPasswordGirl from '../../images/ForgotPasswordGirl.jpg'
 
 // sections
 
@@ -114,7 +115,7 @@ export default function ForgotPassword() {
               Did You Forgot Something
             </Typography>
             <img
-              src="https://img.freepik.com/free-psd/3d-female-character-thinking-about-something_23-2148938891.jpg?w=826&t=st=1687465719~exp=1687466319~hmac=92d77616a2334719488ee7e479ac59c7458ca4f93912984f97e46773c4a773a2"
+              src={ForgotPasswordGirl}
               alt="login"
             />
           </StyledSection>

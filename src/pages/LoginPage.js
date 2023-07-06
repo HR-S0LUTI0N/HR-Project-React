@@ -9,6 +9,7 @@ import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
+import LaptopGirl from '../images/LaptopGirl.jpg'
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ export default function LoginPage() {
               Hi, Welcome Back
             </Typography>
             <img
-              src="https://img.freepik.com/free-psd/3d-female-character-working-laptop-while-sitting-chair_23-2148938889.jpg?w=740&t=st=1686328918~exp=1686329518~hmac=71f64deb539d96cf4dc76acf4ea4ffb326fdc954db311619dc03a8fd5a665cb0"
+              src={LaptopGirl}
               alt="login"
             />
           </StyledSection>

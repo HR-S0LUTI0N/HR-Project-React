@@ -12,7 +12,7 @@ import SvgContainer from './ForgotPassword/SvgContainer';
 import useResponsive from '../hooks/useResponsive';
 // components
 import Logo from '../components/logo';
-
+import SuperGirl from '../images/SuperGirl.jpg'
 // sections
 
 // @mui
@@ -87,7 +87,7 @@ export default function RegisterSuccesful() {
                             Welcome Back
                         </Typography>
                         <img
-                            src="https://img.freepik.com/free-psd/3d-female-character-with-superhero-cape-launching-into-flight_23-2148938887.jpg?w=826&t=st=1687451621~exp=1687452221~hmac=b5800d8ef3214963ea8dee169942ed25f4b9e9e5e46c81d1f02de7fe18f28aff"
+                            src={SuperGirl}
                             alt="login"
                         />
                     </StyledSection>
