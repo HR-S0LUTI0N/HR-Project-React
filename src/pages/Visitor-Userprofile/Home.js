@@ -10,8 +10,6 @@ function VisitorMainPage() {
   return (
     <>
       <AppAppBar />
-      <UserProfile />
-      <AppFooter />
     </>
   );
 }

@@ -22,7 +22,7 @@ import RegisterManager from './pages/registerManager';
 import UserProfile from './pages/userprofile';
 import AddPersonelPage from './pages/AddPersonel/AddPersonePage';
 import Admin from './pages/Admin/admin';
-import UserProfileVisitor from './pages/Visitor-Userprofile/Home';
+import UserProfileVisitor from './pages/Visitor-Userprofile/views/userprofile-visitor';
 
 import AddCompanyPage from './pages/AddCompany/AddCompanyPage';
 import ForgotPasswordChange from './pages/ForgotPasswordChange';
