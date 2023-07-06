@@ -25,24 +25,30 @@ const navConfig = [
     title: 'Advance Request',
     path: '/manager/advancerequest',
     icon: icon('ic_advancerequest'),
-    },
-    {
-    title: 'Expense Demand',
+  },
+  {
+    title: 'Expense Request',
     path: '/manager/expense-demand',
     icon: icon('ic_expense'),
   },
   {
-    title: 'Confirm Expense',
-    path: '/manager/expense-confirmation-page',
-    icon: icon('ic_confirmexpense'),
+    title: 'Day Off Request',
+    path: '/manager/permission-request',
+    icon: icon('ic_permissionrequest'),
   },
   {
     title: 'Confirm Advance',
     path: '/manager/advance-confirmation-page',
     icon: icon('ic_confirmadvance'),
   },
+
   {
-    title: 'Day Off Permission',
+    title: 'Confirm Expense',
+    path: '/manager/expense-confirmation-page',
+    icon: icon('ic_confirmexpense'),
+  },
+  {
+    title: 'Confirm Day Off',
     path: '/manager/day-off-permission',
     icon: icon('ic_dayoff'),
 

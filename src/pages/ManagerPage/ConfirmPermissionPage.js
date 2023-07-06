@@ -140,7 +140,7 @@ export default function ConfirmPermissionPage() {
     <>
       <Container maxWidth="xl">
         <Typography variant="h4" component="h1" gutterBottom>
-          Permission Confirmation Page
+          Day Off Confirmation Page
         </Typography>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>
