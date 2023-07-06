@@ -74,7 +74,7 @@ export default function ExpenseConfirmationPage() {
             console.log(data);
             const formattedRows = data.map((item) => {
                 const row = createData(
-                    <Avatar alt={item.name.toUpperCase()} src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`} sx={{ bgcolor: '#ffa726' }} />,
+                    <Avatar alt={item.name.toUpperCase()} src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`} sx={{ bgcolor: '#B7B7B7' }} />,
                     `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
                     item.expenseType,
                     item.billDate,
@@ -201,7 +201,7 @@ export default function ExpenseConfirmationPage() {
                 </Typography>
                 {billPhotoContent}
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                    <TableContainer sx={{ maxHeight: 440 }}>
+                    <TableContainer sx={{ height: 600 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>

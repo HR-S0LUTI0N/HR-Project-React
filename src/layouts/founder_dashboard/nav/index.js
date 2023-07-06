@@ -68,7 +68,7 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src={userData.avatar !== undefined && userData.avatar !== null ? userData.avatar : `${userData.name}`} sx={{ bgcolor: '#ffa726' }} alt={userData.name} />
+            <Avatar src={userData.avatar !== undefined && userData.avatar !== null ? userData.avatar : `${userData.name}`} sx={{ bgcolor: '#B7B7B7' }} alt={userData.name} />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
@@ -105,7 +105,7 @@ export default function Nav({ openNav, onCloseNav }) {
           PaperProps={{
             sx: {
               width: NAV_WIDTH,
-              bgcolor: 'background.default',
+              bgcolor: '#C9DBB2',
               borderRightStyle: 'dashed',
             },
           }}

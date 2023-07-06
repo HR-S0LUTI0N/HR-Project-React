@@ -27,15 +27,15 @@ import trFlag from './Flag/tr-flag.svg';
 import ImageModal from './ImageModal';
 import FaturaIcon from './Flag/ic_expense.svg';
 
-const comboOptions = ['HEALTH', 'FOOD','ACCOMMODATION', 'OTHER'];
+const comboOptions = ['HEALTH', 'FOOD', 'ACCOMMODATION', 'OTHER'];
 const comboPayment = ['CARD', 'CASH', 'OTHER'];
 const comboCurrency = [
-    { label: 'TRY', flag: <img src={trFlag} alt="TR Flag" />, currency: 'TRY', symbol: '₺'},
-    { label: 'USD', flag: <img src={usdFlag} alt="USD Flag" />, currency: 'USD', symbol: '$' },
-    { label: 'EUR', flag: <img src={euroFlag} alt="EUR Flag" />, currency: 'EUR', symbol: '€' },
-  ];
+  { label: 'TRY', flag: <img src={trFlag} alt="TR Flag" />, currency: 'TRY', symbol: '₺' },
+  { label: 'USD', flag: <img src={usdFlag} alt="USD Flag" />, currency: 'USD', symbol: '$' },
+  { label: 'EUR', flag: <img src={euroFlag} alt="EUR Flag" />, currency: 'EUR', symbol: '€' },
+];
 export default function AddExpense({ title }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenseType, setExpenseType] = useState(comboOptions[-1]);
   const [inputValue, setInputValue] = React.useState('');
   const [paymentMethod, setPaymentMethod] = useState(comboPayment[-1]);
@@ -61,7 +61,7 @@ export default function AddExpense({ title }) {
   const [descriptionError, setDescriptionError] = React.useState('');
 
 
-  
+
   const navigate = useNavigate();
 
   const successRegistrationToastMessage = () => {
@@ -98,18 +98,18 @@ export default function AddExpense({ title }) {
   const openModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  
+
   const handleChangeImg = (e) => {
     const file = e.target.files[0];
     const data = new FileReader();
     data.addEventListener('load', () => {
-        setSelectedImage(data.result);
-      });
+      setSelectedImage(data.result);
+    });
     data.readAsDataURL(file);
   };
 
@@ -143,18 +143,18 @@ export default function AddExpense({ title }) {
       if (taxZone.trim().length === 0) {
         return 'Tax zone can not be empty';
       }
-  
+
       const re = /^[A-Za-zığüşöçİĞÜŞÖÇ]+$/;
-        if (!re.test(taxZone)) {
-          return 'Tax zone should only contain letters';
-        }
-      
+      if (!re.test(taxZone)) {
+        return 'Tax zone should only contain letters';
+      }
+
       if (taxZone.length > 30) {
         return 'Tax zone should not exceed 30 characters';
       }
       return '';
     };
-  
+
     const errorMessageTaxZone = validateTaxZone();
     setTaxZoneError(errorMessageTaxZone);
     setTaxZoneValid(errorMessageTaxZone === '');
@@ -162,7 +162,7 @@ export default function AddExpense({ title }) {
   }
 
   const handleNetAmountChange = (event) => {
-    const netAmount  = event.target.value.replace(/[^\d.]/g, '').trim();
+    const netAmount = event.target.value.replace(/[^\d.]/g, '').trim();
     setNetAmount(netAmount)
 
     const validateNetAmount = () => {
@@ -186,11 +186,11 @@ export default function AddExpense({ title }) {
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
       const errorMessageNetAmount = "Net amount should only contain numbers or decimal"
       setNetAmountError(errorMessageNetAmount);
-    setNetAmountValid(errorMessageNetAmount === '');
+      setNetAmountValid(errorMessageNetAmount === '');
       setTimeout(() => {
         const errorMessageNetAmount = ''
         setNetAmountError(errorMessageNetAmount);
-    setNetAmountValid(errorMessageNetAmount === '');
+        setNetAmountValid(errorMessageNetAmount === '');
       }, 2000);
     }
 
@@ -221,11 +221,11 @@ export default function AddExpense({ title }) {
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
       const errorMessageTax = "Tax should only contain numbers or decimal"
       setTaxError(errorMessageTax);
-    setTaxValid(errorMessageTax === '');
+      setTaxValid(errorMessageTax === '');
       setTimeout(() => {
         const errorMessageTax = ''
         setTaxError(errorMessageTax);
-    setTaxValid(errorMessageTax === '');
+        setTaxValid(errorMessageTax === '');
       }, 2000);
     }
 
@@ -235,25 +235,25 @@ export default function AddExpense({ title }) {
     const total = Number(netAmount) + Number(tax);
     return Number.isNaN(total) || (total === 0) ? '' : total;
   };
-  
-  
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
     if (netAmountValid &&
-        netAmount.length > 0 &&
-        taxValid &&
-        tax.length > 0 &&
-        taxZoneValid &&
-        taxZone.length >0 &&
-        descriptionValid &&
-        description.length > 0 &&
-        expenseType !== undefined &&
-        paymentMethod !== undefined &&
-        inputValueCurrency.length > 0
-        
-        ) {
+      netAmount.length > 0 &&
+      taxValid &&
+      tax.length > 0 &&
+      taxZoneValid &&
+      taxZone.length > 0 &&
+      descriptionValid &&
+      description.length > 0 &&
+      expenseType !== undefined &&
+      paymentMethod !== undefined &&
+      inputValueCurrency.length > 0
+
+    ) {
       const data = new FormData(event.currentTarget);
       const dataload = {
         expenseType: expenseType.toUpperCase(),
@@ -286,9 +286,9 @@ export default function AddExpense({ title }) {
           setSelectedBillDateChange(dayjs())
           setSelectedDemandDateChange(dayjs())
           setDescription('');
-          
+
           successRegistrationToastMessage();
-          
+
         })
         .catch((error) => {
           errorRegistrationToastMessage();
@@ -361,86 +361,78 @@ export default function AddExpense({ title }) {
       const errorMessagePostalCode = validatePostalCode();
       setAmountError(errorMessagePostalCode);
       setAmountValid(errorMessagePostalCode === '');
-
-
-      
-
-
     }
-
-
-
   };
-  
+
 
   return (
     <>
-    
+
       <Grid sx={{ display: 'flex', ml: '10rem' }}>
         <Paper sx={{ maxWidth: 1800 }}>
-          <CardHeader title={title} />
-          <Card sx={{ mt: 5 }}>
+
+          <Card sx={{}}>
             <CardHeader subheader="Bill Photo" sx={{ marginLeft: '4.7rem' }} />
             <Grid container justifyContent="center" alignItems="center" flexDirection="row" sx={{ mx: 'auto', gap: '9rem' }}>
-  <div
-    style={{
-        width: '300px',
-        height: '300px',
-        marginBottom: '12px',
-        border: '1px dashed #ccc',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }}
-    onDoubleClick={openModal}
-  >
-    {selectedImage ? (
-      <img src={selectedImage} alt="Bill" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-    ) : (
-      <span style={{ color: '#aaa' }}>Select an image</span>
-    )}
-  </div>
-  
-  <Button
-    type="submit"
-    variant="contained"
-    style={{
-        position: 'relative',
-        overflow: 'hidden',
-        maxWidth: 140,
-        minWidth: 140,
-      }}
-      sx={{
-        borderRadius: 2,
-        padding: 1,
-        mt: 1,
-        bgcolor: '#ffa726',
-        '&:hover': {
-          bgcolor: 'grey',
-        },
-      }}
-  >
-    <input
-      type="file"
-      id="image-upload" 
-      onChange={handleChangeImg}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        opacity: 0,
-        cursor: 'pointer',
-      }}
-    />
-    
-  <Add /> Save Bill Photo
+              <div
+                style={{
+                  width: '300px',
+                  height: '300px',
+                  marginBottom: '12px',
+                  border: '1px dashed #ccc',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onDoubleClick={openModal}
+              >
+                {selectedImage ? (
+                  <img src={selectedImage} alt="Bill" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                ) : (
+                  <span style={{ color: '#aaa' }}>Select an image</span>
+                )}
+              </div>
 
-  </Button>
-</Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  maxWidth: 140,
+                  minWidth: 140,
+                }}
+                sx={{
+                  borderRadius: 2,
+                  padding: 1,
+                  mt: 1,
+                  bgcolor: '#ffa726',
+                  '&:hover': {
+                    bgcolor: 'grey',
+                  },
+                }}
+              >
+                <input
+                  type="file"
+                  id="image-upload"
+                  onChange={handleChangeImg}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0,
+                    cursor: 'pointer',
+                  }}
+                />
+
+                <Add /> Save Bill Photo
+
+              </Button>
+            </Grid>
             <Box
               component="form"
               noValidate
@@ -450,7 +442,7 @@ export default function AddExpense({ title }) {
             >
               <CardHeader subheader="Expense Information" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-              <Autocomplete
+                <Autocomplete
                   sx={{ width: 280 }}
                   name="ExpenseType"
                   value={inputValue}
@@ -485,14 +477,14 @@ export default function AddExpense({ title }) {
                   renderOption={(props, option) => (
                     <li {...props}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
-                       <div style={{ marginRight: '8px' }}>
-                      {option.flag}
-                     </div>
-                     <div style={{ marginRight: '8px' }}>
-                     {option.label}
-                     </div>
-                     <div>
-                     { option.symbol}
+                        <div style={{ marginRight: '8px' }}>
+                          {option.flag}
+                        </div>
+                        <div style={{ marginRight: '8px' }}>
+                          {option.label}
+                        </div>
+                        <div>
+                          {option.symbol}
                         </div>
                       </div>
                     </li>
@@ -516,38 +508,38 @@ export default function AddExpense({ title }) {
                   renderInput={(params) => <TextField {...params} label="Payment Method" />}
                   defaultValue={null}
                 />
-                <TextField id="netAmount" value={netAmount} onChange={handleNetAmountChange} name="netAmount" label="Net Amount" variant="filled" sx={{ width: 280 }} error={!netAmountValid} helperText={!netAmountValid ? netAmountError : ''}/>
-                <TextField id="tax" value={tax} onChange={handleTaxChange} name="tax" label="Tax" variant="filled" sx={{ width: 280 }} error={!taxValid} helperText={!taxValid ? taxError : ''}/>
-                <TextField id="taxZone" value={taxZone} onChange={handleTaxZoneChange} name="taxZone" label="Tax Zone" variant="filled" sx={{ width: 280 }} error={!taxZoneValid} helperText={!taxZoneValid ? taxZoneError : ''}/>
-                <TextField id="amount" value={calculateTotal()} InputProps={{readOnly: true, }} placeholder= "Can't write in this section"  name="amount" label="Amount" fullWidth sx={{ width: 280 }} error={!amountValid} helperText={!amountValid ? amountError : ''}/>
+                <TextField id="netAmount" value={netAmount} onChange={handleNetAmountChange} name="netAmount" label="Net Amount" variant="filled" sx={{ width: 280 }} error={!netAmountValid} helperText={!netAmountValid ? netAmountError : ''} />
+                <TextField id="tax" value={tax} onChange={handleTaxChange} name="tax" label="Tax" variant="filled" sx={{ width: 280 }} error={!taxValid} helperText={!taxValid ? taxError : ''} />
+                <TextField id="taxZone" value={taxZone} onChange={handleTaxZoneChange} name="taxZone" label="Tax Zone" variant="filled" sx={{ width: 280 }} error={!taxZoneValid} helperText={!taxZoneValid ? taxZoneError : ''} />
+                <TextField id="amount" value={calculateTotal()} InputProps={{ readOnly: true, }} placeholder="Can't write in this section" name="amount" label="Amount" fullWidth sx={{ width: 280 }} error={!amountValid} helperText={!amountValid ? amountError : ''} />
                 <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
-                  <DemoContainer components={['DatePicker']}>
-                    <DatePicker
-                      id="billDate"
-                      label="Bill Date"
-                      name="billDate"
-                      value={selectedBillDateChange}
-                      onChange={(e) => {
-                        setSelectedBillDateChange(e);
-                      }}
-                      sx={{ width: 280 }}
-                    />
-                  </DemoContainer>
-                  <DemoContainer components={['DatePicker']}>
-                    <DatePicker
-                      id="demandDate"
-                      label="Demand Date"
-                      name="demandDate"
-                      value={selectedDemandDateChange}
-                      onChange={(e) => {
-                        setSelectedDemandDateChange(e);
-                      }}
-                      sx={{ width: 280 }}
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-              </Grid>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+                    <DemoContainer components={['DatePicker']}>
+                      <DatePicker
+                        id="billDate"
+                        label="Bill Date"
+                        name="billDate"
+                        value={selectedBillDateChange}
+                        onChange={(e) => {
+                          setSelectedBillDateChange(e);
+                        }}
+                        sx={{ width: 280 }}
+                      />
+                    </DemoContainer>
+                    <DemoContainer components={['DatePicker']}>
+                      <DatePicker
+                        id="demandDate"
+                        label="Demand Date"
+                        name="demandDate"
+                        value={selectedDemandDateChange}
+                        onChange={(e) => {
+                          setSelectedDemandDateChange(e);
+                        }}
+                        sx={{ width: 280 }}
+                      />
+                    </DemoContainer>
+                  </LocalizationProvider>
+                </Grid>
                 <TextField
                   id="description"
                   value={description}
@@ -563,8 +555,8 @@ export default function AddExpense({ title }) {
                 />
               </Grid>
 
-              
-              
+
+
               <Grid container justifyContent="center" >
                 <Button type="submit"
                   variant="contained"
