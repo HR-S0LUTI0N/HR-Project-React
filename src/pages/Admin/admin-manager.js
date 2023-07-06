@@ -15,7 +15,6 @@ import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
 
-
 const columns = [
   { id: 'avatar', label: 'Avatar', width: 80 },
   { id: 'name', label: 'Name', width: 250, align: 'center' },
@@ -45,7 +44,7 @@ export default function StickyHeadTable() {
 
   React.useEffect(() => {
     if (token == null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('ADMIN')) {
       navigate('/404');
     } else {
@@ -54,21 +53,19 @@ export default function StickyHeadTable() {
   }, []);
   React.useEffect(() => {
     if (token == null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('ADMIN')) {
       navigate('/404');
     } else {
-
       axios
         .put(`http://localhost:9080/api/v1/user-profile/adminchangevisitorstatus/${token}`, {
           userId: newUserId,
           action: newAction,
         })
         .then((response) => response.data)
-        .catch(error => {
-          console.log(error)
-        })
-
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [newAction]);
 
