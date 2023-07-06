@@ -91,12 +91,12 @@ export default function AppConversionRates({ title }) {
   }, []);
 
   const successRegistrationToastMessage = () => {
-    toast.success('Personnel Registration successfull !!', {
+    toast.success('Manager Registration successfull !!', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
   const errorRegistrationToastMessage = () => {
-    toast.error('ERROR!! Personnel could not be registration, Please try again !!', {
+    toast.error('ERROR!! Manager could not be registration, Please try again !!', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
