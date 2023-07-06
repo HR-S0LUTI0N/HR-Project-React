@@ -173,6 +173,20 @@ export default function AddExpense({ title }) {
     setNetAmountError(errorMessageNetAmount);
     setNetAmountValid(errorMessageNetAmount === '');
 
+    const validateAmount = () => {
+      
+      if (netAmount === '') {
+        return 'Amount can not be empty';
+        
+      }
+
+      return '';
+    };
+
+    const errorMessageAmount = validateAmount();
+    setAmountError(errorMessageAmount);
+    setAmountValid(errorMessageAmount === '');
+
     const reg = /^\d+(.\d+)?$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
       const errorMessageNetAmount = 'Net amount should only contain numbers or decimal';
@@ -205,6 +219,20 @@ export default function AddExpense({ title }) {
     const errorMessageTax = validateTax();
     setTaxError(errorMessageTax);
     setTaxValid(errorMessageTax === '');
+
+    const validateAmount = () => {
+      
+      if (tax === '') {
+        return 'Amount can not be empty';
+        
+      }
+
+      return '';
+    };
+
+    const errorMessageAmount = validateAmount();
+    setAmountError(errorMessageAmount);
+    setAmountValid(errorMessageAmount === '');
 
     const reg = /^\d+(.\d+)?$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
@@ -333,7 +361,7 @@ export default function AddExpense({ title }) {
       setTaxError(errorMessageTax);
       setTaxValid(errorMessageTax === '');
 
-      const validatePostalCode = () => {
+      const validateAmount = () => {
         if (calculateTotal() === '') {
           return 'Amount can not be empty';
         }
@@ -341,9 +369,9 @@ export default function AddExpense({ title }) {
         return '';
       };
 
-      const errorMessagePostalCode = validatePostalCode();
-      setAmountError(errorMessagePostalCode);
-      setAmountValid(errorMessagePostalCode === '');
+      const errorMessageAmount = validateAmount();
+      setAmountError(errorMessageAmount);
+      setAmountValid(errorMessageAmount === '');
     }
   };
 
