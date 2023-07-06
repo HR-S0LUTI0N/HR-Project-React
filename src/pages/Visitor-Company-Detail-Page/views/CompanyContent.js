@@ -13,6 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import CompanyComment from './CompanyComment';
+import DeskWorkingDesk from '../../../images/DeskWorkingDesk.jpg'
 
 
 function CompanyContent() {
@@ -52,7 +53,7 @@ function CompanyContent() {
 
           <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <img
-              src={`https://images-ext-2.discordapp.net/external/WO2_IuimNIMipzrckqRiGbjIDEqGkVQb57_bDgMzBtQ/%3Fsize%3D626%26ext%3Djpg%26uid%3DR105010038%26ga%3DGA1.2.1780058954.1685527094%2522/https/img.freepik.com/free-psd/3d-female-character-working-desk-with-laptop_23-2148938896.jpg`}
+              src={DeskWorkingDesk}
               alt="Company Logo"
               style={{ height: '25rem', width: '25rem', borderRadius: '20%', marginTop: '1rem' }}
             />

@@ -6,13 +6,14 @@ import { useEffect } from 'react';
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Typography, IconButton, Stack,  Box } from '@mui/material';
+import { Grid, Link, Typography, IconButton, Stack, Box } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import SvgContainer from './SvgContainer';
 import MailSendingAnimation from './mailsender';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Logo from '../../components/logo';
+import ForgotPasswordCelebrating from '../../images/ForgotPasswordCelebrating.jpg'
 
 // sections
 
@@ -52,23 +53,23 @@ export default function ForgotPasswordSuccesful() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/login'); 
+      navigate('/login');
     }, 3000);
 
     return () => {
-      clearTimeout(timeout); 
+      clearTimeout(timeout);
     };
   }, [navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-   
 
-    
 
-    
 
-    
+
+
+
+
   };
 
   const mdUp = useResponsive('up', 'md');
@@ -94,7 +95,7 @@ export default function ForgotPasswordSuccesful() {
               Welcome Back
             </Typography>
             <img
-              src="https://img.freepik.com/free-psd/3d-female-character-celebrating-with-party-hat-confetti_23-2148938904.jpg?w=826&t=st=1686740682~exp=1686741282~hmac=d007c31775e7f61bb6e88f720db5b90586e238ab8d763a39b6a1c76dc49a3ac8"
+              src={ForgotPasswordCelebrating}
               alt="login"
             />
           </StyledSection>
@@ -106,14 +107,14 @@ export default function ForgotPasswordSuccesful() {
           </Grid>
 
           <Typography variant="h4" gutterBottom style={{ marginLeft: '80px' }}>
-               Your Mail Sent Successfully!
+            Your Mail Sent Successfully!
           </Typography>
 
           <Typography variant="body2" gutterBottom style={{ marginLeft: '80px' }}>
-           An email for password reset has been sent. Please check your email. 
+            An email for password reset has been sent. Please check your email.
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            
+
             <Grid sx={{ my: 3 }}>
               <Stack direction="row" alignItems="center" justifyContent="center" sx={{ my: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -19,6 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import QuestionGirl from '../images/QuestionGirl.jpg'
 
 const defaultTheme = createTheme();
 
@@ -150,7 +151,7 @@ export default function ForgotPasswordReplace() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: `url(https://img.freepik.com/free-psd/3d-female-character-with-question-marks_23-2148938890.jpg?w=826&t=st=1688081987~exp=1688082587~hmac=fa1a7636926ed62129e08fc24e8294803acc13df96011c897bf202ebdc7ee0f8)`,
+                        backgroundImage: `url(${QuestionGirl})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
                         backgroundSize: 'cover',
