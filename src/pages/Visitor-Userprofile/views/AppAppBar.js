@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from '../../../images/Logo_HR.png';
-import UserProfileVisitor from '../../Visitor-Userprofile/views/userprofile-visitor';
+import UserProfileVisitor from './userprofile-visitor';
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
