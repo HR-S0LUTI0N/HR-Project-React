@@ -255,7 +255,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Name"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={name}
@@ -266,7 +265,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Middle Name"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={middleName}
@@ -277,7 +275,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Surname"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={surname}
@@ -288,7 +285,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Phone"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={phone}
@@ -299,7 +295,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Email"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={email}
@@ -346,7 +341,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Neighbourhood"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={neighbourhood}
@@ -355,7 +349,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="District"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={district}
@@ -364,7 +357,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Province"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={province}
@@ -373,7 +365,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Country"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={country}
@@ -382,7 +373,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Building Number"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={buildingNumber}
@@ -391,7 +381,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Apartment Number"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={apartmentNumber}
@@ -400,7 +389,6 @@ function Overview() {
                     <TextField
                       id="standard-textarea"
                       label="Postal Code"
-                      placeholder="Placeholder"
                       multiline
                       variant="standard"
                       value={postalCode}
@@ -441,11 +429,11 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
-            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative', height: 385 }}>
+            <div
+              style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative', height: 385 }}
+            >
               <h3>Change Password</h3>
               <div>
-
-
                 <div style={{ marginTop: '20px' }}>
                   <TextField
                     id="old-password"
@@ -496,7 +484,6 @@ function Overview() {
                     Update Password
                   </Button>
                 </div>
-
               </div>
             </div>
           </Grid>
