@@ -106,11 +106,11 @@ export default function AppConversionRates({ title }) {
     const value = event.target.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (value.trim() === '') {
-      setEmailError('Email is required');
+      setEmailError('Email can not be empty');
     } else if (value.length > 30) {
-      setEmailError('Email must not exceed 30 characters');
+      setEmailError('Email should not exceed 30 characters');
     } else if (!emailRegex.test(value)) {
-      setEmailError('Invalid email format');
+      setEmailError('Please enter a valid email address');
     } else {
       setEmailError('');
     }
@@ -120,10 +120,10 @@ export default function AppConversionRates({ title }) {
   const handleNameChange = (event) => {
     const value = event.target.value;
     if (value.trim() === '') {
-      setNameError('Name is required');
+      setNameError('Name can not be empty');
       setName('');
     } else if (value.length > 10) {
-      setNameError('Name must not exceed 10 characters');
+      setNameError('Name should not exceed 10 characters');
     } else {
       setNameError('');
       setName(value);
@@ -132,7 +132,7 @@ export default function AppConversionRates({ title }) {
   const handleMiddleNameChange = (event) => {
     const value = event.target.value;
     if (value.length > 10) {
-      setMiddleNameError('Middlename must not exceed 10 characters');
+      setMiddleNameError('Middlename should not exceed 10 characters');
     } else {
       setMiddleNameError('');
       setMiddleName(value);
@@ -141,10 +141,10 @@ export default function AppConversionRates({ title }) {
   const handleSurnameChange = (event) => {
     const value = event.target.value;
     if (value.trim() === '') {
-      setSurnameError('Surname is required');
+      setSurnameError('Surname can not be empty');
       setSurname('');
     } else if (value.length > 25) {
-      setSurnameError('Surname must not exceed 25 characters');
+      setSurnameError('Surname should not exceed 25 characters');
     } else {
       setSurnameError('');
       setSurname(value);
@@ -153,10 +153,10 @@ export default function AppConversionRates({ title }) {
   const handleBirthPlaceChange = (event) => {
     const value = event.target.value;
     if (value.trim() === '') {
-      setBirthPlaceError('Birth Place is required');
+      setBirthPlaceError('Birth place can not be empty');
       setBirthPlace('');
     } else if (value.length > 25) {
-      setBirthPlaceError('Birth Place must not exceed 25 characters');
+      setBirthPlaceError('Birth Place should not exceed 25 characters');
     } else {
       setBirthPlaceError('');
       setBirthPlace(value);
@@ -166,11 +166,11 @@ export default function AppConversionRates({ title }) {
     let value = event.target.value;
     value = value.replace(/\D/g, '');
     if (value.trim() === '') {
-      setIdentificationNumberError('Identification Number is required');
+      setIdentificationNumberError('ID can not be empty');
     } else if (value.length < 11) {
-      setIdentificationNumberError('Identification Number must have at least 11 characters');
+      setIdentificationNumberError('ID must have at least 11 characters');
     } else if (value.length > 11) {
-      setIdentificationNumberError('Identification Number must not exceed 11 characters');
+      setIdentificationNumberError('ID should not exceed 11 characters');
       value = value.slice(0, 11);
     } else {
       setIdentificationNumberError('');
@@ -180,10 +180,10 @@ export default function AppConversionRates({ title }) {
   const handleDepartmentChange = (event) => {
     const value = event.target.value;
     if (value.trim() === '') {
-      setDepartmentError('Department is required');
+      setDepartmentError('Department can not be empty');
       setDepartment('');
     } else if (value.length > 25) {
-      setDepartmentError('Department must not exceed 25 characters');
+      setDepartmentError('Department should not exceed 25 characters');
     } else {
       setDepartmentError('');
       setDepartment(value);
@@ -195,11 +195,11 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 3) {
       value = value.slice(0, 3);
-      setNumberOfDayOffError('Number of Day Off must not exceed 3 characters');
+      setNumberOfDayOffError('Number of Day Off should not exceed 3 characters');
     } else {
       setNumberOfDayOffError('');
       if (value > 365) {
-        setNumberOfDayOffError('Number of Day Off must not exceed 365');
+        setNumberOfDayOffError('Number of Day Off should not exceed 365');
       }
       setNumberOfDayOff(value);
     }
@@ -207,7 +207,7 @@ export default function AppConversionRates({ title }) {
   const handleNeighbourhoodChange = (event) => {
     const value = event.target.value;
     if (value.length > 40) {
-      setNeighbourhoodError('Neighbourhood must not exceed 40 characters');
+      setNeighbourhoodError('Neighbourhood should not exceed 40 characters');
     } else {
       setNeighbourhoodError('');
       setNeighbourhood(value);
@@ -216,7 +216,7 @@ export default function AppConversionRates({ title }) {
   const handleDistrictChange = (event) => {
     const value = event.target.value;
     if (value.length > 40) {
-      setDistrictError('District must not exceed 40 characters');
+      setDistrictError('District should not exceed 40 characters');
     } else {
       setDistrictError('');
       setDistrict(value);
@@ -225,7 +225,7 @@ export default function AppConversionRates({ title }) {
   const handleProvinceChange = (event) => {
     const value = event.target.value;
     if (value.length > 40) {
-      setProvinceError('Province must not exceed 40 characters');
+      setProvinceError('Province should not exceed 40 characters');
     } else {
       setProvinceError('');
       setProvince(value);
@@ -234,7 +234,7 @@ export default function AppConversionRates({ title }) {
   const handleCountryChange = (event) => {
     const value = event.target.value;
     if (value.length > 25) {
-      setCountryError('Country must not exceed 40 characters');
+      setCountryError('Country should not exceed 40 characters');
     } else {
       setCountryError('');
       setCountry(value);
@@ -245,7 +245,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setBuildingNumberError('Number of Building Number must not exceed 7 characters');
+      setBuildingNumberError('Building number should not exceed 7 characters');
     } else {
       setBuildingNumberError('');
       setBuildingNumber(value);
@@ -256,7 +256,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setApartmentNumberError('Number of Appartment Number must not exceed 7 characters');
+      setApartmentNumberError('Appartment number should not exceed 7 characters');
     } else {
       setApartmentNumberError('');
       setApartmentNumber(value);
@@ -267,7 +267,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 7) {
       value = value.slice(0, 7);
-      setPostalCodeError('Number of Postal Code must not exceed 7 characters');
+      setPostalCodeError('Number of Postal Code should not exceed 7 characters');
     } else {
       setPostalCodeError('');
       setPostalCode(value);
@@ -279,7 +279,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/\D/g, '');
     if (value.length > 12) {
       value = value.slice(0, 12);
-      setPhoneError('Number of Phone Number must not exceed 12 characters');
+      setPhoneError('Number of Phone Number should not exceed 12 characters');
     } else {
       setPhoneError('');
       setPhone(value);
@@ -291,7 +291,7 @@ export default function AppConversionRates({ title }) {
     value = value.replace(/[^\d.]/g, '');
     if (value.length > 12) {
       value = value.slice(0, 12);
-      setWageError('Number of Phone Number must not exceed 12 characters');
+      setWageError('Phone number should not exceed 12 characters');
     } else if (value < 0) {
       setWageError('Wage can not be less than 0');
     } else {
@@ -309,10 +309,64 @@ export default function AppConversionRates({ title }) {
     data.readAsDataURL(e.target.files[0]);
   }
 
+  const [checked, setChecked] = React.useState([]);
+
+  const handleToggle = (value) => () => {
+    console.log(checked)
+
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+    console.log(checked)
+
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
+    if(
+      name.length > 0 &&
+      nameError.length === 0 &&
+      middleNameError.length === 0 &&
+      surname.length > 0 &&
+      surnameError.length === 0 &&
+      email.length > 0 &&
+      emailError.length === 0 &&
+      birthPlace.length > 0 &&
+      birthPlaceError.length === 0 &&
+      identificationNumber.length > 0 &&
+      identificationNumberError.length === 0 &&
+      phone.length > 0 &&
+      phoneError.length === 0 &&
+      department.length > 0 &&
+      departmentError.length === 0 &&
+      numberOfDayOff.length > 0 &&
+      numberOfDayOffError.length === 0 &&
+      wage.length > 0 &&
+      wageError.length === 0 &&
+      neighbourhood.length > 0 &&
+      neighbourhoodError.length === 0 &&
+      district.length > 0 &&
+      districtError.length === 0 &&
+      province.length > 0 &&
+      provinceError.length === 0 &&
+      country.length > 0 &&
+      countryError.length === 0 &&
+      buildingNumber.length > 0 &&
+      buildingNumberError.length === 0 &&
+      apartmentNumber.length > 0 &&
+      apartmentNumberError.length === 0 &&
+      postalCode.length > 0 &&
+      postalCodeError.length === 0 
+      ){
+    const data = new FormData(event.currentTarget);
     const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     const formattedBirthPlace = birthPlace.charAt(0).toUpperCase() + birthPlace.slice(1).toLowerCase();
     const formattedMiddleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
@@ -322,7 +376,6 @@ export default function AppConversionRates({ title }) {
     const formattedProvince = province.charAt(0).toUpperCase() + province.slice(1).toLowerCase();
     const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
     const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
-
 
     const payload = {
       email: data.get('email'),
@@ -388,28 +441,260 @@ export default function AppConversionRates({ title }) {
         errorRegistrationToastMessage();
         console.error('Error:', error);
       });
+    }else{
+      errorRegistrationToastMessage();
+      console.log('Form data is invalid');
+
+      const validateName = () => {
+        if(nameError.length > 0){
+          return nameError
+        }
+        if (name.trim().length === 0) {
+          return 'Name can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageName = validateName();
+      setNameError(errorMessageName);
+
+      const validateMiddleName = () => {
+        if(middleNameError.length > 0){
+          return middleNameError
+        }
+        
+        return '';
+      };
+
+      const errorMessageMiddleName = validateMiddleName();
+      setMiddleNameError(errorMessageMiddleName);   
+
+      const validateSurname = () => {
+        if(surnameError.length > 0){
+          return surnameError
+        }
+        if (surname.trim().length === 0) {
+          return 'Surname can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageSurname = validateSurname();
+      setSurnameError(errorMessageSurname);
+      
+
+      const validateMail = () => {
+        if(emailError.length > 0){
+          return emailError
+        }
+        if (email.trim().length === 0) {
+          return 'Email can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageMail = validateMail();
+      setEmailError(errorMessageMail);
 
 
-  };
+      const validateBirthPlace = () => {
+        if(birthPlaceError.length > 0){
+          return birthPlaceError
+        }
+        if (birthPlace.trim().length === 0) {
+          return 'Birth place can not be empty';
+        }
 
-  const [checked, setChecked] = React.useState([]);
+        return '';
+      };
 
-  const handleToggle = (value) => () => {
-    console.log(checked)
+      const errorMessageBirthPlace = validateBirthPlace();
+      setBirthPlaceError(errorMessageBirthPlace);
 
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
+      const validateID = () => {
+        if(identificationNumberError.length > 0){
+          return identificationNumberError
+        }
+        if (identificationNumber.trim().length === 0) {
+          return 'ID can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageID = validateID();
+      setIdentificationNumberError(errorMessageID);
+
+      const validatePhone = () => {
+        if(phoneError.length > 0){
+          return phoneError
+        }
+        if (phone.trim().length === 0) {
+          return 'Phone can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessagePhone = validatePhone();
+      setPhoneError(errorMessagePhone);
+
+
+      const validateDepartment = () => {
+        if(departmentError.length > 0){
+          return departmentError
+        }
+        if (department.trim().length === 0) {
+          return 'Department can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageDepartment = validateDepartment();
+      setDepartmentError(errorMessageDepartment);
+
+      const validateDayOff = () => {
+        if(numberOfDayOffError.length > 0){
+          return numberOfDayOffError
+        }
+        if (numberOfDayOff.trim().length === 0) {
+          return 'Number of Day Off can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageDayOff = validateDayOff();
+      setNumberOfDayOffError(errorMessageDayOff);
+
+
+      const validateWage = () => {
+        if(wageError.length > 0){
+          return wageError
+        }
+        if (wage.trim().length === 0) {
+          return 'Wage can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageWage = validateWage();
+      setWageError(errorMessageWage);
+
+
+      const validateNeighbourhood = () => {
+        if(neighbourhoodError.length > 0){
+          return neighbourhoodError
+        }
+        if (neighbourhood.trim().length === 0) {
+          return 'Neighbourhood can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageNeighbourhood = validateNeighbourhood();
+      setNeighbourhoodError(errorMessageNeighbourhood);
+
+
+      const validateDistrict = () => {
+        if(districtError.length > 0){
+          return districtError
+        }
+        if (district.trim().length === 0) {
+          return 'District can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageDistrict = validateDistrict();
+      setDistrictError(errorMessageDistrict);
+
+
+      const validateProvince = () => {
+        if(provinceError.length > 0){
+          return provinceError
+        }
+        if (province.trim().length === 0) {
+          return 'Province can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageProvince = validateProvince();
+      setProvinceError(errorMessageProvince);
+
+
+      const validateCountry = () => {
+        if(countryError.length > 0){
+          return countryError
+        }
+        if (country.trim().length === 0) {
+          return 'Country can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageCountry = validateCountry();
+      setCountryError(errorMessageCountry);
+
+
+      const validateBuildingNumber = () => {
+        if(buildingNumberError.length > 0){
+          return buildingNumberError
+        }
+        if (buildingNumber.trim().length === 0) {
+          return 'Building number can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageBuildingNumber = validateBuildingNumber();
+      setBuildingNumberError(errorMessageBuildingNumber);
+
+      const validateApartmentNumber = () => {
+        if(apartmentNumberError.length > 0){
+          return apartmentNumberError
+        }
+        if (apartmentNumber.trim().length === 0) {
+          return 'Apartment number can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessageApartmentNumber = validateApartmentNumber();
+      setApartmentNumberError(errorMessageApartmentNumber);
+
+
+      const validatePostalCode = () => {
+        if(postalCodeError.length > 0){
+          return postalCodeError
+        }
+        if (postalCode.trim().length === 0) {
+          return 'Postal code can not be empty';
+        }
+
+        return '';
+      };
+
+      const errorMessagePostalCode = validatePostalCode();
+      setPostalCodeError(errorMessagePostalCode); 
+    
     }
-
-    setChecked(newChecked);
-    console.log(checked)
-
   };
+
+  
 
 
   return (
