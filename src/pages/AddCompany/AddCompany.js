@@ -547,7 +547,9 @@ export default function AddCompany({ title }) {
           setSelectedPaydayChange(dayjs());
         })
         .catch((error) => {
-          errorRegistrationToastMessage();
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
           console.error('Error:', error);
         });
     } else {

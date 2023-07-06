@@ -82,14 +82,13 @@ export default function AppConversionRates({ title }) {
   const roles = sessionStorage.getItem('roles');
   const navigate = useNavigate();
 
-
   React.useEffect(() => {
     if (token === null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('FOUNDER')) {
       navigate('/404');
     }
-  }, [])
+  }, []);
 
   const successRegistrationToastMessage = () => {
     toast.success('Personnel Registration successfull !!', {
@@ -323,7 +322,6 @@ export default function AppConversionRates({ title }) {
     const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
     const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
 
-
     const payload = {
       email: data.get('email'),
       birthPlace: formattedBirthPlace,
@@ -352,50 +350,49 @@ export default function AppConversionRates({ title }) {
     };
     console.log('Form Data:', payload);
 
-
     await axios
       .post(`http://localhost:9080/api/v1/user-profile/create-manager/${token}`, payload)
       .then((response) => {
         console.log('Success:', response.data);
         successRegistrationToastMessage();
-        setEmail('')
-        setSelectedDateOfBirthChange(dayjs())
-        setSelectedJobStartingDateChange(dayjs())
-        setGender(comboOptions[0])
-        setInputValue('')
-        setImgs('')
-        setShiftStart(dayjs())
-        setShiftEnd(dayjs())
-        setName('')
-        setMiddleName('')
-        setSurname('')
-        setBirthPlace('')
-        setIdentificationNumber('')
-        setDepartment('')
-        setNumberOfDayOff('')
-        setNeighbourhood('')
-        setDistrict('')
-        setProvince('')
-        setCountry('')
-        setBuildingNumber('')
-        setApartmentNumber('')
-        setPostalCode('')
-        setPhone('')
-        setWage('')
-        setChecked([])
+        setEmail('');
+        setSelectedDateOfBirthChange(dayjs());
+        setSelectedJobStartingDateChange(dayjs());
+        setGender(comboOptions[0]);
+        setInputValue('');
+        setImgs('');
+        setShiftStart(dayjs());
+        setShiftEnd(dayjs());
+        setName('');
+        setMiddleName('');
+        setSurname('');
+        setBirthPlace('');
+        setIdentificationNumber('');
+        setDepartment('');
+        setNumberOfDayOff('');
+        setNeighbourhood('');
+        setDistrict('');
+        setProvince('');
+        setCountry('');
+        setBuildingNumber('');
+        setApartmentNumber('');
+        setPostalCode('');
+        setPhone('');
+        setWage('');
+        setChecked([]);
       })
       .catch((error) => {
-        errorRegistrationToastMessage();
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
         console.error('Error:', error);
       });
-
-
   };
 
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
-    console.log(checked)
+    console.log(checked);
 
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -407,10 +404,8 @@ export default function AppConversionRates({ title }) {
     }
 
     setChecked(newChecked);
-    console.log(checked)
-
+    console.log(checked);
   };
-
 
   return (
     <>
@@ -418,7 +413,13 @@ export default function AppConversionRates({ title }) {
         <Paper sx={{ maxWidth: 1800 }}>
           <CardHeader title={title} />
           <Card sx={{ mt: 5 }}>
-            <Grid container justifyContent="center" alignItems="center" flexDirection="column" sx={{ mx: 'auto', mt: 5 }}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="column"
+              sx={{ mx: 'auto', mt: 5 }}
+            >
               <Avatar sx={{ minWidth: 220, minHeight: 220, mb: 3 }} src={imgs} />
               <Button
                 type="submit"
@@ -530,11 +531,17 @@ export default function AppConversionRates({ title }) {
                   error={Boolean(identificationNumberError)}
                   helperText={identificationNumberError}
                 />
-                <TextField id="phone" name="phone" label="Phone" variant="filled" value={phone}
+                <TextField
+                  id="phone"
+                  name="phone"
+                  label="Phone"
+                  variant="filled"
+                  value={phone}
                   onChange={handlePhoneChange}
                   error={Boolean(phoneError)}
                   helperText={phoneError}
-                  sx={{ width: 280 }} />
+                  sx={{ width: 280 }}
+                />
                 <TextField
                   id="department"
                   name="department"
@@ -572,7 +579,6 @@ export default function AppConversionRates({ title }) {
                   }}
                   sx={{ width: 280 }}
                 />
-
 
                 <Grid container justifyContent="center" sx={{ mx: 'auto' }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -649,7 +655,15 @@ export default function AppConversionRates({ title }) {
                   <CardHeader subheader="Break Information" sx={{ marginLeft: '3rem' }} />
                 </Grid>
                 <Grid item xs={12} sx={{ ml: 30 }}>
-                  <List sx={{ display: 'flex', flexWrap: 'wrap', width: '100%', maxWidth: 2000, bgcolor: 'background.paper' }}>
+                  <List
+                    sx={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      width: '100%',
+                      maxWidth: 2000,
+                      bgcolor: 'background.paper',
+                    }}
+                  >
                     {['Smoke Break', 'Rest Break', 'Lunch Break', 'Health Issue Break'].map((value) => {
                       const labelId = `checkbox-list-label-${value}`;
 
@@ -663,7 +677,7 @@ export default function AppConversionRates({ title }) {
                                 tabIndex={-1}
                                 disableRipple
                                 inputProps={{ 'aria-labelledby': labelId }}
-                                style={{ color: "#ffa726" }}
+                                style={{ color: '#ffa726' }}
                               />
                             </ListItemIcon>
                             <ListItemText id={labelId} primary={`${value}`} />

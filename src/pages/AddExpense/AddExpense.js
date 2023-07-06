@@ -10,7 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box, Card, CardHeader, Paper } from '@mui/material';
@@ -60,8 +60,6 @@ export default function AddExpense({ title }) {
   const [description, setDescription] = React.useState('');
   const [descriptionError, setDescriptionError] = React.useState('');
 
-
-
   const navigate = useNavigate();
 
   const successRegistrationToastMessage = () => {
@@ -75,22 +73,20 @@ export default function AddExpense({ title }) {
     });
   };
 
-
   const [holidayDates, setHolidayDates] = React.useState('');
 
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
-
   const locale = 'en-gb';
   const [selectedImage, setSelectedImage] = useState(null);
   React.useEffect(() => {
     if (token === null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('PERSONEL')) {
       navigate('/404');
     }
-  }, [])
+  }, []);
 
   // New state for markedDates
 
@@ -103,7 +99,6 @@ export default function AddExpense({ title }) {
     setIsModalOpen(false);
   };
 
-
   const handleChangeImg = (e) => {
     const file = e.target.files[0];
     const data = new FileReader();
@@ -114,7 +109,7 @@ export default function AddExpense({ title }) {
   };
 
   const handleDescriptionChange = (event) => {
-    const description = event.target.value
+    const description = event.target.value;
     setDescription(description);
 
     const validateDescription = () => {
@@ -131,9 +126,7 @@ export default function AddExpense({ title }) {
     const errorMessageDescription = validateDescription();
     setDescriptionError(errorMessageDescription);
     setDescriptionValid(errorMessageDescription === '');
-
-  }
-
+  };
 
   const handleTaxZoneChange = (event) => {
     const taxZone = event.target.value;
@@ -158,16 +151,14 @@ export default function AddExpense({ title }) {
     const errorMessageTaxZone = validateTaxZone();
     setTaxZoneError(errorMessageTaxZone);
     setTaxZoneValid(errorMessageTaxZone === '');
-
-  }
+  };
 
   const handleNetAmountChange = (event) => {
     const netAmount = event.target.value.replace(/[^\d.]/g, '').trim();
-    setNetAmount(netAmount)
+    setNetAmount(netAmount);
 
     const validateNetAmount = () => {
-
-      if ((netAmount.trim().length === 0)) {
+      if (netAmount.trim().length === 0) {
         return `Net amount can not be empty`;
       }
 
@@ -184,25 +175,23 @@ export default function AddExpense({ title }) {
 
     const reg = /^\d+(.\d+)?$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessageNetAmount = "Net amount should only contain numbers or decimal"
+      const errorMessageNetAmount = 'Net amount should only contain numbers or decimal';
       setNetAmountError(errorMessageNetAmount);
       setNetAmountValid(errorMessageNetAmount === '');
       setTimeout(() => {
-        const errorMessageNetAmount = ''
+        const errorMessageNetAmount = '';
         setNetAmountError(errorMessageNetAmount);
         setNetAmountValid(errorMessageNetAmount === '');
       }, 2000);
     }
-
-  }
+  };
 
   const handleTaxChange = (event) => {
     const tax = event.target.value.replace(/[^\d.]/g, '').trim();
-    setTax(tax)
+    setTax(tax);
 
     const validateTax = () => {
-
-      if ((tax.trim().length === 0)) {
+      if (tax.trim().length === 0) {
         return `Tax can not be empty`;
       }
 
@@ -219,29 +208,27 @@ export default function AddExpense({ title }) {
 
     const reg = /^\d+(.\d+)?$/;
     if (!reg.test(event.target.value) && !(event.target.value === '')) {
-      const errorMessageTax = "Tax should only contain numbers or decimal"
+      const errorMessageTax = 'Tax should only contain numbers or decimal';
       setTaxError(errorMessageTax);
       setTaxValid(errorMessageTax === '');
       setTimeout(() => {
-        const errorMessageTax = ''
+        const errorMessageTax = '';
         setTaxError(errorMessageTax);
         setTaxValid(errorMessageTax === '');
       }, 2000);
     }
-
-  }
+  };
 
   const calculateTotal = () => {
     const total = Number(netAmount) + Number(tax);
-    return Number.isNaN(total) || (total === 0) ? '' : total;
+    return Number.isNaN(total) || total === 0 ? '' : total;
   };
-
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
-    if (netAmountValid &&
+    if (
+      netAmountValid &&
       netAmount.length > 0 &&
       taxValid &&
       tax.length > 0 &&
@@ -252,7 +239,6 @@ export default function AddExpense({ title }) {
       expenseType !== undefined &&
       paymentMethod !== undefined &&
       inputValueCurrency.length > 0
-
     ) {
       const data = new FormData(event.currentTarget);
       const dataload = {
@@ -266,14 +252,14 @@ export default function AddExpense({ title }) {
         billDate: selectedBillDateChange.format('DD-MM-YYYY'),
         demandDate: selectedDemandDateChange.format('DD-MM-YYYY'),
         description: data.get('description'),
-        base64Bill: selectedImage
+        base64Bill: selectedImage,
       };
       console.log('Form Data:', dataload);
       await axios
         .post(`http://localhost:9070/api/v1/expense/personnel-make-expense/${token}`, dataload)
         .then((response) => {
           console.log('Success:', response.data);
-          setSelectedImage('')
+          setSelectedImage('');
           setInputValue('');
           setInputValueCurrency('');
           setInputValuePayment('');
@@ -283,15 +269,16 @@ export default function AddExpense({ title }) {
           setTax('');
           setTaxZone('');
           setAmount('');
-          setSelectedBillDateChange(dayjs())
-          setSelectedDemandDateChange(dayjs())
+          setSelectedBillDateChange(dayjs());
+          setSelectedDemandDateChange(dayjs());
           setDescription('');
 
           successRegistrationToastMessage();
-
         })
         .catch((error) => {
-          errorRegistrationToastMessage();
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
           console.error('Error:', error);
         });
     } else {
@@ -310,7 +297,6 @@ export default function AddExpense({ title }) {
       setDescriptionError(errorMessageDescription);
       setDescriptionValid(errorMessageDescription === '');
 
-
       const validateTaxZone = () => {
         if (taxZone.trim().length === 0) {
           return 'Tax zone can not be empty';
@@ -322,7 +308,6 @@ export default function AddExpense({ title }) {
       const errorMessageTaxZone = validateTaxZone();
       setTaxZoneError(errorMessageTaxZone);
       setTaxZoneValid(errorMessageTaxZone === '');
-
 
       const validateNetAmount = () => {
         if (netAmount.trim().length === 0) {
@@ -336,7 +321,6 @@ export default function AddExpense({ title }) {
       setNetAmountError(errorMessageNetAmount);
       setNetAmountValid(errorMessageNetAmount === '');
 
-
       const validateTax = () => {
         if (tax.trim().length === 0) {
           return 'Tax can not be empty';
@@ -348,7 +332,6 @@ export default function AddExpense({ title }) {
       const errorMessageTax = validateTax();
       setTaxError(errorMessageTax);
       setTaxValid(errorMessageTax === '');
-
 
       const validatePostalCode = () => {
         if (calculateTotal() === '') {
@@ -364,16 +347,19 @@ export default function AddExpense({ title }) {
     }
   };
 
-
   return (
     <>
-
       <Grid sx={{ display: 'flex', ml: '10rem' }}>
         <Paper sx={{ maxWidth: 1800 }}>
-
           <Card sx={{}}>
             <CardHeader subheader="Bill Photo" sx={{ marginLeft: '4.7rem' }} />
-            <Grid container justifyContent="center" alignItems="center" flexDirection="row" sx={{ mx: 'auto', gap: '9rem' }}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="row"
+              sx={{ mx: 'auto', gap: '9rem' }}
+            >
               <div
                 style={{
                   width: '300px',
@@ -389,7 +375,11 @@ export default function AddExpense({ title }) {
                 onDoubleClick={openModal}
               >
                 {selectedImage ? (
-                  <img src={selectedImage} alt="Bill" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                  <img
+                    src={selectedImage}
+                    alt="Bill"
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                  />
                 ) : (
                   <span style={{ color: '#aaa' }}>Select an image</span>
                 )}
@@ -428,9 +418,7 @@ export default function AddExpense({ title }) {
                     cursor: 'pointer',
                   }}
                 />
-
                 <Add /> Save Bill Photo
-
               </Button>
             </Grid>
             <Box
@@ -477,15 +465,9 @@ export default function AddExpense({ title }) {
                   renderOption={(props, option) => (
                     <li {...props}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div style={{ marginRight: '8px' }}>
-                          {option.flag}
-                        </div>
-                        <div style={{ marginRight: '8px' }}>
-                          {option.label}
-                        </div>
-                        <div>
-                          {option.symbol}
-                        </div>
+                        <div style={{ marginRight: '8px' }}>{option.flag}</div>
+                        <div style={{ marginRight: '8px' }}>{option.label}</div>
+                        <div>{option.symbol}</div>
                       </div>
                     </li>
                   )}
@@ -508,10 +490,51 @@ export default function AddExpense({ title }) {
                   renderInput={(params) => <TextField {...params} label="Payment Method" />}
                   defaultValue={null}
                 />
-                <TextField id="netAmount" value={netAmount} onChange={handleNetAmountChange} name="netAmount" label="Net Amount" variant="filled" sx={{ width: 280 }} error={!netAmountValid} helperText={!netAmountValid ? netAmountError : ''} />
-                <TextField id="tax" value={tax} onChange={handleTaxChange} name="tax" label="Tax" variant="filled" sx={{ width: 280 }} error={!taxValid} helperText={!taxValid ? taxError : ''} />
-                <TextField id="taxZone" value={taxZone} onChange={handleTaxZoneChange} name="taxZone" label="Tax Zone" variant="filled" sx={{ width: 280 }} error={!taxZoneValid} helperText={!taxZoneValid ? taxZoneError : ''} />
-                <TextField id="amount" value={calculateTotal()} InputProps={{ readOnly: true, }} placeholder="Can't write in this section" name="amount" label="Amount" fullWidth sx={{ width: 280 }} error={!amountValid} helperText={!amountValid ? amountError : ''} />
+                <TextField
+                  id="netAmount"
+                  value={netAmount}
+                  onChange={handleNetAmountChange}
+                  name="netAmount"
+                  label="Net Amount"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!netAmountValid}
+                  helperText={!netAmountValid ? netAmountError : ''}
+                />
+                <TextField
+                  id="tax"
+                  value={tax}
+                  onChange={handleTaxChange}
+                  name="tax"
+                  label="Tax"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!taxValid}
+                  helperText={!taxValid ? taxError : ''}
+                />
+                <TextField
+                  id="taxZone"
+                  value={taxZone}
+                  onChange={handleTaxZoneChange}
+                  name="taxZone"
+                  label="Tax Zone"
+                  variant="filled"
+                  sx={{ width: 280 }}
+                  error={!taxZoneValid}
+                  helperText={!taxZoneValid ? taxZoneError : ''}
+                />
+                <TextField
+                  id="amount"
+                  value={calculateTotal()}
+                  InputProps={{ readOnly: true }}
+                  placeholder="Can't write in this section"
+                  name="amount"
+                  label="Amount"
+                  fullWidth
+                  sx={{ width: 280 }}
+                  error={!amountValid}
+                  helperText={!amountValid ? amountError : ''}
+                />
                 <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
                     <DemoContainer components={['DatePicker']}>
@@ -550,24 +573,26 @@ export default function AddExpense({ title }) {
                   placeholder="Max 50 characters"
                   sx={{ width: 905 }}
                   multiline
-                  error={!descriptionValid} helperText={!descriptionValid ? descriptionError : ''}
+                  error={!descriptionValid}
+                  helperText={!descriptionValid ? descriptionError : ''}
                   onChange={handleDescriptionChange}
                 />
               </Grid>
 
-
-
-              <Grid container justifyContent="center" >
-                <Button type="submit"
+              <Grid container justifyContent="center">
+                <Button
+                  type="submit"
                   variant="contained"
                   style={{ maxWidth: 140, minWidth: 140 }}
                   sx={{
                     borderRadius: 2,
                     padding: 1,
-                    bgcolor: "#ffa726", '&:hover': {
+                    bgcolor: '#ffa726',
+                    '&:hover': {
                       bgcolor: 'grey',
                     },
-                  }}>
+                  }}
+                >
                   Save
                 </Button>
                 <ToastContainer />
