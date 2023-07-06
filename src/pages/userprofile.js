@@ -257,7 +257,16 @@ function Overview() {
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div
+              style={{
+                height: '400px',
+                background: '#FAF0E4',
+                padding: '20px',
+                borderRadius: '8px',
+                position: 'relative',
+              }}
+            >
+              {' '}
               <EditIcon
                 style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
                 onClick={() => {
@@ -317,7 +326,19 @@ function Overview() {
                       onChange={handleEmailChange}
                     />
                   </div>
-                  <Button variant="contained" onClick={handleUpdatePersonel} style={{ marginTop: '10px' }}>
+                  <Button
+                    variant="contained"
+                    onClick={handleUpdatePersonel}
+                    style={{ marginTop: '10px' }}
+                    sx={{
+                      borderRadius: 2,
+                      padding: 1,
+                      bgcolor: '#ffa726',
+                      '&:hover': {
+                        bgcolor: 'grey',
+                      },
+                    }}
+                  >
                     Save Changes
                   </Button>
                 </>
@@ -343,7 +364,16 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div
+              style={{
+                height: '400px',
+                background: '#FAF0E4',
+                padding: '20px',
+                borderRadius: '8px',
+                position: 'relative',
+              }}
+            >
+              {' '}
               <EditIcon
                 style={{ position: 'absolute', top: '10px', right: '10px', cursor: 'pointer' }}
                 onClick={() => {
@@ -411,7 +441,19 @@ function Overview() {
                       onChange={handlePostalCodeChange}
                     />
                   </div>
-                  <Button variant="contained" onClick={handleUpdateAddress} style={{ marginTop: '10px' }}>
+                  <Button
+                    variant="contained"
+                    onClick={handleUpdateAddress}
+                    style={{ marginTop: '10px' }}
+                    sx={{
+                      borderRadius: 2,
+                      padding: 1,
+                      bgcolor: '#ffa726',
+                      '&:hover': {
+                        bgcolor: 'grey',
+                      },
+                    }}
+                  >
                     Save Changes
                   </Button>
                 </>
@@ -431,7 +473,16 @@ function Overview() {
             </div>
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
-            <div style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative' }}>
+            <div
+              style={{
+                height: '400px',
+                background: '#FAF0E4',
+                padding: '20px',
+                borderRadius: '8px',
+                position: 'relative',
+              }}
+            >
+              {' '}
               <h3>Company Information</h3>
               <div>
                 <p>Neighbourhood: {companyNeighbourhood}</p>
@@ -446,7 +497,13 @@ function Overview() {
           </Grid>
           <Grid item xs={12} md={6} sx={{ margin: 0 }}>
             <div
-              style={{ background: '#FAF0E4', padding: '20px', borderRadius: '8px', position: 'relative', height: 385 }}
+              style={{
+                height: '400px',
+                background: '#FAF0E4',
+                padding: '20px',
+                borderRadius: '8px',
+                position: 'relative',
+              }}
             >
               <h3>Change Password</h3>
               <div>
