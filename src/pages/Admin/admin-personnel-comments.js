@@ -65,9 +65,6 @@ export default function StickyHeadTable() {
         // İstek sonucunu kullanmak için burada işlemler yapabilirsiniz
       } catch (error) {
         console.error('Error Fetching manager:', error);
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
       }
     };
     fetchData();
