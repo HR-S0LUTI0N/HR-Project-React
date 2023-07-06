@@ -89,7 +89,7 @@ export default function StickyHeadTable() {
                                 <TableRow hover role="checkbox" tabIndex={-1} key={comment.index}>
                                     <>
                                         <TableCell key={comment.index} align="center" sx={{ width: 120 }}>
-                                            <Avatar alt={comment.name.toUpperCase()} src={comment.avatar} sx={{ bgcolor: '#ffa726' }} />
+                                            <Avatar alt={comment.name.toUpperCase()} src={comment.avatar} sx={{ bgcolor: '#B7B7B7' }} />
                                         </TableCell>
                                         <TableCell key={comment.index} align="center" sx={{ width: 400 }}>
                                             {comment.name} {comment.middleName ? comment.middleName : ''} {comment.surname}

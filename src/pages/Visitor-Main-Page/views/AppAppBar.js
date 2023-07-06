@@ -79,7 +79,7 @@ function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
             <Button href="/visitor">
-              <img src={Logo} alt="Logo HR" height={80} />
+              <img src={Logo} alt="Logo HR" height={90} />
             </Button>
           </Box>
 
@@ -99,11 +99,9 @@ function ResponsiveAppBar() {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: 4 }}>
-                <Avatar
-                  alt={profile.name ? 'C' : profile.name}
-                  src={profile.avatar}
-                  sx={{ width: 56, height: 56, bgcolor: '#ffa726' }}
-                />
+
+                <Avatar alt={profile.name ? "C" : profile.name} src={profile.avatar} sx={{ width: 45, height: 45, bgcolor: '#B7B7B7' }} />
+
               </IconButton>
             </Tooltip>
             <Menu

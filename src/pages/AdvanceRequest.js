@@ -13,6 +13,7 @@ export default function AppConversionRates({ title }) {
   const [advanceRequestError, setAdvanceRequestError] = useState('');
   const [description, setDescription] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
+  const [descriptionValid, setDescriptionValid] = React.useState(true);
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
   const navigate = useNavigate();
@@ -70,7 +71,11 @@ export default function AppConversionRates({ title }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if (description.trim() === '') {
+      setDescriptionError('Description is required');
+      setDescriptionValid(false);
+      return;
+    }
     const payload = {
       description,
       advanceRequest,
@@ -82,18 +87,22 @@ export default function AppConversionRates({ title }) {
       successRegistrationToastMessage();
       setAdvanceRequest('');
       setDescription('');
+      setDescriptionValid(true);
+      setDescriptionError('');
     } catch (error) {
       console.error('Error:', error);
-      errorRegistrationToastMessage();
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
   return (
     <>
-      <Grid sx={{ display: 'flex', ml: '10rem' }}>
-        <Paper sx={{ maxWidth: 1800, marginTop: '-100px' }}>
+      <Grid sx={{ display: 'flex', ml: '10rem' }} >
+        <Paper sx={{ maxWidth: 1800 }}>
           <CardHeader title={title} />
-          <Card sx={{ mt: 5 }}>
+          <Card sx={{ mt: -3 }}>
             <Box
               component="form"
               noValidate

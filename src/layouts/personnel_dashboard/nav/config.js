@@ -16,15 +16,16 @@ const navConfig = [
     path: '/personnel/advancerequest',
     icon: icon('ic_advancerequest'),
   },
-  {
-    title: 'Permission Request',
-    path: '/personnel/permission-request',
-    icon: icon('ic_permissionrequest'),
-  },
+
   {
     title: 'Expense Demand',
     path: '/personnel/expense-demand',
     icon: icon('ic_expense'),
+  },
+  {
+    title: 'Day Off Request',
+    path: '/personnel/permission-request',
+    icon: icon('ic_permissionrequest'),
   },
 
 ];
