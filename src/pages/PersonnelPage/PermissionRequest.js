@@ -127,7 +127,9 @@ export default function PermissionRequest({ title }) {
         setEpermissionTypes(comboOptions[0]);
       })
       .catch((error) => {
-        errorRegistrationToastMessage();
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
         console.error('Error:', error);
       });
   };
