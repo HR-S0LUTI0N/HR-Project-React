@@ -163,6 +163,9 @@ function Overview() {
         setSurname(updatedData.surname);
         setPhone(updatedData.phone);
         setEmail(updatedData.email);
+        toast.success('Profil güncelleme işleminiz başarıyla gerçekleşmiştir.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -194,6 +197,9 @@ function Overview() {
         setBuildingNumber(updatedAddressData.buildingNumber);
         setApartmentNumber(updatedAddressData.apartmentNumber);
         setPostalCode(updatedAddressData.postalCode);
+        toast.success('Adres Bilgileri güncelleme işleminiz başarıyla gerçekleşmiştir.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -222,6 +228,9 @@ function Overview() {
           toast.success('Şifre değiştirme işleminiz başarılı olmuştur', {
             position: toast.POSITION.BOTTOM_RIGHT,
           });
+          setOldPassword('');
+          setNewPassword('');
+          setConfirmPassword('');
         })
         .catch((error) => {
           console.error(error);
