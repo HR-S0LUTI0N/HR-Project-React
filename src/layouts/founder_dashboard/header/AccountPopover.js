@@ -47,7 +47,10 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-
+  const handleProfile = () => {
+    navigate("/founder/userprofile")
+    setOpen(null);
+  };
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -108,7 +111,13 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-
+        <Stack sx={{ p: 1 }}>
+          {MENU_OPTIONS.map((option) => (
+            <MenuItem key={option.label} onClick={handleProfile}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
