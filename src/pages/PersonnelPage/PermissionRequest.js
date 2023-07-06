@@ -57,12 +57,12 @@ export default function PermissionRequest({ title }) {
   }, []);
 
   const successRegistrationToastMessage = () => {
-    toast.success('Personnel Registration successfull !!', {
+    toast.success('Personnel Request successfull !!', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
   const errorRegistrationToastMessage = () => {
-    toast.error('ERROR!! Personnel could not be registration, Please try again !!', {
+    toast.error('ERROR!! Personnel could not be request, Please try again !!', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
@@ -84,6 +84,11 @@ export default function PermissionRequest({ title }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (description.trim() === '') {
+      setDescriptionError('Description is required');
+      setDescriptionValid(false);
+      return;
+    }
     const data = new FormData(event.currentTarget);
     const token = sessionStorage.getItem('token');
 
@@ -114,6 +119,8 @@ export default function PermissionRequest({ title }) {
       .then((response) => {
         console.log('Success:', response.data);
         setDescription('');
+        setDescriptionValid(true);
+        setDescriptionError('');
         successRegistrationToastMessage();
         setStartingDate(dayjs());
         setEndingDate(dayjs());
