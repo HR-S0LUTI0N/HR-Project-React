@@ -14,6 +14,7 @@ import { Typography } from '@mui/material';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const columns = [
   { id: 'avatar', label: 'Avatar', width: 80 },
@@ -65,6 +66,9 @@ export default function StickyHeadTable() {
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         });
     }
   }, [newAction]);
@@ -88,6 +92,9 @@ export default function StickyHeadTable() {
       setRows(formattedRows);
     } catch (error) {
       console.error('Error Fetching manager:', error);
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
   const updateRows = (newData) => {
@@ -111,6 +118,9 @@ export default function StickyHeadTable() {
       fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
@@ -126,6 +136,9 @@ export default function StickyHeadTable() {
       fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
@@ -205,6 +218,7 @@ export default function StickyHeadTable() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <ToastContainer />
     </Paper>
   );
 }
