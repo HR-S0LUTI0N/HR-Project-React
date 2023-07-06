@@ -80,7 +80,7 @@ export default function StickyHeadTable() {
       console.log(data);
       const formattedRows = data.map((item) => {
         const row = createData(
-          <Avatar alt="Avatar" src={item.avatar} />,
+          <Avatar src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`} sx={{ bgcolor: '#B7B7B7' }} alt={item.name} />,
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.companyName,
           item.status,
