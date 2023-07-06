@@ -37,7 +37,7 @@ function CompanyComment(props) {
                         {paginatedData.map((comment) => (
                             <TableRow key={comment.id}>
                                 <TableCell>
-                                    <Avatar alt="User Avatar" src={comment.avatarUrl} sx={{ bgcolor: '#ffa726' }}>
+                                    <Avatar alt="User Avatar" src={comment.avatarUrl} sx={{ bgcolor: '#B7B7B7' }}>
                                         {comment.name.charAt(0)}
                                     </Avatar>
                                 </TableCell>

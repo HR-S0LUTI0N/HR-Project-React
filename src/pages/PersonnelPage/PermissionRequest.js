@@ -156,7 +156,7 @@ export default function PermissionRequest({ title }) {
     <>
       <Grid sx={{ display: 'flex', ml: '8rem' }}>
         <Paper sx={{ width: 1300 }}>
-          <Card sx={{ mt: 1 }}>
+          <Card sx={{}}>
             <Box
               component="form"
               noValidate

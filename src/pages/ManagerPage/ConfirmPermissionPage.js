@@ -71,7 +71,7 @@ export default function ConfirmPermissionPage() {
           <Avatar
             alt={item.name.toUpperCase()}
             src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`}
-            sx={{ bgcolor: '#ffa726' }}
+            sx={{ bgcolor: '#B7B7B7' }}
           />,
           `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
           item.description,
@@ -143,7 +143,7 @@ export default function ConfirmPermissionPage() {
           Day Off Confirmation Page
         </Typography>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={{ height: 600 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>

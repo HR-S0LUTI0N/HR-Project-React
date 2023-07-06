@@ -99,6 +99,34 @@ export default function ExpenseConfirmationPage() {
     }
   };
 
+    const fetchManager = async () => {
+        try {
+            const response = await axios.get(`http://localhost:9070/api/v1/expense/find-all-company-expense-list/${token}`);
+            const data = response.data;
+            console.log(data);
+            const formattedRows = data.map((item) => {
+                const row = createData(
+                    <Avatar alt={item.name.toUpperCase()} src={item.avatar !== undefined && item.avatar !== null ? item.avatar : `${item.name}`} sx={{ bgcolor: '#B7B7B7' }} />,
+                    `${item.name} ${item.middleName == null ? '' : item.middleName} ${item.surname}`,
+                    item.expenseType,
+                    item.billDate,
+                    `${item.amount} ${item.currency}`,
+                    item.description,
+                    <Button onClick={() => handleDescriptionClick(item.recipePhoto)} sx={{ color: "#ffa726" }}>
+                        <DescriptionIcon />
+                    </Button>,
+                    item.eexpenseStatus,
+                    item.expenseId,
+                    item.billPhoto
+                );
+                console.log(row);
+                return row;
+            });
+            setRows(formattedRows);
+        } catch (error) {
+            console.error('Error Fetching manager:', error);
+        }
+    };
   const updateRows = (newData) => {
     const updatedRows = rows.filter((row) => row.commentId !== newData.commentId);
     setRows(updatedRows);
@@ -184,7 +212,8 @@ export default function ExpenseConfirmationPage() {
       fetchManager();
     } catch (error) {
       console.error('Error updating status:', error);
-      toast.error(error.response.data.message, {
+      
+      error(error.response.data.message, {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     }
@@ -192,11 +221,6 @@ export default function ExpenseConfirmationPage() {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   return (
