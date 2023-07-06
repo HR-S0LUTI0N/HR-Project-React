@@ -15,8 +15,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from '../../../images/Logo_HR.png';
-
-const settings = ['Profile'];
+import UserProfileVisitor from '../../userprofile-visitor';
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,43 +39,48 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const [profile, setProfile] = React.useState({
     avatar: '',
-  })
+  });
   const token = sessionStorage.getItem('token');
   const roles = sessionStorage.getItem('roles');
 
   const handleLogout = () => {
     sessionStorage.clear();
-    navigate("/");
+    navigate('/');
+  };
+  const handleUserProfile = () => {
+    navigate('/userprofile-visitor');
   };
 
   React.useEffect(() => {
     if (token === null) {
-      navigate('/404')
+      navigate('/404');
     } else if (!roles.includes('VISITOR')) {
       navigate('/404');
     }
-    axios.get(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name/${token}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:9080/api/v1/user-profile/get-userprofile-avatar-and-name/${token}`)
+      .then((response) => {
         const data = response.data;
         setProfile(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
-  }, [])
+  }, []);
 
   return (
     <AppBar position="static">
-      <Container maxWidth sx={{
-        height: 90
-      }}>
+      <Container
+        maxWidth
+        sx={{
+          height: 90,
+        }}
+      >
         <Toolbar disableGutters>
-
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
             <Button href="/visitor">
               <img src={Logo} alt="Logo HR" height={80} />
             </Button>
-
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'flex-end' } }}>
@@ -92,12 +96,14 @@ function ResponsiveAppBar() {
             </IconButton>
           </Box>
 
-
-
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: 4 }}>
-                <Avatar alt={profile.name ? "C" : profile.name} src={profile.avatar} sx={{ width: 56, height: 56, bgcolor: '#ffa726' }} />
+                <Avatar
+                  alt={profile.name ? 'C' : profile.name}
+                  src={profile.avatar}
+                  sx={{ width: 56, height: 56, bgcolor: '#ffa726' }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -115,14 +121,8 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-              <MenuItem onClick={handleLogout}>
-                Logout
-              </MenuItem>
+              <MenuItem onClick={handleUserProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
