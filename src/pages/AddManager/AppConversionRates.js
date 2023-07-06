@@ -351,7 +351,7 @@ export default function AppConversionRates({ title }) {
     console.log('Form Data:', payload);
 
     await axios
-      .post(`http://localhost:9080/api/v1/user-profile/create-manager/${token}`, payload)
+      .post(`http://localhost:9080/api/v1/user-profile/founder-create-manager/${token}`, payload)
       .then((response) => {
         console.log('Success:', response.data);
         successRegistrationToastMessage();
