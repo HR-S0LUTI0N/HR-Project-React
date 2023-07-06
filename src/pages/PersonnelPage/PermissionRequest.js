@@ -155,7 +155,7 @@ export default function PermissionRequest({ title }) {
               onSubmit={handleSubmit}
               sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', p: '2rem' }}
             >
-              <CardHeader subheader="Request Permission" sx={{ marginLeft: '3rem' }} />
+              <CardHeader subheader="Request Day Off" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <Autocomplete
                   sx={{ width: 280 }}

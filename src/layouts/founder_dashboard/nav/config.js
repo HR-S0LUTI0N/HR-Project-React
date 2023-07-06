@@ -32,9 +32,14 @@ const navConfig = [
     icon: icon('ic_advancerequest'),
   },
   {
-    title: 'Expense Demand',
+    title: 'Expense Request',
     path: '/founder/expense-demand',
     icon: icon('ic_expense'),
+  },
+  {
+    title: 'Day Off Request',
+    path: '/founder/permission-request',
+    icon: icon('ic_permissionrequest'),
   },
   {
     title: 'Confirm Expense',
@@ -47,7 +52,7 @@ const navConfig = [
     icon: icon('ic_confirmadvance'),
   },
   {
-    title: 'Day Off Permission',
+    title: 'Confirm Day Off',
     path: '/founder/day-off-permission',
     icon: icon('ic_dayoff'),
   },

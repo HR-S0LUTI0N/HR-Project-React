@@ -140,7 +140,7 @@ export default function AdvanceConfirmationPage() {
         <>
             <Container maxWidth="xl">
                 <Typography variant="h4" component="h1" gutterBottom>
-                    Expense Confirmation Page
+                    Advance Confirmation Page
                 </Typography>
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer sx={{ maxHeight: 440 }}>
