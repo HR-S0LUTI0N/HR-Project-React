@@ -99,10 +99,10 @@ export default function AppConversionRates({ title }) {
 
   return (
     <>
-      <Grid sx={{ display: 'flex', ml: '10rem' }} >
-        <Paper sx={{ maxWidth: 1800 }}>
+      <Grid sx={{ display: 'flex', ml: '18rem' }} >
+        <Paper sx={{ maxWidth: 1300, mt: '4rem' }}>
           <CardHeader title={title} />
-          <Card sx={{ mt: -3 }}>
+          <Card sx={{}}>
             <Box
               component="form"
               noValidate

@@ -209,11 +209,11 @@ export default function ExpenseConfirmationPage() {
     <>
       <Container maxWidth="xl">
         <Typography variant="h4" component="h1" gutterBottom>
-          Expense Confirmation Page
+          Expense Confirmation
         </Typography>
         {billPhotoContent}
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ height: 600 }}>
+          <TableContainer sx={{ height: 700 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>

@@ -149,10 +149,10 @@ export default function AdvanceConfirmationPage() {
     <>
       <Container maxWidth="xl">
         <Typography variant="h4" component="h1" gutterBottom>
-          Advance Confirmation Page
+          Advance Confirmation
         </Typography>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ height: 600 }}>
+          <TableContainer sx={{ height: 700 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>

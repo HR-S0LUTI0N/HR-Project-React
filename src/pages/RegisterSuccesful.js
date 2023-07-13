@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Typography, IconButton, Stack,  Box } from '@mui/material';
+import { Grid, Link, Typography, IconButton, Stack, Box } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import SvgContainer from './ForgotPassword/SvgContainer';
 import useResponsive from '../hooks/useResponsive';
@@ -51,17 +51,17 @@ export default function RegisterSuccesful() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/login'); 
+      navigate('/login');
     }, 3000);
 
     return () => {
-      clearTimeout(timeout); 
+      clearTimeout(timeout);
     };
   }, [navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
   };
 
   const mdUp = useResponsive('up', 'md');
@@ -69,7 +69,7 @@ export default function RegisterSuccesful() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> Login </title>
       </Helmet>
 
       <StyledRoot>
@@ -99,14 +99,14 @@ export default function RegisterSuccesful() {
           </Grid>
 
           <Typography variant="h4" gutterBottom style={{ marginLeft: '100px' }}>
-                REGISTRATION SUCCESS!
+            REGISTRATION SUCCESS!
           </Typography>
 
           <Typography variant="body2" gutterBottom style={{ marginLeft: '100px' }}>
-           Your account has been succesfully created. 
+            Your account has been succesfully created.
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            
+
             <Grid sx={{ my: 3 }}>
               <Stack direction="row" alignItems="center" justifyContent="center" sx={{ my: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

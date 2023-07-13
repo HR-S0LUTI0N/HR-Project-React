@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+import Add from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ function Overview() {
   const [isPasswordChangeMode, setPasswordChangeMode] = useState(false);
 
   const [name, setName] = useState('');
+  const [imgs, setImgs] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
@@ -32,7 +34,10 @@ function Overview() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [appStatus, setAppStatus] = useState(true);
   const navigate = useNavigate();
+
+
 
   const handleEditClick = () => {
     setIsEditMode(!isEditMode);
@@ -118,11 +123,47 @@ function Overview() {
     }
   }, []);
 
+  function handleChange(e) {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        const result = reader.result;
+        setImgs(result);
+        handleAvatarUpdater(result); // Pass the updated result as an argument
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const handleAvatarUpdater = (updatedData) => { // Receive the updated data as an argument
+    console.log(updatedData);
+    axios
+      .put(`http://localhost:9080/api/v1/user-profile/update-avatar/${token}`, { base64Img: updatedData })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setAppStatus(!appStatus);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
+  };
+
   const handlePersonel = () => {
     axios
       .get(`http://localhost:9080/api/v1/user-profile/get-personel-profile-for-user-profile-dashboard/${token}`)
       .then((response) => {
         const data = response.data;
+        console.log(data)
+        setImgs(data.avatar);
         setName(data.name);
         setMiddleName(data.middleName);
         setSurname(data.surname);
@@ -246,14 +287,61 @@ function Overview() {
     <>
       <Home />
       <section style={{ padding: '30px', marginLeft: 0, marginRight: 0 }}>
-        <Avatar
-          alt="Remy Sharp"
-          src="https://img.freepik.com/free-psd/3d-female-character-working-desk-with-laptop_23-2148938896.jpg?size=626&ext=jpg&uid=R105010038&ga=GA1.2.1780058954.1685527094"
-          sx={{ width: 100, height: 100 }}
-        />
+
 
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <div
+                style={{
+                  height: '400px',
+                  background: '#FAF0E4',
+                  padding: '20px',
+                  borderRadius: '8px',
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <Avatar sx={{ minWidth: 220, minHeight: 220, mb: 3, mx: 'auto', alignContent: 'center' }} src={imgs} />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    maxWidth: 140,
+                    minWidth: 140,
+                    margin: '0 auto',
+                  }}
+                  sx={{
+                    borderRadius: 2,
+                    padding: 1,
+                    mt: 1,
+                    bgcolor: '#ffa726',
+                    '&:hover': {
+                      bgcolor: 'grey',
+                    },
+                  }}
+                >
+                  Update Avatar
+                  <input
+                    type="file"
+                    onChange={handleChange}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      opacity: 0,
+                      cursor: 'pointer'
+                    }}
+                  />
+                </Button>
+              </div >
+            </Grid>
             <Grid item xs={12} md={6}>
               <div
                 style={{
@@ -538,7 +626,7 @@ function Overview() {
             <ToastContainer />
           </Grid>
         </div>
-      </section>
+      </section >
     </>
   );
 }

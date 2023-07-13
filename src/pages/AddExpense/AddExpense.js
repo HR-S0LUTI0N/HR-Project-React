@@ -68,7 +68,7 @@ export default function AddExpense({ title }) {
     });
   };
   const errorRegistrationToastMessage = () => {
-    toast.error('ERROR!! Expense could not be registration, Please try again !!', {
+    toast.error('ERROR!! Expense could not be added, Please try again !!', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
@@ -174,10 +174,10 @@ export default function AddExpense({ title }) {
     setNetAmountValid(errorMessageNetAmount === '');
 
     const validateAmount = () => {
-      
+
       if (netAmount === '') {
         return 'Amount can not be empty';
-        
+
       }
 
       return '';
@@ -221,10 +221,10 @@ export default function AddExpense({ title }) {
     setTaxValid(errorMessageTax === '');
 
     const validateAmount = () => {
-      
+
       if (tax === '') {
         return 'Amount can not be empty';
-        
+
       }
 
       return '';
@@ -377,7 +377,7 @@ export default function AddExpense({ title }) {
 
   return (
     <>
-      <Grid sx={{ display: 'flex', ml: '10rem' }}>
+      <Grid sx={{ display: 'flex' }}>
         <Paper sx={{ maxWidth: 1800 }}>
           <Card sx={{}}>
             <CardHeader subheader="Bill Photo" sx={{ marginLeft: '4.7rem' }} />

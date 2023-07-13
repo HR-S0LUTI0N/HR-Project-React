@@ -699,7 +699,7 @@ export default function AppConversionRates({ title }) {
 
   return (
     <>
-      <Grid sx={{ display: 'flex', ml: '10rem' }}>
+      <Grid sx={{ display: 'flex' }}>
         <Paper sx={{ maxWidth: 1800 }}>
           <CardHeader title={title} />
           <Card sx={{ mt: 5 }}>

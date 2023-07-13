@@ -77,7 +77,7 @@ export default function ForgotPasswordSuccesful() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> ForgotPassword </title>
       </Helmet>
 
       <StyledRoot>
