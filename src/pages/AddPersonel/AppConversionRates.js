@@ -331,7 +331,7 @@ export default function AppConversionRates({ title }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = sessionStorage.getItem('token');
-    if(
+    if (
       name.length > 0 &&
       nameError.length === 0 &&
       middleNameError.length === 0 &&
@@ -364,89 +364,89 @@ export default function AppConversionRates({ title }) {
       apartmentNumber.length > 0 &&
       apartmentNumberError.length === 0 &&
       postalCode.length > 0 &&
-      postalCodeError.length === 0 
-      ){
-    const data = new FormData(event.currentTarget);
-    const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    const formattedBirthPlace = birthPlace.charAt(0).toUpperCase() + birthPlace.slice(1).toLowerCase();
-    const formattedMiddleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
-    const formattedSurname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
-    const formattedNeighbourhood = neighbourhood.charAt(0).toUpperCase() + neighbourhood.slice(1).toLowerCase();
-    const formattedDistrict = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
-    const formattedProvince = province.charAt(0).toUpperCase() + province.slice(1).toLowerCase();
-    const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
-    const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
+      postalCodeError.length === 0
+    ) {
+      const data = new FormData(event.currentTarget);
+      const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+      const formattedBirthPlace = birthPlace.charAt(0).toUpperCase() + birthPlace.slice(1).toLowerCase();
+      const formattedMiddleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
+      const formattedSurname = surname.charAt(0).toUpperCase() + surname.slice(1).toLowerCase();
+      const formattedNeighbourhood = neighbourhood.charAt(0).toUpperCase() + neighbourhood.slice(1).toLowerCase();
+      const formattedDistrict = district.charAt(0).toUpperCase() + district.slice(1).toLowerCase();
+      const formattedProvince = province.charAt(0).toUpperCase() + province.slice(1).toLowerCase();
+      const formattedCountry = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+      const formattedDepartment = department.charAt(0).toUpperCase() + department.slice(1).toLowerCase();
 
-    const payload = {
-      email: data.get('email'),
-      birthPlace: formattedBirthPlace,
-      name: formattedName,
-      middleName: formattedMiddleName,
-      surname: formattedSurname,
-      dateOfBirth: selectedDateOfBirthChange.format('DD-MM-YYYY'),
-      identificationNumber: data.get('identificationNumber'),
-      gender: gender.toUpperCase(),
-      phone: data.get('phone'),
-      wage: data.get('wage'),
-      country: data.get('country'),
-      base64Avatar: imgs,
-      neighbourhood: formattedNeighbourhood,
-      district: formattedDistrict,
-      province: formattedProvince,
-      formattedCountry,
-      buildingNumber: data.get('buildingNumber'),
-      apartmentNumber: data.get('apartmentNumber'),
-      postalCode: data.get('postalCode'),
-      department: formattedDepartment,
-      jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
-      jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
-      jobBreak: checked,
-      employeeLeaves: data.get('employeeLeaves'),
-    };
-    console.log('Form Data:', payload);
+      const payload = {
+        email: data.get('email'),
+        birthPlace: formattedBirthPlace,
+        name: formattedName,
+        middleName: formattedMiddleName,
+        surname: formattedSurname,
+        dateOfBirth: selectedDateOfBirthChange.format('DD-MM-YYYY'),
+        identificationNumber: data.get('identificationNumber'),
+        gender: gender.toUpperCase(),
+        phone: data.get('phone'),
+        wage: data.get('wage'),
+        country: data.get('country'),
+        base64Avatar: imgs,
+        neighbourhood: formattedNeighbourhood,
+        district: formattedDistrict,
+        province: formattedProvince,
+        formattedCountry,
+        buildingNumber: data.get('buildingNumber'),
+        apartmentNumber: data.get('apartmentNumber'),
+        postalCode: data.get('postalCode'),
+        department: formattedDepartment,
+        jobStartingDate: selectedJobStartingDateChange.format('DD-MM-YYYY'),
+        jobShift: `${shiftStart.format('LTS')} - ${shiftEnd.format('LTS')}`,
+        jobBreak: checked,
+        employeeLeaves: data.get('employeeLeaves'),
+      };
+      console.log('Form Data:', payload);
 
 
-    await axios
-      .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
-      .then((response) => {
-        console.log('Success:', response.data);
-        successRegistrationToastMessage();
-        setEmail('')
-        setSelectedDateOfBirthChange(dayjs())
-        setSelectedJobStartingDateChange(dayjs())
-        setGender(comboOptions[0])
-        setInputValue('')
-        setImgs('')
-        setShiftStart(dayjs())
-        setShiftEnd(dayjs())
-        setName('')
-        setMiddleName('')
-        setSurname('')
-        setBirthPlace('')
-        setIdentificationNumber('')
-        setDepartment('')
-        setNumberOfDayOff('')
-        setNeighbourhood('')
-        setDistrict('')
-        setProvince('')
-        setCountry('')
-        setBuildingNumber('')
-        setApartmentNumber('')
-        setPostalCode('')
-        setPhone('')
-        setWage('')
-        setChecked([])
-      })
-      .catch((error) => {
-        errorRegistrationToastMessage();
-        console.error('Error:', error);
-      });
-    }else{
+      await axios
+        .post(`http://localhost:9080/api/v1/user-profile/create-personal/${token}`, payload)
+        .then((response) => {
+          console.log('Success:', response.data);
+          successRegistrationToastMessage();
+          setEmail('')
+          setSelectedDateOfBirthChange(dayjs())
+          setSelectedJobStartingDateChange(dayjs())
+          setGender(comboOptions[0])
+          setInputValue('')
+          setImgs('')
+          setShiftStart(dayjs())
+          setShiftEnd(dayjs())
+          setName('')
+          setMiddleName('')
+          setSurname('')
+          setBirthPlace('')
+          setIdentificationNumber('')
+          setDepartment('')
+          setNumberOfDayOff('')
+          setNeighbourhood('')
+          setDistrict('')
+          setProvince('')
+          setCountry('')
+          setBuildingNumber('')
+          setApartmentNumber('')
+          setPostalCode('')
+          setPhone('')
+          setWage('')
+          setChecked([])
+        })
+        .catch((error) => {
+          errorRegistrationToastMessage();
+          console.error('Error:', error);
+        });
+    } else {
       errorRegistrationToastMessage();
       console.log('Form data is invalid');
 
       const validateName = () => {
-        if(nameError.length > 0){
+        if (nameError.length > 0) {
           return nameError
         }
         if (name.trim().length === 0) {
@@ -460,18 +460,18 @@ export default function AppConversionRates({ title }) {
       setNameError(errorMessageName);
 
       const validateMiddleName = () => {
-        if(middleNameError.length > 0){
+        if (middleNameError.length > 0) {
           return middleNameError
         }
-        
+
         return '';
       };
 
       const errorMessageMiddleName = validateMiddleName();
-      setMiddleNameError(errorMessageMiddleName);   
+      setMiddleNameError(errorMessageMiddleName);
 
       const validateSurname = () => {
-        if(surnameError.length > 0){
+        if (surnameError.length > 0) {
           return surnameError
         }
         if (surname.trim().length === 0) {
@@ -483,10 +483,10 @@ export default function AppConversionRates({ title }) {
 
       const errorMessageSurname = validateSurname();
       setSurnameError(errorMessageSurname);
-      
+
 
       const validateMail = () => {
-        if(emailError.length > 0){
+        if (emailError.length > 0) {
           return emailError
         }
         if (email.trim().length === 0) {
@@ -501,7 +501,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateBirthPlace = () => {
-        if(birthPlaceError.length > 0){
+        if (birthPlaceError.length > 0) {
           return birthPlaceError
         }
         if (birthPlace.trim().length === 0) {
@@ -516,7 +516,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateID = () => {
-        if(identificationNumberError.length > 0){
+        if (identificationNumberError.length > 0) {
           return identificationNumberError
         }
         if (identificationNumber.trim().length === 0) {
@@ -530,7 +530,7 @@ export default function AppConversionRates({ title }) {
       setIdentificationNumberError(errorMessageID);
 
       const validatePhone = () => {
-        if(phoneError.length > 0){
+        if (phoneError.length > 0) {
           return phoneError
         }
         if (phone.trim().length === 0) {
@@ -545,7 +545,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateDepartment = () => {
-        if(departmentError.length > 0){
+        if (departmentError.length > 0) {
           return departmentError
         }
         if (department.trim().length === 0) {
@@ -559,7 +559,7 @@ export default function AppConversionRates({ title }) {
       setDepartmentError(errorMessageDepartment);
 
       const validateDayOff = () => {
-        if(numberOfDayOffError.length > 0){
+        if (numberOfDayOffError.length > 0) {
           return numberOfDayOffError
         }
         if (numberOfDayOff.trim().length === 0) {
@@ -574,7 +574,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateWage = () => {
-        if(wageError.length > 0){
+        if (wageError.length > 0) {
           return wageError
         }
         if (wage.trim().length === 0) {
@@ -589,7 +589,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateNeighbourhood = () => {
-        if(neighbourhoodError.length > 0){
+        if (neighbourhoodError.length > 0) {
           return neighbourhoodError
         }
         if (neighbourhood.trim().length === 0) {
@@ -604,7 +604,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateDistrict = () => {
-        if(districtError.length > 0){
+        if (districtError.length > 0) {
           return districtError
         }
         if (district.trim().length === 0) {
@@ -619,7 +619,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateProvince = () => {
-        if(provinceError.length > 0){
+        if (provinceError.length > 0) {
           return provinceError
         }
         if (province.trim().length === 0) {
@@ -634,7 +634,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateCountry = () => {
-        if(countryError.length > 0){
+        if (countryError.length > 0) {
           return countryError
         }
         if (country.trim().length === 0) {
@@ -649,7 +649,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validateBuildingNumber = () => {
-        if(buildingNumberError.length > 0){
+        if (buildingNumberError.length > 0) {
           return buildingNumberError
         }
         if (buildingNumber.trim().length === 0) {
@@ -663,7 +663,7 @@ export default function AppConversionRates({ title }) {
       setBuildingNumberError(errorMessageBuildingNumber);
 
       const validateApartmentNumber = () => {
-        if(apartmentNumberError.length > 0){
+        if (apartmentNumberError.length > 0) {
           return apartmentNumberError
         }
         if (apartmentNumber.trim().length === 0) {
@@ -678,7 +678,7 @@ export default function AppConversionRates({ title }) {
 
 
       const validatePostalCode = () => {
-        if(postalCodeError.length > 0){
+        if (postalCodeError.length > 0) {
           return postalCodeError
         }
         if (postalCode.trim().length === 0) {
@@ -689,17 +689,17 @@ export default function AppConversionRates({ title }) {
       };
 
       const errorMessagePostalCode = validatePostalCode();
-      setPostalCodeError(errorMessagePostalCode); 
-    
+      setPostalCodeError(errorMessagePostalCode);
+
     }
   };
 
-  
+
 
 
   return (
     <>
-      <Grid sx={{ display: 'flex', ml: '10rem' }}>
+      <Grid sx={{ display: 'flex' }}>
         <Paper sx={{ maxWidth: 1800 }}>
           <CardHeader title={title} />
           <Card sx={{ mt: 5 }}>

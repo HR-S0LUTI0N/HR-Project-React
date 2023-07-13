@@ -69,7 +69,7 @@ export default function RegisterSuccesful() {
     return (
         <>
             <Helmet>
-                <title> Login | Minimal UI </title>
+                <title> Login </title>
             </Helmet>
 
             <StyledRoot>

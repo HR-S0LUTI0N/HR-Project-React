@@ -5,12 +5,12 @@ import AddExpense from './AddExpense'
 export default function AddExpensePage() {
     return (
         <>
-            <Grid item xs={12} md={6} maxWidth='80%'>
+            <Grid item xs={12} md={6} maxWidth='80%' mx='auto'>
                 <AddExpense
                     title="Expense Create"
                     subheader="Expense Information"
                 />
             </Grid >
-         </>
+        </>
     )
 }

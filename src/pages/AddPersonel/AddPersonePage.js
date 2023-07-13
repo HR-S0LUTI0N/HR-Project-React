@@ -38,7 +38,7 @@ import AppConversionRates from './AppConversionRates';
 export default function AddPersonePage() {
     return (
         <>
-            <Grid item xs={12} md={6} maxWidth='80%'>
+            <Grid item xs={12} md={6} maxWidth='80%' mx='auto'>
                 <AppConversionRates
                     title="Employee Create"
                     subheader="Employee Information"

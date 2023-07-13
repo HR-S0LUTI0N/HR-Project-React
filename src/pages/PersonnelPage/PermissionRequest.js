@@ -155,19 +155,18 @@ export default function PermissionRequest({ title }) {
   return (
     <>
       <Grid sx={{ display: 'flex', ml: '8rem' }}>
-        <Paper sx={{ width: 1300 }}>
+        <Paper sx={{ width: 1300, mt: '4rem' }}>
           <Card sx={{}}>
             <Box
               component="form"
               noValidate
               autoComplete="off"
               onSubmit={handleSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', p: '2rem' }}
             >
               <CardHeader subheader="Request Day Off" sx={{ marginLeft: '3rem' }} />
               <Grid container justifyContent="center" sx={{ mx: 'auto', gap: '2rem' }}>
                 <Autocomplete
-                  sx={{ width: 280 }}
+                  sx={{ width: 280, mb: '2rem' }}
                   name="Permission Type"
                   value={epermissionTypes}
                   options={comboOptions}
