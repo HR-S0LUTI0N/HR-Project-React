@@ -135,8 +135,8 @@ export default function AddCompany({ title }) {
       if (!re.test(sector)) {
         return 'Sector should only contain letters';
       }
-      if (sector.length > 12) {
-        return 'Sector should not exceed 12 characters';
+      if (sector.length > 20) {
+        return 'Sector should not exceed 20 characters';
       }
       return '';
     };
