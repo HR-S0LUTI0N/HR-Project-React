@@ -117,8 +117,8 @@ export default function AddExpense({ title }) {
         return 'Description can not be empty';
       }
 
-      if (description.length > 50) {
-        return 'Description should not exceed 50 characters';
+      if (description.length > 500) {
+        return 'Description should not exceed 500 characters';
       }
       return '';
     };
@@ -174,10 +174,8 @@ export default function AddExpense({ title }) {
     setNetAmountValid(errorMessageNetAmount === '');
 
     const validateAmount = () => {
-
       if (netAmount === '') {
         return 'Amount can not be empty';
-
       }
 
       return '';
@@ -221,10 +219,8 @@ export default function AddExpense({ title }) {
     setTaxValid(errorMessageTax === '');
 
     const validateAmount = () => {
-
       if (tax === '') {
         return 'Amount can not be empty';
-
       }
 
       return '';

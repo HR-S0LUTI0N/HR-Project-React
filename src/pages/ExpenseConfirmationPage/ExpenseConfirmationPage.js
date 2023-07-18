@@ -96,9 +96,6 @@ export default function ExpenseConfirmationPage() {
       setRows(formattedRows);
     } catch (error) {
       console.error('Error Fetching manager:', error);
-      toast.error(error.response.data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
     }
   };
   const updateRows = (newData) => {
